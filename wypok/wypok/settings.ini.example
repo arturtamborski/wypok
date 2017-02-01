@@ -1,0 +1,12 @@
+[settings]
+DEBUG=False
+
+# You can get this key from https://github.com/ariestiyansyah/django-secret-key
+SECRET_KEY=asdaasdasdasdadasdasdasdasd
+
+DB_NAME=django
+DB_USER=postgres
+DB_PASSWORD=blah blah blah random password here
+DB_HOST=127.0.0.1
+
+ALLOWED_HOSTS=.localhost, .example.com
