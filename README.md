@@ -12,3 +12,11 @@ Postęp można śledzić na moim [blogu](https://arturtamborski.pl/) pod tagiem 
 
 # O projekcie
 
+Aplikacja będzie podzielona na dwie części:
+    - wykopywarka linków (główna strona wykopu / reddit),
+    - wpisy użytkowników (mikroblog wykopu / imageboardy 4chana).
+
+Obie części będą ściśle powiązane z systemem komentowania, głosowania i kategoryzowania najpopularniejszych wpisów.
+
+Użytkownicy będą mogli produkować treści udostępniając je z własnych kont jak i również pisząc z publicznego anonimowego konta.
+
