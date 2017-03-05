@@ -10,3 +10,5 @@ myvenv/
 build/
 dist/
 pip-log.txt
+
+/static/
