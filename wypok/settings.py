@@ -1,7 +1,8 @@
 import os
 from decouple import config, Csv
 
-# enviroment variables
+ROOT_URLCONF        = 'wypok.urls'
+WSGI_APPLICATION    = 'wypok.wsgi.application'
 
 BASE_DIR        = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -14,7 +15,15 @@ DB_USER         = config('DB_USER')
 DB_PASSWORD     = config('DB_PASSWORD')
 DB_HOST         = config('DB_HOST')
 
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    USE_X_FORWARDED_HOST = True
+    SECURE_BROWSER_XSS_FILTER = True
 
+    SESSION_COOKIE_SECURE = True
+    SESSION_COOIE_HTTPONLY = True
+    CSRF_COOKIE_SECURE = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -23,6 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [
@@ -34,8 +44,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-ROOT_URLCONF = 'wypok.urls'
 
 TEMPLATES = [
     {
@@ -53,9 +61,6 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'wypok.wsgi.application'
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -66,10 +71,6 @@ DATABASES = {
         'PORT': '',
     }
 }
-
-
-# Password validation
-# https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -92,4 +93,5 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
