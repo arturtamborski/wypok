@@ -2,3 +2,4 @@ django>=1.10
 markdown
 psycopg2
 python-decouple
+Pillow

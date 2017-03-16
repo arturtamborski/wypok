@@ -16,14 +16,13 @@ DB_PASSWORD     = config('DB_PASSWORD')
 DB_HOST         = config('DB_HOST')
 
 if not DEBUG:
-    SECURE_SSL_REDIRECT = True
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    USE_X_FORWARDED_HOST = True
-    SECURE_BROWSER_XSS_FILTER = True
-
-    SESSION_COOKIE_SECURE = True
-    SESSION_COOIE_HTTPONLY = True
-    CSRF_COOKIE_SECURE = True
+    SECURE_BROWSER_XSS_FILTER   = True
+    SECURE_PROXY_SSL_HEADER     = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT         = True
+    USE_X_FORWARDED_HOST        = True
+    SESSION_COOKIE_SECURE       = True
+    SESSION_COOIE_HTTPONLY      = True
+    CSRF_COOKIE_SECURE          = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -33,6 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -87,11 +87,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
-USE_I18N = True
-USE_L10N = True
-USE_TZ = True
+LANGUAGE_CODE   = 'en-us'
+TIME_ZONE       = 'UTC'
+USE_I18N        = True
+USE_L10N        = True
+USE_TZ          = True
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/static/'
+STATIC_ROOT     = os.path.join(BASE_DIR, 'static')
+STATIC_URL      = '/static/'
