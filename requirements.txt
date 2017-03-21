@@ -1,5 +1,6 @@
 django>=1.10
-markdown
+django-allauth
 psycopg2
 python-decouple
 Pillow
+markdown

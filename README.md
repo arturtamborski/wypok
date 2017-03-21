@@ -18,9 +18,29 @@ Obie części będą ściśle powiązane z systemem komentowania, głosowania i 
 
 Użytkownicy będą mogli produkować treści udostępniając je z własnych kont jak i również pisząc z publicznego anonimowego konta.
 
+Komentarze będą formatowane w markdown'ie co umożliwi zmienianie właściwości tekstu (pogrubienie, pochylenie, itd). Użytkownicy będą również mogli skorzystać ze specjalnych znaków nadających nowe znaczenie:
+  - `@konto`    nawiązanie do użytkownika (twitter)
+  - `#kotki` hashtag (twitter)
+  - `/gif/` sekcja (reddit)
+  - `:lenny:` emoji (gg)
+  - `!general` chat (irc)
+  - `>text` greentext (4chan)
+  - `>12341` link do innego postu (4chan)
+  - `/thread` zamknij wątek (tylko dla OPa)
+  - `feelsgoodman.png` wstaw obrazek o podanym tytule z publicznej galerii memów (to samo dla .jpg, .png, .bmp)
+  - `feelsgoodman.mp4` wstaw filmik o podanym tytule z publicznej galerii memów (to samo dla .gif, .webm)
+
+Dodatkowo wokół avataru będzie pasek oznaczający płeć
+  - różowy (kobieta)
+  - niebieski (mężczyzna).
+
+Kolor nazwy użytkownika to
+  - szary (konto zostało zbanowane)
+  - biały (konto zostało usunięte przez użytkownika)
+  - zielony (konto ma mniej niż 30 dni)
+  - pomarańczowy (konto ma więcej niż 30 dni)
+  - czerwony (administrator)
 
 
 
-
-
-![logo konkursu](https://github.com/arturtamborski/wypok/raw/master/logo.png)
+:![logo konkursu](https://github.com/arturtamborski/wypok/raw/master/logo.png)
