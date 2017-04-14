@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Portal ze śmiesznymi obrazkami">
+        <meta name="author" content="Artur Tamborski">
+
+        <!-- {% comment %}
+        <link rel="sitemap" type="application/xml" title="sitemap" href="{% url 'sitemap' %}">
+        {% endcomment %} -->
+
+        <title>{% block title %}{% endblock %}</title>
+
+        {% load static %}
+        <link rel="stylesheet" href="{% static '/css/semantic.min.css' %}">
+    </head>
+    <body>
+        <header class="ui stackable menu segment">
+            <a class="header item" href="{% url 'home' %}">
+                wypok.pl
+            </a>
+            <a class="item">
+                wykopalisko
+            </a>
+            <a class="item">
+                mirkoczan
+            </a>
+            <a class="item">
+                czatroom
+            </a>
+            <div class="right menu">
+                {% if user.is_authenticated %}
+                <a class="item" href="{% url 'account_logout' %}">
+                    Log out
+                </a>
+                {% else %}
+                <a class="item" href="{% url 'account_login' %}">
+                    Log in
+                </a>
+                <a class="item" href="{% url 'account_signup' %}">
+                    Sign up
+                </a>
+                {% endif %}
+            </div>
+        </header>
+        <main class="ui segment">
+            {% block content %}{% endblock %}
+        </main>
+        <footer class="ui tiny center aligned footer segment">
+            <div class="ui center aligned container">
+                Copyright &copy; Artur Tamborski 2017
+            </div>
+        </footer>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="{% static '/js/semantic.min.js' %}"></script>
+    </body>
+</html>
