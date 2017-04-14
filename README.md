@@ -3,7 +3,7 @@ Alter ego popularnej strony [wykop.pl](http://www.wykop.pl).
 
 Projekt realizowany jest w ramach konkursu [Daj Się Poznać 2017](http://dajsiepoznac.pl)
 
-Postęp można śledzić na moim [blogu](https://arturtamborski.pl/) pod tagiem [#dajsiepoznac2017](https://arturtamborski.pl/tag/dajsiepoznac2017) ([RSS](https://arturtamborski.pl/tag/dajsiepoznac2017/feed)/[Atom](https://arturtamborski.pl/tag/dajsiepoznac2017/atom)).
+Postęp można śledzić na moim [blogu](https://arturtamborski.pl/) pod tagiem [#dajsiepoznac2017](https://arturtamborski.pl/tags/dajsiepoznac2017) ([RSS](https://arturtamborski.pl/tags/dajsiepoznac2017/feed)/[Atom](https://arturtamborski.pl/tags/dajsiepoznac2017/atom)).
 
 
 
@@ -44,3 +44,12 @@ Kolor nazwy użytkownika to
 
 
 :![logo konkursu](https://github.com/arturtamborski/wypok/raw/master/logo.png)
+
+Strona jest podzielona na kilka aplikacji:
+  - accounts - Konta użytkowników, profile, opisy ustawienia itd.
+
+  - excavation - Wykopalisko - strona domowa.
+
+  - mirkochan - Mirkoczan - luźne miejsce dla twórczości użytkowników.
+
+  - chatroom - Pokoje rozmów - użytkownicy mogą dołączyć do czatów live typu omegele czy obcy
