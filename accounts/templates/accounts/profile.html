@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+{% block content %}
+{{ account.name }}
+{% if user.is_authenticated %}
+You are <strong>logged in</strong>
+{% else %}
+You are <strong>not logged in</strong>
+{% endif %}
+{% endblock %}
