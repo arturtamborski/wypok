@@ -130,9 +130,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 INSTALLED_APPS = [
-    'wypok',
-    'accounts',
-    'home',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
@@ -141,10 +138,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
+
+    'wypok',
+    'accounts',
+    'home',
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
 ]
 
 MIDDLEWARE = [
