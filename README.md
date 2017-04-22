@@ -3,16 +3,15 @@ Alter ego popularnej strony [wykop.pl](http://www.wykop.pl).
 
 Projekt realizowany jest w ramach konkursu [Daj Się Poznać 2017](http://dajsiepoznac.pl)
 
-Postęp można śledzić na moim [blogu](https://arturtamborski.pl/) pod tagiem [#dajsiepoznac2017](https://arturtamborski.pl/tags/dajsiepoznac2017) - [feed](https://arturtamborski.pl/tags/dajsiepoznac2017/feed).
+Postęp można śledzić na moim [blogu](https://arturtamborski.pl/) pod tagiem [#dajsiepoznac2017](https://arturtamborski.pl/tags/dajsiepoznac2017) ([feed](https://arturtamborski.pl/tags/dajsiepoznac2017/feed)).
 
 
 
 # O projekcie
 
 Aplikacja będzie podzielona na dwie części:
-
-    - wykopywarka linków (strona główna wykopu / reddita),
-    - wpisy użytkowników (mikroblog wykopu / imageboardy 4chana).
+  - wykopywarka linków (strona główna wykopu / reddita),
+  - wpisy użytkowników (mikroblog wykopu / imageboardy 4chana).
 
 Obie części będą ściśle powiązane z systemem komentowania, głosowania i kategoryzowania najpopularniejszych wpisów.
 
@@ -25,7 +24,7 @@ Komentarze będą formatowane w markdown'ie co umożliwi zmienianie właściwoś
   - `:lenny:` emoji (gg)
   - `!general` chat (irc)
   - `>text` greentext (4chan)
-  - `>12341` link do innego postu (4chan)
+  - `>>12341` link do innego postu (4chan)
   - `/thread` zamknij wątek (tylko dla OPa)
   - `feelsgoodman.png` wstaw obrazek o podanym tytule z publicznej galerii memów (to samo dla .jpg, .png, .bmp)
   - `feelsgoodman.mp4` wstaw filmik o podanym tytule z publicznej galerii memów (to samo dla .gif, .webm)
@@ -41,12 +40,10 @@ Kolor nazwy użytkownika to
   - pomarańczowy (konto ma więcej niż 30 dni)
   - czerwony (administrator)
 
-
-
-![logo konkursu](https://github.com/arturtamborski/wypok/raw/master/logo.png)
-
 Strona jest podzielona na kilka aplikacji:
   - accounts - Konta użytkowników, profile, opisy ustawienia itd.
   - excavation - Wykopalisko - strona domowa.
   - mirkochan - Mirkoczan - luźne miejsce dla twórczości użytkowników.
   - chatroom - Pokoje rozmów - użytkownicy mogą dołączyć do czatów live typu omegele czy obcy
+
+![logo konkursu](https://github.com/arturtamborski/wypok/raw/master/logo.png)
