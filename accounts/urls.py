@@ -3,6 +3,5 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^$', views.home),
     url(r'^accounts/(?P<profile>[a-zA-Z][a-zA-Z0-9_-]{3,19})/$', views.profile, name='account_profile'),
 ]
