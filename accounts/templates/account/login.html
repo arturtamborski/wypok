@@ -19,7 +19,7 @@ Login
     {% endif %}
 {% endif %}
 
-<form action="{% url 'login' %}" method="post">
+<form action="{% url 'account_login' %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Log in!">
