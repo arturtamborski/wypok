@@ -13,12 +13,12 @@ BASE_DIR                    = path.dirname(path.dirname(path.abspath(__file__)))
 DEBUG                       = config('DEBUG', cast=bool)
 SECRET_KEY                  = config('SECRET_KEY')
 LOG_LEVEL                   = 'DEBUG' if DEBUG else 'INFO'
-ALLOWED_HOSTS               = ['localhost','127.0.0.1'] if DEBUG else config('ALLOWED_HOSTS', cast=Csv())
+ALLOWED_HOSTS               = ['localhost', '127.0.0.1'] if DEBUG else config('ALLOWED_HOSTS', cast=Csv())
 FQDN                        = ALLOWED_HOSTS[0]
 
 # Security
 if not DEBUG:
-    CSRF_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE          = True
     USE_X_FORWARDED_HOST        = True
     SECURE_SSL_REDIRECT         = True
     SECURE_BROWSER_XSS_FILTER   = True
@@ -217,7 +217,6 @@ LOGGING = {
             'filename': path.join(BASE_DIR, 'logs', 'django.log'),
         },
         'console': {
-            'level': LOG_LEVEL,
             'class': 'logging.StreamHandler',
         },
     },

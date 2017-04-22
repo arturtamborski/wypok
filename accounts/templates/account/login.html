@@ -7,13 +7,14 @@ Log in!
 {% block content %}
 
 <div class="ui column stackable center aligned grid">
-    <form class="ui five wide column form segment" method="post" action="{% url 'account_login' %}">
+    <form class="ui four wide column form segment" method="post" action="{% url 'account_login' %}">
         <h1 class="ui dividing header">
             Log in
         </h1>
         <div class="ui required field">
             <label>User name</label>
             <input name="login" type="text" minlength="4" maxlength="20" autofocus="autofocus" required="">
+            {{ form.nick.errors }}
         </div>
         <div class="ui required field">
             <label>Password</label>
@@ -21,13 +22,11 @@ Log in!
             {{ form.password.errors }}
         </div>
 
-        <div>
-            <button class="ui fluid button" type="submit">Log in!</button>
-        </div>
+        <button class="ui green fluid button" type="submit">Log in!</button>
 
         <div class="ui ignored toggle animation checkbox">
-            <label>Remember Me?</label>
             <input name="remember" type="checkbox">
+            <label>Remember Me?</label>
         </div>
 
         <a href="{% url 'account_reset_password' %}">Password reset</a>
