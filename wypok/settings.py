@@ -1,81 +1,133 @@
-import os
+from os import path
+from datetime import datetime
 from decouple import config, Csv
 
-SITE_ID = 1
 
-ROOT_URLCONF            = 'wypok.urls'
-WSGI_APPLICATION        = 'wypok.wsgi.application'
-DJANGO_SETTINGS_MODULE  = 'wypok.settings'
+# Main settings
+SITE_ID                     = 1
+NAME                        = 'Wypok'
+ROOT_URLCONF                = 'wypok.urls'
+WSGI_APPLICATION            = 'wypok.wsgi.application'
+DJANGO_SETTINGS_MODULE      = 'wypok.settings'
+BASE_DIR                    = path.dirname(path.dirname(path.abspath(__file__)))
+DEBUG                       = config('DEBUG', cast=bool)
+SECRET_KEY                  = config('SECRET_KEY')
+LOG_LEVEL                   = 'DEBUG' if DEBUG else 'INFO'
+ALLOWED_HOSTS               = ['localhost','127.0.0.1'] if DEBUG else config('ALLOWED_HOSTS', cast=Csv())
+FQDN                        = ALLOWED_HOSTS[0]
 
-BASE_DIR                = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-NAME                    = config('NAME', default='Django')
-DEBUG                   = config('DEBUG', default=False, cast=bool)
-ALLOWED_HOSTS           = config('ALLOWED_HOSTS', cast=Csv())
-SECRET_KEY              = config('SECRET_KEY')
-
-LANGUAGE_CODE           = config('LANGUAGE_ZONE', default='en-us')
-TIME_ZONE               = config('TIME_ZONE', default='UTC')
-USE_I18N                = True
-USE_L10N                = True
-USE_TZ                  = True
-
-STATIC_ROOT     = os.path.join(BASE_DIR, 'static')
-STATIC_URL      = '/static/'
-
-EMAIL_BACKEND           = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_FILE_PATH         = config('EMAIL_FILE_PATH')
-EMAIL_SUBJECT_PREFIX    = config('EMAIL_SUBJECT_PREFIX', default=NAME + ' - ')
-EMAIL_HOST              = config('EMAIL_HOST', default='localhost')
-EMAIL_PORT              = config('EMAIL_PORT', default=25, cast=int)
-EMAIL_HOST_USER         = config('EMAIL_USER', default='')
-EMAIL_HOST_PASSWORD     = config('EMAIL_PASSWORD', default='')
-DEFAULT_FROM_EMAIL      = config('EMAIL_DEFAULT', default=EMAIL_HOST_USER)
-SERVER_EMAIL            = config('EMAIL_SERVER', default=EMAIL_HOST_USER)
-EMAIL_TIMEOUT           = config('EMAIL_TIMEOUT', default=1, cast=int)
-EMAIL_USE_TLS           = config('EMAIL_TLS', default=False, cast=bool)
-EMAIL_USE_SSL           = config('EMAIL_SSL', default=False, cast=bool)
-EMAIL_SSL_CERTFILE      = config('EMAIL_CERTFILE')
-EMAIL_SSL_KEYFILE       = config('EMAIL_KEYFILE')
-
-DB_ENGINE               = config('DB_ENGINE')
-DB_NAME                 = config('DB_NAME')
-DB_USER                 = config('DB_USER')
-DB_PASSWORD             = config('DB_PASSWORD')
-DB_HOST                 = config('DB_HOST')
-DB_PORT                 = config('DB_PORT', default='')
-
-CACHE_BACKEND           = config('CACHE_BACKEND')
-CACHE_LOCATION          = config('CACHE_LOCATION', cast=Csv())
-CACHE_TIMEOUT           = config('CACHE_TIMEOUT')
-CACHE_PREFIX            = config('CACHE_PREFIX')
-
-#AUTH_USER_MODEL                 = 'accounts.Account'
-LOGIN_REDIRECT_URL              = config('LOGIN_REDIRECT_URL', default=None)
-ACCOUNT_AUTHENTICATION_METHOD   = config('ACCOUNT_AUTHENTICATION_METHOD', default='username_email')
-ACCOUNT_DEFAULT_HTTP_PROTOCOL   = config('ACCOUNT_DEFAULT_HTTP_PROTOCOL', default='http')
-
-ACCOUNT_USERNAME_VALIDATORS     = config('ACCOUNT_USERNAME_VALIDATORS', default=None, cast=Csv())
-ACCOUNT_USERNAME_MIN_LENGTH     = config('ACCOUNT_USERNAME_MIN_LENGTH', default=4, cast=int)
-ACCOUNT_PASSWORD_MIN_LENGTH     = config('ACCOUNT_PASSWORD_MIN_LENGTH', default=8, cast=int)
-
-ACCOUNT_EMAIL_REQUIRED          = config('ACCOUNT_EMAIL_REQURIED', default=True, cast=bool)
-ACCOUNT_EMAIL_VERIFICATION      = config('ACCOUNT_EMAIL_VERIFICATION', default='mandatory')
-ACCOUNT_EMAIL_SUBJECT_PREFIX    = config('ACCOUNT_EMAIL_SUBJECT_PREFIX', default=EMAIL_SUBJECT_PREFIX)
-ACCOUNT_LOGIN_ATTEMPTS_LIMIT    = config('ACCOUNT_LOGIN_ATTEMPTS_LIMIT', default=3, cast=int)
-ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT  = config('ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT', default=180, cast=int)
-ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = config('ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE', default=True, cast=bool)
-ACCOUNT_USERNAME_BLACKLIST =    config('ACCOUNT_USERNAMES_BLACKLIST', cast=Csv())
-
+# Security
 if not DEBUG:
-    SECURE_PROXY_SSL_HEADER     = ('HTTP_X_FORWARDED_PROTO', 'https')
-    SECURE_BROWSER_XSS_FILTER   = True
-    SECURE_SSL_REDIRECT         = True
+    CSRF_COOKIE_SECURE = True
     USE_X_FORWARDED_HOST        = True
-    SESSION_COOKIE_SECURE       = True
-    SESSION_COOIE_HTTPONLY      = True
+    SECURE_SSL_REDIRECT         = True
+    SECURE_BROWSER_XSS_FILTER   = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_PROXY_SSL_HEADER     = ('HTTP_X_FORWARDED_PROTO', 'https')
+    CSRF_COOKIE_DOMAIN          = FQDN
     CSRF_COOKIE_SECURE          = True
 
+    SESSION_COOKIE_DOMAIN       = ALLOWED_HOSTS
+    SESSION_COOIE_HTTPONLY      = True
+    SESSION_COOKIE_SECURE       = True
+    #SESSION_ENGINE              = 'django.contrib.sessions.backends.cache'
+    SESSION_ENGINE              = 'django.contrib.sessions.backends.db'
+    SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# Globalization
+LANGUAGE_CODE               = 'en-us'
+TIME_ZONE                   = 'UTC'
+USE_I18N                    = True
+USE_L10N                    = True
+USE_TZ                      = True
+LANGUAGES                   = [('en', 'English'), ('pl', 'Polish')]
+
+# Static and media
+STATIC_ROOT                 = path.join(BASE_DIR, 'static')
+STATIC_URL                  = '/static/'
+MEDIA_ROOT                  = path.join(BASE_DIR, 'media')
+MEDIA_URL                   = '/media/'
+FILE_UPLOAD_PERMISSIONS     = 0o644
+FILE_UPLOAD_MAX_MEMORY_SIZE = (1024 * 1024) * 5 # 5.MB
+DATA_UPLOAD_MAX_MEMORY_SIZE = FILE_UPLOAD_MAX_MEMORY_SIZE
+
+# Email
+DEFAULT_FROM_EMAIL          = 'wypok@' + FQDN
+SERVER_EMAIL                = 'server@' + FQDN
+EMAIL_BACKEND               = config('EMAIL_BACKEND')
+EMAIL_HOST_USER             = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD         = config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST                  = config('EMAIL_HOST')
+EMAIL_PORT                  = config('EMAIL_PORT')
+EMAIL_USE_TLS               = config('EMAIL_USE_TLS', cast=bool)
+EMAIL_USE_SSL               = config('EMAIL_USE_SSL', cast=bool)
+EMAIL_SSL_CERTFILE          = config('EMAIL_SSL_CERTFILE')
+EMAIL_SSL_KEYFILE           = config('EMAIL_SSL_KEYFILE')
+EMAIL_TIMEOUT               = config('EMAIL_TIMEOUT', cast=int)
+EMAIL_FILE_PATH             = path.join(MEDIA_ROOT, 'email')
+EMAIL_SUBJECT_PREFIX        = NAME + ' - '
+
+# Database
+DB_ENGINE                   = config('DB_ENGINE')
+DB_NAME                     = config('DB_NAME')
+DB_USER                     = config('DB_USER')
+DB_PASSWORD                 = config('DB_PASSWORD')
+DB_HOST                     = config('DB_HOST')
+DB_PORT                     = config('DB_PORT')
+
+# Cache
+CACHE_BACKEND               = config('CACHE_BACKEND')
+CACHE_LOCATION              = config('CACHE_LOCATION', cast=Csv())
+CACHE_TIMEOUT               = config('CACHE_TIMEOUT', cast=int)
+CACHE_KEY_PREFIX            = config('CACHE_KEY_PREFIX')
+
+# Accounts
+LOGIN_URL                   = 'account_login'
+LOGIN_REDIRECT_URL          = 'home'
+LOGOUT_REDIRECT_URL         = 'home'
+
+ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
+ACCOUNT_LOGOUT_ON_GET           = True
+ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
+
+ACCOUNT_ADAPTER                 = 'allauth.account.adapter.DefaultAccountAdapter'
+SOCIALACCOUNT_ADAPTER           = 'allauth.socialaccount.adapter.DefaultSocialAccountAdapter'
+
+#AUTH_USER_MODEL                 = 'accounts.Account'
+ACCOUNT_AUTHENTICATION_METHOD   = 'username'
+ACCOUNT_USERNAME_MIN_LENGTH     = 4
+#ACCOUNT_USERNAME_VALIDATORS     = ['accounts.validators.AccountNameValidator']
+ACCOUNT_USERNAME_BLACKLIST      = ['admin', 'wypok', 'wykop', 'root', 'administrator']
+
+ACCOUNT_EMAIL_REQUIRED          = True
+ACCOUNT_UNIQUE_EMAIL            = True
+ACCOUNT_EMAIL_VERIFICATION      = 'mandatory'
+ACCOUNT_EMAIL_SUBJECT_PREFIX    = EMAIL_SUBJECT_PREFIX
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': ['profile', 'email'],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+    },
+    'facebook': {
+        'SCOPE': ['public_profile', 'email'],
+        'FIELDS': ['email', 'name', 'verified', 'gender'],
+    },
+}
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+AUTH_PASSWORD_VALIDATORS = [
+    { 'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', },
+    { 'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator', },
+    { 'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator', },
+    { 'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', },
+]
 
 INSTALLED_APPS = [
     'wypok',
@@ -147,32 +199,30 @@ CACHES = {
         'LOCATION': CACHE_LOCATION,
         'TIMEOUT':  CACHE_TIMEOUT,
         'OPTIONS': {
-            'KEY_PREFIX': CACHE_PREFIX,
+            'KEY_PREFIX': CACHE_KEY_PREFIX,
         },
     },
 }
 
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
-
-AUTH_PASSWORD_VALIDATORS = [
-    { 'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', },
-    { 'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator', },
-    { 'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator', },
-    { 'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', },
-]
-
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        'METHOD': 'oauth2',
-        'SCOPE': [
-            'profile',
-            'email'
-        ],
-        'AUTH_PARAMS': {
-            'access_type': 'online',
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': LOG_LEVEL,
+            'class': 'logging.FileHandler',
+            'filename': path.join(BASE_DIR, 'logs', 'django.log'),
+        },
+        'console': {
+            'level': LOG_LEVEL,
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': LOG_LEVEL,
+            'propagate': True,
         },
     },
 }
