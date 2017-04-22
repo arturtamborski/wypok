@@ -13,3 +13,5 @@ pip-log.txt
 
 # ignore static files from ./manage.py collectstatic
 /static
+/media
+/logs
