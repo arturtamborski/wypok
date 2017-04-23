@@ -27,8 +27,8 @@ if not DEBUG:
     CSRF_COOKIE_DOMAIN          = FQDN
     CSRF_COOKIE_SECURE          = True
 
-    SESSION_COOKIE_DOMAIN       = ALLOWED_HOSTS
-    SESSION_COOIE_HTTPONLY      = True
+    SESSION_COOKIE_DOMAIN       = FQDN
+    SESSION_COOKIE_HTTPONLY     = True
     SESSION_COOKIE_SECURE       = True
     #SESSION_ENGINE              = 'django.contrib.sessions.backends.cache'
     SESSION_ENGINE              = 'django.contrib.sessions.backends.db'

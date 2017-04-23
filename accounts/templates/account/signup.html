@@ -5,17 +5,16 @@ Sign up!
 {% endblock %}
 
 {% block content %}
-<h1 class="ui dividing header">
-    Sign Up
-</h1>
 
 <div>
     Already have an account? Then please <a href="{{ login_url }}">sign in</a>
 </div>
 
-<div class="ui one column stackable center aligned page grid">
-    <form class="ui form" method="post" action="{% url 'account_signup' %}">
-        {% csrf_token %}
+<div class="ui column stackable center aligned grid">
+    <form class="ui four wide column form segment" method="post" action="{% url 'account_signup' %}">
+        <h1 class="ui dividing header">
+            Sign Up
+        </h1>
         <div class="ui required field">
           <label>User name</label>
           <input name="username" type="text" minlength="4" maxlength="20" autofocus="autofocus" required="">
@@ -32,10 +31,13 @@ Sign up!
             <label>Password, again</label>
             <input name="password2" type="password" required="">
         </div>
-        <button class="ui submit button" type="submit">Submit</button>
+
+        <button class="ui green fluid submit button" type="submit">Submit</button>
+
         {% if redirect_field_value %}
             <input class="hidden" type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
+        {% csrf_token %}
     </form>
 </div>
 {% endblock %}
