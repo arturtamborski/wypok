@@ -5,11 +5,6 @@ Sign up!
 {% endblock %}
 
 {% block content %}
-
-<div>
-    Already have an account? Then please <a href="{{ login_url }}">sign in</a>
-</div>
-
 <div class="ui column stackable center aligned grid">
     <form class="ui four wide column form segment" method="post" action="{% url 'account_signup' %}">
         <h1 class="ui dividing header">
