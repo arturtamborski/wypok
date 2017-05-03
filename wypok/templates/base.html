@@ -24,10 +24,10 @@
     </head>
     <body>
         <header class="ui stackable menu segment">
-            <a class="header item" href="{% url 'excavation' %}">
+            <a class="header item" href="{% url 'excavation:home' %}">
                 wypok.com
             </a>
-            <a class="item" href="{% url 'excavation' %}">
+            <a class="item" href="{% url 'excavation:home' %}">
                 wykopalisko
             </a>
             <a class="item">
@@ -38,7 +38,7 @@
             </a>
             <div class="right menu">
                 {% if user.is_authenticated %}
-                    <a class="item" href="{% url 'account_profile' user.username %}">
+                    <a class="item" href="{% url 'accounts:profile' user.username %}">
                         {{ user.username }}
                     </a>
                     <a class="item" href="{% url 'account_logout' %}">

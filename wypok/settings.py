@@ -14,7 +14,9 @@ DEBUG                       = config('DEBUG', cast=bool)
 SECRET_KEY                  = config('SECRET_KEY')
 LOG_LEVEL                   = 'DEBUG' if DEBUG else 'INFO'
 ALLOWED_HOSTS               = ['localhost', '127.0.0.1'] if DEBUG else config('ALLOWED_HOSTS', cast=Csv())
+SCHEME                      = 'http' if DEBUG else 'https'
 FQDN                        = ALLOWED_HOSTS[0]
+
 
 # Security
 if not DEBUG:
@@ -83,8 +85,8 @@ CACHE_KEY_PREFIX            = config('CACHE_KEY_PREFIX')
 
 # Accounts
 LOGIN_URL                   = 'account_login'
-LOGIN_REDIRECT_URL          = 'excavation'
-LOGOUT_REDIRECT_URL         = 'excavation'
+LOGIN_REDIRECT_URL          = 'excavation:home'
+LOGOUT_REDIRECT_URL         = 'excavation:home'
 
 ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
 ACCOUNT_LOGOUT_ON_GET           = True
@@ -93,10 +95,10 @@ ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
 ACCOUNT_ADAPTER                 = 'allauth.account.adapter.DefaultAccountAdapter'
 SOCIALACCOUNT_ADAPTER           = 'allauth.socialaccount.adapter.DefaultSocialAccountAdapter'
 
-#AUTH_USER_MODEL                 = 'accounts.Account'
-ACCOUNT_AUTHENTICATION_METHOD   = 'username'
+ACCOUNT_DEFAULT_HTTP_PROTOCOL   = SCHEME
+ACCOUNT_AUTHENTICATION_METHOD   = 'username_email'
 ACCOUNT_USERNAME_MIN_LENGTH     = 4
-#ACCOUNT_USERNAME_VALIDATORS     = ['accounts.validators.AccountNameValidator']
+ACCOUNT_USERNAME_VALIDATORS     = 'accounts.validators.validators'
 ACCOUNT_USERNAME_BLACKLIST      = ['admin', 'wypok', 'wykop', 'root', 'administrator']
 
 ACCOUNT_EMAIL_REQUIRED          = True
