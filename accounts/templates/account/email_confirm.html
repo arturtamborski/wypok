@@ -7,14 +7,15 @@ Confirm email
 {% block content %}
 
 {% if confirmation %}
-    {% user_display confirmation.email_address.user as user_display %}
+    {% with confirmation.email_address.user as user_display %}
     {% with confirmation.email_address_email as email %}
     Please, confirm that <ahref="mailto:{{ email }}">{{ email }}</a> is an e-mail address for user {{ user_display }}.
+    {% endwith %}
     {% endwith %}
 
     <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
         {% csrf_token %}
-        <button type="submit">{% trans 'Confirm' %}</button>
+        <button type="submit">Confirm</button>
     </form>
 {% else %}
     {% url 'account_email' as email_url %}

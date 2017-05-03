@@ -1,14 +1,16 @@
 {% extends "base.html" %}
 
 {% block title %}
-Profile
+@{{ profile }}'s profile
 {% endblock %}
 
 {% block content %}
-{{ account.name }}
+{{ profile }}
+{{ profile.get_state_display }}
+{{ profile.description }}
 {% if user.is_authenticated %}
-You are <strong>logged in</strong>
+    <p>You are <strong>logged in</strong></p>
 {% else %}
-You are <strong>not logged in</strong>
+    <p>You are <strong>not logged in</strong></p>
 {% endif %}
 {% endblock %}
