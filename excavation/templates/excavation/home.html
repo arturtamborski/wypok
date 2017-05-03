@@ -1,5 +1,15 @@
 {% extends "base.html" %}
 
+{% block title %}
+Wykopalisko
+{% endblock %}
+
 {% block content %}
+
+{% for post in posts %}
+
+<a href="{{ post.get_absolute_url }}">{{ post }}</a>
+
+{% endfor %}
 
 {% endblock %}
