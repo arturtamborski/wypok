@@ -18,7 +18,8 @@ Obie części będą ściśle powiązane z systemem komentowania, głosowania i 
 Użytkownicy będą mogli produkować treści udostępniając je z własnych kont jak i również pisząc z publicznego anonimowego konta.
 
 Komentarze będą formatowane w markdown'ie co umożliwi zmienianie właściwości tekstu (pogrubienie, pochylenie, itd). Użytkownicy będą również mogli skorzystać ze specjalnych znaków nadających nowe znaczenie:
-  - `@konto`    nawiązanie do użytkownika (twitter)
+  - `/1231/` link z wykopaliska (wykop)
+  - `@konto` nawiązanie do użytkownika (twitter)
   - `#kotki` hashtag (twitter)
   - `/gif/` sekcja (reddit)
   - `:lenny:` emoji (gg)
@@ -46,4 +47,4 @@ Strona jest podzielona na kilka aplikacji:
   - mirkochan - Mirkoczan - luźne miejsce dla twórczości użytkowników.
   - chatroom - Pokoje rozmów - użytkownicy mogą dołączyć do czatów live typu omegele czy obcy
 
-![logo konkursu](https://github.com/arturtamborski/wypok/raw/master/logo.png)
+![logo konkursu](https://github.com/arturtamborski/wypok/raw/master/dajsiepoznac2017-logo.png)
