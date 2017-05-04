@@ -1,33 +1,27 @@
 # wypok
+
 Alter ego popularnej strony [wykop.pl](http://www.wykop.pl).
 
 Projekt realizowany jest w ramach konkursu [Daj Się Poznać 2017](http://dajsiepoznac.pl)
 
 Postęp można śledzić na moim [blogu](https://arturtamborski.pl/) pod tagiem [#dajsiepoznac2017](https://arturtamborski.pl/tags/dajsiepoznac2017) ([feed](https://arturtamborski.pl/tags/dajsiepoznac2017/feed)).
 
-
-
-# O projekcie
-
-Aplikacja będzie podzielona na dwie części:
-  - wykopywarka linków (strona główna wykopu / reddita),
-  - wpisy użytkowników (mikroblog wykopu / imageboardy 4chana).
-
-Obie części będą ściśle powiązane z systemem komentowania, głosowania i kategoryzowania najpopularniejszych wpisów.
+# about
 
 Użytkownicy będą mogli produkować treści udostępniając je z własnych kont jak i również pisząc z publicznego anonimowego konta.
+Publikacje będą oparte o system komentowania, głosowania i kategoryzowania najpopularniejszych wpisów.
 
-Komentarze będą formatowane w markdown'ie co umożliwi zmienianie właściwości tekstu (pogrubienie, pochylenie, itd). Użytkownicy będą również mogli skorzystać ze specjalnych znaków nadających nowe znaczenie:
-  - `/gif/` sekcja (reddit)
-  - `/all/1231/` post z sekcji (4chan)
-  - `/all/121/elon-musk-says-holy-smokes-man/` przekierowanie url do wersji z tytułem (stackoverflow)
-  - `@konto` nawiązanie do użytkownika (twitter)
+Komentarze będą formatowane w markdown'ie co umożliwi zmienianie właściwości tekstu (pogrubienie, pochylenie, itd).
+Użytkownicy będą również mogli skorzystać ze specjalnych znaków nadających nowe znaczenie:
+  - `/gif/` link do sekcji (reddit)
+  - `/all/1231/` link do postu z sekcji (4chan)
+  - `@konto` link do profilu użytkownika (twitter)
   - `#kotki` hashtag (twitter)
-  - `:lenny:` emoji (gg)
-  - `!general` chat (irc)
-  - `>text` greentext (4chan)
+  - `:lenny:` emoji (gadugadu)
+  - `!general` link do czatu (irc)
+  - `>text` cytat (4chan)
   - `>>12341` link do innego postu (4chan)
-  - `/thread` zamknij wątek (tylko dla OPa)
+  - `/thread` zamknięcie nitki
   - `feelsgoodman.png` wstaw obrazek o podanym tytule z publicznej galerii memów (to samo dla .jpg, .png, .bmp)
   - `feelsgoodman.mp4` wstaw filmik o podanym tytule z publicznej galerii memów (to samo dla .gif, .webm)
 
@@ -41,11 +35,5 @@ Kolor nazwy użytkownika to
   - zielony (konto ma mniej niż 30 dni)
   - pomarańczowy (konto ma więcej niż 30 dni)
   - czerwony (administrator)
-
-Strona jest podzielona na kilka aplikacji:
-  - accounts - Konta użytkowników, profile, opisy ustawienia itd.
-  - excavation - Wykopalisko - strona domowa.
-  - mirkochan - Mirkoczan - luźne miejsce dla twórczości użytkowników.
-  - chatroom - Pokoje rozmów - użytkownicy mogą dołączyć do czatów live typu omegele czy obcy
 
 ![logo konkursu](https://github.com/arturtamborski/wypok/raw/master/dajsiepoznac2017-logo.png)
