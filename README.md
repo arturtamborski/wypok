@@ -18,10 +18,11 @@ Obie części będą ściśle powiązane z systemem komentowania, głosowania i 
 Użytkownicy będą mogli produkować treści udostępniając je z własnych kont jak i również pisząc z publicznego anonimowego konta.
 
 Komentarze będą formatowane w markdown'ie co umożliwi zmienianie właściwości tekstu (pogrubienie, pochylenie, itd). Użytkownicy będą również mogli skorzystać ze specjalnych znaków nadających nowe znaczenie:
-  - `/1231/` link z wykopaliska (wykop)
+  - `/gif/` sekcja (reddit)
+  - `/all/1231/` post z sekcji (4chan)
+  - `/all/121/elon-musk-says-holy-smokes-man/` przekierowanie url do wersji z tytułem (stackoverflow)
   - `@konto` nawiązanie do użytkownika (twitter)
   - `#kotki` hashtag (twitter)
-  - `/gif/` sekcja (reddit)
   - `:lenny:` emoji (gg)
   - `!general` chat (irc)
   - `>text` greentext (4chan)
