@@ -6,6 +6,8 @@ Projekt realizowany jest w ramach konkursu [Daj Się Poznać 2017](http://dajsie
 
 Postęp można śledzić na moim [blogu](https://arturtamborski.pl/) pod tagiem [#dajsiepoznac2017](https://arturtamborski.pl/tags/dajsiepoznac2017) ([feed](https://arturtamborski.pl/tags/dajsiepoznac2017/feed)).
 
+Wersja testowa jest obecnie udostępniona pod adresem [wypok.com](https://wypok.com). Niestety obecna wersja aplikacji nie oferuje praktycznie żadnej funkcjonalności poza rejestracją.
+
 # about
 
 Użytkownicy będą mogli produkować treści udostępniając je z własnych kont jak i również pisząc z publicznego anonimowego konta.
