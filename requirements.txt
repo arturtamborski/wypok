@@ -5,3 +5,4 @@ python-memcached
 python-decouple
 Pillow
 markdown
+django-debug-toolbar

@@ -1,40 +1,20 @@
-from os import path
+from os import path, environ
 from datetime import datetime
 from decouple import config, Csv
 
-
 # Main settings
 SITE_ID                     = 1
-NAME                        = 'Wypok'
-ROOT_URLCONF                = 'wypok.urls'
-WSGI_APPLICATION            = 'wypok.wsgi.application'
-DJANGO_SETTINGS_MODULE      = 'wypok.settings'
-BASE_DIR                    = path.dirname(path.dirname(path.abspath(__file__)))
-DEBUG                       = config('DEBUG', cast=bool)
+NAME                        = config('NAME')
+BASE_DIR                    = config('BASE_DIR')
+ROOT_URLCONF                = config('APP_NAME') + '.urls'
+WSGI_APPLICATION            = config('APP_NAME') + '.wsgi' + '.application'
 SECRET_KEY                  = config('SECRET_KEY')
+DEBUG                       = config('DEBUG', cast=bool)
 LOG_LEVEL                   = 'DEBUG' if DEBUG else 'INFO'
-ALLOWED_HOSTS               = ['localhost', '127.0.0.1'] if DEBUG else config('ALLOWED_HOSTS', cast=Csv())
+INTERNAL_IPS                = config('INTERNAL_IPS', cast=Csv())
+ALLOWED_HOSTS               = ['127.0.0.1', 'localhost'] if DEBUG else config('ALLOWED_HOSTS', cast=Csv())
 SCHEME                      = 'http' if DEBUG else 'https'
 FQDN                        = ALLOWED_HOSTS[0]
-
-
-# Security
-if not DEBUG:
-    CSRF_COOKIE_SECURE          = True
-    USE_X_FORWARDED_HOST        = True
-    SECURE_SSL_REDIRECT         = True
-    SECURE_BROWSER_XSS_FILTER   = True
-    SECURE_CONTENT_TYPE_NOSNIFF = True
-    SECURE_PROXY_SSL_HEADER     = ('HTTP_X_FORWARDED_PROTO', 'https')
-    CSRF_COOKIE_DOMAIN          = FQDN
-    CSRF_COOKIE_SECURE          = True
-
-    SESSION_COOKIE_DOMAIN       = FQDN
-    SESSION_COOKIE_HTTPONLY     = True
-    SESSION_COOKIE_SECURE       = True
-    #SESSION_ENGINE              = 'django.contrib.sessions.backends.cache'
-    SESSION_ENGINE              = 'django.contrib.sessions.backends.db'
-    SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Globalization
 LANGUAGE_CODE               = 'en-us'
@@ -99,7 +79,7 @@ ACCOUNT_DEFAULT_HTTP_PROTOCOL   = SCHEME
 ACCOUNT_AUTHENTICATION_METHOD   = 'username_email'
 ACCOUNT_USERNAME_MIN_LENGTH     = 4
 ACCOUNT_USERNAME_VALIDATORS     = 'accounts.validators.validators'
-ACCOUNT_USERNAME_BLACKLIST      = ['admin', 'wypok', 'wykop', 'root', 'administrator']
+ACCOUNT_USERNAME_BLACKLIST      = []
 
 ACCOUNT_EMAIL_REQUIRED          = True
 ACCOUNT_UNIQUE_EMAIL            = True
