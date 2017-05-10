@@ -5,7 +5,7 @@ from . import apps
 
 app_name = apps.ExcavationConfig.name
 urlpatterns = [
-    url(r'^$',                                      views.home, name='home'),
-    url(r'^(?P<post_id>[0-9]+)/$',                  views.post, name='post'),
-    url(r'^(?P<post_id>[0-9]+)/(?P<slug>\w+)/$',    views.post, name='post'),
+    url(r'^$',                              views.home, name='home'),
+    url(r'^(?P<id>[0-9]+)/$',               views.post, name='post'),
+    url(r'^(?P<id>[0-9]+)/(?P<slug>[-a-zA-Z0-9_]+)/$', views.post, name='post'),
 ]
