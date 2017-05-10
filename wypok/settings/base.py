@@ -46,8 +46,11 @@ EMAIL_USE_SSL               = config('EMAIL_USE_SSL', cast=bool)
 EMAIL_SSL_CERTFILE          = config('EMAIL_SSL_CERTFILE')
 EMAIL_SSL_KEYFILE           = config('EMAIL_SSL_KEYFILE')
 EMAIL_TIMEOUT               = config('EMAIL_TIMEOUT', cast=int)
-EMAIL_FILE_PATH             = path.join(MEDIA_ROOT, 'email')
+EMAIL_FILE_PATH             = config('EMAIL_FILE_PATH')
 EMAIL_SUBJECT_PREFIX        = NAME + ' - '
+
+if EMAIL_FILE_PATH[0] != '/':
+    EMAIL_FILE_PATH = path.join(BASE_DIR, EMAIL_FILE_PATH)
 
 # Database
 DB_ENGINE                   = config('DB_ENGINE')

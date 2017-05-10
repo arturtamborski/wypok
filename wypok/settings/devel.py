@@ -1,4 +1,6 @@
 from .base import *
+from django.utils.log import DEFAULT_LOGGING
+
 
 INSTALLED_APPS += [
     'debug_toolbar',
@@ -23,3 +25,5 @@ DEBUG_TOOLBAR_PANELS = [
    'debug_toolbar.panels.redirects.RedirectsPanel',
    'debug_toolbar.panels.profiling.ProfilingPanel',
 ]
+
+#LOGGING = DEFAULT_LOGGING
