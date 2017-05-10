@@ -5,11 +5,7 @@ Wykopalisko
 {% endblock %}
 
 {% block content %}
-
-{% for post in posts %}
-
-<a href="{{ post.get_absolute_url }}">{{ post }}</a>
-
-{% endfor %}
-
+    {% for post in posts %}
+        {% include 'excavation/snippets/post.html' with detail=False %}
+    {% endfor %}
 {% endblock %}

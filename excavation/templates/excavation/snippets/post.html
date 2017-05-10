@@ -1,0 +1,13 @@
+<article>
+    <a href="{% if detail %}{{ post.link }}{% else %}{{ post.get_absolute_url }}{% endif %}">
+        <h3>
+            {{ post.title }}
+        </h3>
+    </a>
+    by <a href="{{ post.author.profile.get_absolute_url }}"> {{ post.author }} </a> at {{ post.date|date:"l, j E Y" }}
+    {% if detail %}
+    <div>
+        {{ post.content }}
+    </div>
+    {% endif %}
+</article>

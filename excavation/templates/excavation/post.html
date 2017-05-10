@@ -1,12 +1,9 @@
 {% extends "base.html" %}
 
 {% block title %}
-{{ post }}
+    {{ post.title }}
 {% endblock %}
 
 {% block content %}
-
-{{ post }}
-{% url 'excavation:post' post.id %}
-
+    {% include 'excavation/snippets/post.html' with detail=True %}
 {% endblock %}
