@@ -8,9 +8,4 @@
 {{ profile }}
 {{ profile.get_state_display }}
 {{ profile.description }}
-{% if user.is_authenticated %}
-    <p>You are <strong>logged in</strong></p>
-{% else %}
-    <p>You are <strong>not logged in</strong></p>
-{% endif %}
 {% endblock %}
