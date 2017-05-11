@@ -124,9 +124,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
 
-    'wypok',
-    'accounts',
     'sections',
+    'accounts',
+    'wypok',
 
     'allauth',
     'allauth.account',

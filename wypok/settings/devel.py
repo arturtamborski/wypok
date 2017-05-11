@@ -1,7 +1,6 @@
 from .base import *
 from django.utils.log import DEFAULT_LOGGING
 
-
 INSTALLED_APPS += [
     'debug_toolbar',
 ]
