@@ -8,17 +8,17 @@ from django.db import models
 
 class Section(models.Model):
     admin   = models.ForeignKey(User, on_delete=models.CASCADE)
-    title   = models.CharField(max_length=128)
-    slug    = models.SlugField(max_length=64)
+    name    = models.SlugField(max_length=64)
+    description = models.TextField()
 
     def __str__(self):
-        return self.title
+        return self.name
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('sections:home', args=[self.slug])
+        return reverse('sections:home', args=[self.name])
 
 
 
@@ -47,4 +47,4 @@ class Post(models.Model):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('sections:post', args=[self.section.slug, self.id, self.slug])
+        return reverse('sections:post', args=[self.section, self.id, self.slug])
