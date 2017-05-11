@@ -5,6 +5,7 @@ Wykopalisko
 {% endblock %}
 
 {% block content %}
+    section {{ post.section }}
     {% for post in posts %}
         {% include 'sections/snippets/post.html' with detail=False %}
     {% endfor %}
