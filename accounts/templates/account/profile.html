@@ -5,7 +5,15 @@
 {% endblock %}
 
 {% block content %}
-{{ profile }}
+    <h2>
+        {{ profile }}
+    </h2>
 {{ profile.get_state_display }}
 {{ profile.description }}
+    <div>
+        posts:
+        {% for post in posts %}
+            {% include 'sections/snippets/post.html' with detail=False %}
+        {% endfor %}
+    </div>
 {% endblock %}

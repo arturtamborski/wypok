@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from . import models
+import sections
 
 
 #class ProfileList(generic.ListView):
@@ -16,4 +17,6 @@ from . import models
 
 def profile(response, profile):
     profile = get_object_or_404(models.Profile.objects, user__username=profile)
-    return render(response, 'account/profile.html', {'profile': profile})
+    posts   = sections.models.Post.objects.filter(author=profile.user)
+
+    return render(response, 'account/profile.html', {'profile': profile, 'posts': posts})
