@@ -68,8 +68,8 @@ CACHE_KEY_PREFIX            = config('CACHE_KEY_PREFIX')
 
 # Accounts
 LOGIN_URL                   = 'account_login'
-LOGIN_REDIRECT_URL          = 'excavation:home'
-LOGOUT_REDIRECT_URL         = 'excavation:home'
+LOGIN_REDIRECT_URL          = 'sections:home'
+LOGOUT_REDIRECT_URL         = 'sections:home'
 
 ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
 ACCOUNT_LOGOUT_ON_GET           = True
@@ -126,7 +126,7 @@ INSTALLED_APPS = [
 
     'wypok',
     'accounts',
-    'excavation',
+    'sections',
 
     'allauth',
     'allauth.account',

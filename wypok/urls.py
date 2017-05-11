@@ -8,7 +8,7 @@ urlpatterns = [
 
     url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
 
-    url(r'^', include('excavation.urls')),
+    url(r'^', include('sections.urls')),
     url(r'^', include('accounts.urls')),
     url(r'^', include('allauth.urls')),
 ]

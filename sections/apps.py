@@ -1,8 +1,8 @@
 from django.apps import AppConfig
 
 
-class ExcavationConfig(AppConfig):
-    name = 'excavation'
+class SectionsConfig(AppConfig):
+    name = 'sections'
 
     def ready(self):
         from . import signals
