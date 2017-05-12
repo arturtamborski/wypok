@@ -187,9 +187,7 @@ CACHES = {
         'BACKEND':  CACHE_BACKEND,
         'LOCATION': CACHE_LOCATION,
         'TIMEOUT':  CACHE_TIMEOUT,
-        'OPTIONS': {
-            'KEY_PREFIX': CACHE_KEY_PREFIX,
-        },
+        'KEY_PREFIX': CACHE_KEY_PREFIX,
     },
 }
 
