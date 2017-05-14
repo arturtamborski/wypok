@@ -25,4 +25,4 @@ DEBUG_TOOLBAR_PANELS = [
    'debug_toolbar.panels.profiling.ProfilingPanel',
 ]
 
-#LOGGING = DEFAULT_LOGGING
+LOGGING = DEFAULT_LOGGING

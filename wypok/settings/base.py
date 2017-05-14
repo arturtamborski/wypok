@@ -63,8 +63,9 @@ DB_PORT                     = config('DB_PORT')
 # Cache
 CACHE_BACKEND               = config('CACHE_BACKEND')
 CACHE_LOCATION              = config('CACHE_LOCATION', cast=Csv())
-CACHE_TIMEOUT               = config('CACHE_TIMEOUT', cast=int)
 CACHE_KEY_PREFIX            = config('CACHE_KEY_PREFIX')
+CACHE_TIMEOUT               = config('CACHE_TIMEOUT', cast=int)
+CACHE_TTL                   = config('CACHE_TTL', cast=int)
 
 # Accounts
 LOGIN_URL                   = 'account_login'
