@@ -1,16 +1,22 @@
+from django.views.decorators.cache import cache_page
+from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from . import models
 
+@cache_page(settings.CACHE_TTL)
 def home(response, section=None):
     if section is None:
         return redirect('sections:home', 'all')
 
-    posts = models.Post.objects.filter(section__name=section).order_by('-date')
-    return render(response, 'sections/home.html', {'posts': posts})
+    section = models.Section.objects.get_section(section)
+    posts   = models.Post.objects.get_posts(section)
+    return render(response, 'sections/home.html', {'section': section, 'posts': posts})
 
+@cache_page(settings.CACHE_TTL)
 def post(response, section, id, slug=None):
-    post = get_object_or_404(models.Post, section__name=section, id=id)
+    section = models.Section.objects.get_section(section)
+    post    = models.Post.objects.get_post(id)
     if slug is None:
         return redirect(post)
-    return render(response, 'sections/post.html', {'post': post})
+    return render(response, 'sections/post.html', {'section': section, 'post': post})
