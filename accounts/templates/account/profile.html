@@ -8,8 +8,9 @@
     <h2>
         {{ profile }}
     </h2>
+{{ profile.gender }}
 {{ profile.get_state_display }}
-{{ profile.description }}
+{{ profile.description_html|safe }}
     <div>
         posts:
         {% for post in posts %}

@@ -4,19 +4,7 @@ from . import models
 import sections
 
 
-#class ProfileList(generic.ListView):
-#    queryset            = models.Account.objects.all()
-#    template_name       = 'account/profile.html'
-#    context_object_name = 'profiles'
-#
-#
-#class ProfileDetail(generic.DetailView):
-#    model               = models.Account
-#    template_name       = 'blog/article.html'
-#    context_object_name = 'profiles'
-
 def profile(response, profile):
-    profile = get_object_or_404(models.Profile.objects, user__username=profile)
-    posts   = sections.models.Post.objects.filter(author=profile.user)
-
+    profile = models.Profile.objects.get_profile(profile)
+    posts   = models.Profile.objects.get_profile_posts(profile)
     return render(response, 'account/profile.html', {'profile': profile, 'posts': posts})
