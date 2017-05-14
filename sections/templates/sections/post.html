@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    {% include 'sections/snippets/section.html' %}
+    {% include 'sections/snippets/header.html' %}
     {% include 'sections/snippets/post.html' with detail=True %}
+    {% include 'sections/snippets/comments.html' %}
 {% endblock %}

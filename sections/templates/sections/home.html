@@ -5,8 +5,9 @@ Wykopalisko
 {% endblock %}
 
 {% block content %}
-    {% include 'sections/snippets/section.html' %}
+    {% include 'sections/snippets/header.html' %}
     {% for post in posts %}
         {% include 'sections/snippets/post.html' with detail=False %}
     {% endfor %}
+    {% include 'sections/new_post.html' %}
 {% endblock %}
