@@ -4,7 +4,7 @@ from . import models
 import sections
 
 
-def profile(response, profile):
+def profile(request, profile):
     profile = models.Profile.objects.get_profile(profile)
     posts   = models.Profile.objects.get_profile_posts(profile)
-    return render(response, 'account/profile.html', {'profile': profile, 'posts': posts})
+    return render(request, 'account/profile.html', {'profile': profile, 'posts': posts})
