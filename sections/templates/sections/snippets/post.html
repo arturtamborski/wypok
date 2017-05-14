@@ -8,7 +8,7 @@
     by <a href="{{ post.author.profile.get_absolute_url }}"> {{ post.author }} </a> at {{ post.date|date:"l, j E Y" }}
     {% if detail %}
     <div>
-        {{ post.content }}
+        {{ post.content_html|safe }}
     </div>
     {% endif %}
 </article>
