@@ -11,6 +11,9 @@ class SectionQuerySet(models.QuerySet):
     def get_section(self, name):
         return Section.objects.get(name=name)
 
+    def section_exists(self, name):
+        return Section.objects.filter(name=name).exists()
+
 
 class Section(models.Model):
     objects = SectionQuerySet.as_manager()
@@ -54,14 +57,12 @@ class Post(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
+        if self.pk is None:
+            super().save(*args, **kwargs)
+
         self.slug = slugify(self.title)
         self.content_html = markup(self.content)
-
-        # im saving here two times, because get_absolute_url needs id
-        # and if this model is saved for first time then id is empty
-        super().save(*args, **kwargs)
-        if not self.link:
-            self.link = self.get_absolute_url()
+        self.link = self.get_absolute_url()
 
         super().save(*args, **kwargs)
 
