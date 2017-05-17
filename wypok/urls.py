@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.views.generic import TemplateView
 
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
@@ -12,7 +13,6 @@ urlpatterns = [
     url(r'^', include('accounts.urls')),
     url(r'^', include('sections.urls')),
 ]
-
 
 if settings.DEBUG:
     import debug_toolbar
