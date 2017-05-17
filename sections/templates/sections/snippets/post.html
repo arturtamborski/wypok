@@ -1,5 +1,4 @@
 <article>
-    <a href="{{ post.section.get_absolute_url }}">{{ post.section }}</a>
     <a href="{% if detail %}{{ post.link }}{% else %}{{ post.get_absolute_url }}{% endif %}">
         <h3>
             {{ post.title }}
