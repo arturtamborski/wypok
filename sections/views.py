@@ -22,18 +22,6 @@ def home(request, section=None):
     posts   = models.Post.objects.get_posts(section)
     return render(request, 'sections/home.html', {'section': section, 'posts': posts})
 
-@login_required
-@mark_for_caching
-def new_post(request, section):
-    check_section(section)
-
-    form = forms.PostForm()
-    if request.method == 'POST':
-        form = forms.PostForm(request.POST)
-        if form.is_valid():
-            pass
-
-    return render(request, 'sections/new_post.html', {'form': form})
 
 @mark_for_caching
 def post(request, section, id, slug=None):
@@ -44,3 +32,39 @@ def post(request, section, id, slug=None):
     if slug is None:
         return redirect(post)
     return render(request, 'sections/post.html', {'section': section, 'post': post})
+
+
+@login_required
+def new_post(request, section):
+    check_section(section)
+
+    form = forms.PostForm()
+    if request.method == 'POST':
+        form = forms.PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.section = models.Section.objects.get_section(section)
+            post.save()
+            return redirect(post)
+
+    return render(request, 'sections/new_post.html', {'section': section, 'form': form})
+
+
+@login_required
+def edit_post(request, section, id, slug=None):
+    check_section(section)
+
+    section = models.Section.objects.get_section(section)
+    post    = models.Post.objects.get_post(id)
+    if slug is None:
+        return redirect('sections:edit_post', kwargs={'section': section, 'id': id, 'slug': post.slug})
+
+    form = forms.PostForm(instance=post)
+    if request.method == 'POST':
+        form = forms.PostForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save()
+            return redirect(post)
+
+    return render(request, 'sections/edit_post.html', {'section': section, 'post': post, 'form': form})
