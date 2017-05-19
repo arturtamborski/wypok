@@ -7,12 +7,14 @@ from django.db import models
 from wypok.markup import markup
 
 
+
 class SectionQuerySet(models.QuerySet):
     def get_section(self, name):
         return Section.objects.get(name=name)
 
     def section_exists(self, name):
         return Section.objects.filter(name=name).exists()
+
 
 
 class Section(models.Model):
@@ -34,12 +36,15 @@ class Section(models.Model):
         return reverse('sections:home', args=[self.name])
 
 
+
 class PostQuerySet(models.QuerySet):
     def get_post(self, id):
         return Post.objects.get(id=id)
 
     def get_posts(self, section):
         return Post.objects.filter(section__name=section).order_by('-date')
+
+
 
 class Post(models.Model):
     objects = PostQuerySet.as_manager()
@@ -57,14 +62,33 @@ class Post(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        if self.pk is None:
-            super().save(*args, **kwargs)
-
         self.slug = slugify(self.title)
         self.content_html = markup(self.content)
-        self.link = self.get_absolute_url()
-
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('sections:post', args=[self.section, self.id, self.slug])
+
+
+
+class CommentQuerySet(models.QuerySet):
+    pass
+
+
+
+class Comment(models.Model):
+    objects = CommentQuerySet.as_manager()
+
+    parent = models.ForeignKey(Post)
+    author = models.ForeignKey(User)
+
+    date = models.DateTimeField(auto_now_add=True, editable=False)
+    content = models.TextField()
+    content_html = models.TextField(editable=False, blank=True)
+
+    def __str__(self):
+        return self.content
+
+    def save(self, *args, **kwargs):
+        self.content_html = markup(self.content)
+        super().save(*args, **kwargs)
