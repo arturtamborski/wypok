@@ -1,10 +1,12 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
+        <title>{% block title %}{% endblock %}</title>
 
+        <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="mobile-web-app-capable" content="yes">
         <meta name="description" content="Portal ze śmiesznymi obrazkami">
         <meta name="author" content="Artur Tamborski">
 
@@ -12,49 +14,61 @@
         <link rel="sitemap" type="application/xml" title="sitemap" href="{% url 'sitemap' %}">
         {% endcomment %} -->
 
-        <title>{% block title %}{% endblock %}</title>
-
         {% load static %}
+        <!-- <link rel="stylesheet" href="{% static '/css/semantic.min.css' %}"> -->
+        <link rel="stylesheet" href="https://semantic-ui.com/dist/semantic.min.css">
         <style>
-            .myhidden {
-                display: none;
-            }
+            .myhidden {display: none;}
+            .mystate-N{color:beige !important}
+            .mystate-Y{color:seagreen !important}
+            .mystate-O{color:orangered !important}
+            .mystate-D{color:darkgray !important}
+            .mystate-B{color:dimgray !important}
+            .mygender-M{border:6px solid lightblue !important}
+            .mygender-F{border:6px solid lightpink !important}
+            .mygender-H{border:6px solid lightgray !important}
         </style>
-        <link rel="stylesheet" href="{% static '/css/semantic.min.css' %}">
     </head>
     <body>
-        <header class="ui stackable menu segment">
-            <a class="header item" href="{% url 'sections:home' %}">
-                wypok.com
-            </a>
+        <header class="ui stackable menu container">
+            <a href="{% url 'sections:home' %}" class="brand item">wypok.com</a>
             {% for section in sections %}
-                <a class="item" href="{{ section.get_absolute_url }}">{{ section }}</a>
+            <a href="{{ section.get_absolute_url }}" class="item">{{ section }}</a>
             {% endfor %}
             <div class="right menu">
+                <div class="ui category search item">
+                    <div class="ui transparent icon input">
+                        <input class="prompt" type="text" placeholder="Search">
+                        <i class="search link icon"></i>
+                    </div>
+                </div>
                 {% if user.is_authenticated %}
-                    <a class="item" href="{% url 'accounts:profile' user.username %}">
-                        {{ user.username }}
-                    </a>
-                    <a class="item" href="{% url 'account_logout' %}">
-                        Log out
-                    </a>
+                <a href="{% url 'accounts:show' user.username %}" class="item">{{ user.username }}</a>
+                <a href="{% url 'account_logout' %}" class="item">Log out</a>
                 {% else %}
-                    <a class="item" href="{% url 'account_login' %}">
-                        Log in
-                    </a>
-                    <a class="item" href="{% url 'account_signup' %}">
-                        Sign up
-                    </a>
+                <a href="{% url 'account_login' %}" class="item">Log in</a>
+                <a href="{% url 'account_signup' %}" class="item">Sign up</a>
                 {% endif %}
             </div>
         </header>
-        <main class="ui segment">
-            {% block content %}{% endblock %}
-        </main>
-        <footer class="ui tiny center aligned footer segment">
-            <div class="ui center aligned container">
-                Copyright &copy; Artur Tamborski 2017
+
+        <main class="ui stackable main container">
+            <div class="ui equal height stackable grid">
+                <div class="twelve wide column">
+                    {% block content %}{% endblock %}
+                </div>
+                <div class="four wide stretched column segment">
+                    <div class="ui segment">
+                        <p>
+                        {% lorem 2 %}
+                    </p>
+                    </div>
+                </div>
             </div>
+        </main>
+
+        <footer class="ui stackable center aligned footer container segment">
+            Copyright &copy; <a href="https://arturtamborski.pl">Artur Tamborski</a> 2017
         </footer>
         <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
         <script src="{% static '/js/semantic.min.js' %}"></script>
