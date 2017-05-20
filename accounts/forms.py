@@ -1,3 +1,8 @@
 from django import forms
 from . import models
-from . import validators
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = models.Profile
+        fields = ('gender', 'description',)

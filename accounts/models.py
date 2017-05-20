@@ -16,13 +16,15 @@ class ProfileQuerySet(models.QuerySet):
 class Profile(models.Model):
 
     NOT_ACTIVATED   = 'N'
-    ACTIVATED       = 'A'
+    YOUNG           = 'Y'
+    OLD             = 'O'
     DELETED         = 'D'
     BANNED          = 'B'
 
     STATES = (
         (NOT_ACTIVATED, 'Not activated'),
-        (ACTIVATED,     'Activated'),
+        (YOUNG,         'Young'),
+        (OLD,           'Old'),
         (DELETED,       'Deleted'),
         (BANNED,        'Banned'),
     )
@@ -53,4 +55,4 @@ class Profile(models.Model):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('accounts:profile', args=[self.user.username])
+        return reverse('accounts:show', args=[self.user.username])
