@@ -3,7 +3,7 @@
         <img src="/media/banana.jpg">
     </div>
     <div class="content">
-        <a href="{% if detail %}{{ post.link }}{% else %}{{ post.get_absolute_url }}{% endif %}" class="header"><h2>{{ post.title }}</h2></a>
+        <h2><a href="{% if detail %}{{ post.link }}{% else %}{{ post.get_absolute_url }}{% endif %}" class="header">{{ post.title }}</a></h2>
         <div class="meta">
             by <a href="{{ post.author.profile.get_absolute_url }}" class="mystate-{{ post.author.profile.state }}">{{ post.author }}</a> at {{ post.date|date:"l, j E Y" }}
         </div>
