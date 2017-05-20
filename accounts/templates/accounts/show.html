@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}
+@{{ profile }}'s profile
+{% endblock %}
+
+{% block content %}
+<div class="ui items segment">
+    <div class="stackable item">
+        <div class="image">
+            <img src="/media/banana.jpg" class="mygender-{{ profile.gender }}">
+        </div>
+        <div class="content">
+            <h2 class="header mystate-{{ profile.state }}">{{ profile.user.username }}</h2>
+            <div class="meta">
+                <div class="ui list">
+                    <div class="item">Gender: {{ profile.get_gender_display }}</div>
+                    <div class="item">Created at: {{ profile.user.date_joined|date:"l, j E Y" }}</div>
+                    <div class="item">Last seen: {{ profile.user.last_login|date:"l, j E Y" }}</div>
+                </div>
+            </div>
+            <div class="description">
+                {{ profile.description_html|safe }}
+            </div>
+            <div class="extra">
+                {% ifequal profile.user request.user %}
+                <a href="{% url 'accounts:edit' profile %}" class="ui button link">EDIT</a>
+                {% endifequal %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
