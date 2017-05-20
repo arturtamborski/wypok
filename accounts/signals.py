@@ -16,5 +16,5 @@ def profile_save(sender, instance, **kwargs):
 @receiver(email_confirmed)
 def profile_activate_status(request, email_address, **kwargs):
     profile = models.Profile.objects.get(user__email=email_address.email)
-    profile.state = models.Profile.ACTIVATED
+    profile.state = models.Profile.YOUNG
     profile.save()
