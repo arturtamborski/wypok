@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% if new %}
+New post
+{% else %}
+Edit post {{ post }}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="ui segment">
+    {% if new %}
+    <form method="post" action="{% url 'sections:new_post' section %}" class="ui form">
+    {% else %}
+    <form method="post" action="{% url 'sections:edit_post' section post.id post.slug %}" class="ui form">
+    {% endif %}
+        <h1 class="ui dividing header">{% if new %}New post{% else %}Edit post {{ post }}{% endif %} for section {{ section }}</h1>
+        {{ form.as_p }}
+        <button type="submit" class="ui green fluid submit button">Post</button>
+        {% csrf_token %}
+    </form>
+</div>
+{% endblock %}

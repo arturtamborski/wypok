@@ -48,7 +48,7 @@ def new_post(request, section):
             post.save()
             return redirect(post)
 
-    return render(request, 'sections/new_post.html', {'section': section, 'form': form})
+    return render(request, 'sections/update.html', {'section': section, 'form': form, 'new': True})
 
 
 @login_required
@@ -57,6 +57,10 @@ def edit_post(request, section, id, slug=None):
 
     section = models.Section.objects.get_section(section)
     post    = models.Post.objects.get_post(id)
+
+    if str(post.author) != str(request.user):
+        return redirect(post)
+
     if slug is None:
         return redirect('sections:edit_post', kwargs={'section': section, 'id': id, 'slug': post.slug})
 
@@ -67,4 +71,4 @@ def edit_post(request, section, id, slug=None):
             post = form.save()
             return redirect(post)
 
-    return render(request, 'sections/edit_post.html', {'section': section, 'post': post, 'form': form})
+    return render(request, 'sections/update.html', {'section': section, 'post': post, 'form': form})
