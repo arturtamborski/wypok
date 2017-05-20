@@ -5,21 +5,24 @@ Confirm email
 {% endblock %}
 
 {% block content %}
-
-{% if confirmation %}
-    {% with confirmation.email_address.user as user_display %}
-    {% with confirmation.email_address_email as email %}
-    Please, confirm that <ahref="mailto:{{ email }}">{{ email }}</a> is an e-mail address for user {{ user_display }}.
-    {% endwith %}
-    {% endwith %}
-
-    <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+<div class="ui segment">
+    {% if confirmation %}
+    <form class="ui form" method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+        <h1 class="ui dividing header">
+        {% with confirmation.email_address.user as user_display %}
+        {% with confirmation.email_address_email as email %}
+        Please, confirm that <ahref="mailto:{{ email }}">{{ email }}</a> is an e-mail address for user {{ user_display }}
+        {% endwith %}
+        {% endwith %}
+        </h1>
+        <button class="ui green fluid submit button" type="submit">Confirm</button>
         {% csrf_token %}
-        <button type="submit">Confirm</button>
     </form>
-{% else %}
+    {% else %}
+    <h1 class="ui dividing header">
     {% url 'account_email' as email_url %}
-    <p>This e-mail confirmation link expired or is invalid. Please <a href="{{ email_url }}">issue a new e-mail confirmation request</a>.</p>
-{% endif %}
-
+    This e-mail confirmation link expired or is invalid. Please <a href="{{ email_url }}">issue a new e-mail confirmation request</a>.
+    </h1>
+    {% endif %}
+</div>
 {% endblock %}

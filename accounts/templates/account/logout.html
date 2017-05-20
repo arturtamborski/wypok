@@ -5,8 +5,8 @@ Log out
 {% endblock %}
 
 {% block content %}
-<div class="ui column stackable center aligned grid">
-    <form class="ui four wide column form segment" method="post" action="{% url 'account_logout' %}">
+<div class="ui segment">
+    <form class="ui form" method="post" action="{% url 'account_logout' %}">
         <h1 class="ui dividing header">
             Are you sure you want to log out?
         </h1>

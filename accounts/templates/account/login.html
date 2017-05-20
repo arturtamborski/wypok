@@ -5,9 +5,8 @@ Log in!
 {% endblock %}
 
 {% block content %}
-
-<div class="ui column stackable center aligned grid">
-    <form class="ui four wide column form segment" method="post" action="{% url 'account_login' %}">
+<div class="ui segment">
+    <form class="ui form" method="post" action="{% url 'account_login' %}">
         <h1 class="ui dividing header">
             Log in
         </h1>
@@ -21,20 +20,19 @@ Log in!
             <input name="password" type="password" required="">
             {{ form.password.errors }}
         </div>
-
-        <button class="ui green fluid submit button" type="submit">Log in!</button>
-
-        <div class="ui ignored toggle animation checkbox">
-            <input name="remember" type="checkbox">
-            <label>Remember Me?</label>
-        </div>
-
-        <a href="{% url 'account_reset_password' %}">Password reset</a>
-
         {% if redirect_field_value %}
-            <input class="hidden" type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        <input class="hidden" type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
         {% csrf_token %}
+
+        <div class="ui grid">
+            <div class="twelve wide column">
+                <button class="ui green fluid submit button" type="submit">Log in!</button>
+            </div>
+            <div class="four wide column">
+                <a href="{% url 'account_reset_password' %}" class="ui fluid button link">Reset my password</a>
+            </div>
+        </div>
     </form>
 </div>
 {% endblock %}
