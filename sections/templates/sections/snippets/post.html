@@ -1,13 +1,25 @@
-<article>
-    <a href="{% if detail %}{{ post.link }}{% else %}{{ post.get_absolute_url }}{% endif %}">
-        <h3>
-            {{ post.title }}
-        </h3>
-    </a>
-    by <a href="{{ post.author.profile.get_absolute_url }}"> {{ post.author }} </a> at {{ post.date|date:"l, j E Y" }}
-    {% if detail %}
-    <div>
-        {{ post.content_html|safe }}
+<div class="stackable item">
+    <div class="image">
+        <img src="/media/banana.jpg">
     </div>
-    {% endif %}
-</article>
+    <div class="content">
+        <a href="{% if detail %}{{ post.link }}{% else %}{{ post.get_absolute_url }}{% endif %}" class="header"><h2>{{ post.title }}</h2></a>
+        <div class="meta">
+            by <a href="{{ post.author.profile.get_absolute_url }}" class="mystate-{{ post.author.profile.state }}">{{ post.author }}</a> at {{ post.date|date:"l, j E Y" }}
+        </div>
+        {% if not detail %}
+        <div class="description">
+            <p>{{ post.content_html|truncatewords_html:60|safe }}</p>
+        </div>
+        {% else %}
+        <div class="extra">
+            {% ifequal post.author request.user %}
+            <a href="{% url 'sections:edit_post' section post.id post.slug %}" class="ui button link">edit post</a>
+            {% endifequal %}
+        </div>
+        <div class="description">
+            <p>{{ post.content_html|safe }}</p>
+        </div>
+        {% endif %}
+    </div>
+</div>

@@ -1,4 +1,11 @@
-<div>
-    {{ section.name }}
-    {{ section.description_html|safe }}
+<div class="ui segment">
+    <div class="content">
+        <h3 class="ui dividing header">{{ section.name }}</h3>
+        <div class="description">
+            <p>{{ section.description_html|safe }}</p>
+        </div>
+        <div class="extra">
+            <a href="{% url 'sections:new_post' section %}" class="ui button link">ADD NEW POST</a>
+        </div>
+    </div>
 </div>

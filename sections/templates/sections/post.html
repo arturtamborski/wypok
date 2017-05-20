@@ -5,7 +5,8 @@
 {% endblock %}
 
 {% block content %}
-    {% include 'sections/snippets/header.html' %}
+    <div class="ui divided items segment">
     {% include 'sections/snippets/post.html' with detail=True %}
+    </div>
     {% include 'sections/snippets/comments.html' %}
 {% endblock %}

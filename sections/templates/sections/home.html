@@ -5,8 +5,10 @@ Wykopalisko
 {% endblock %}
 
 {% block content %}
-    {% include 'sections/snippets/header.html' %}
+    {% include 'sections/snippets/header.html' with detail=False %}
+    <div class="ui divided items segment">
     {% for post in posts %}
         {% include 'sections/snippets/post.html' with detail=False %}
     {% endfor %}
+    </div>
 {% endblock %}
