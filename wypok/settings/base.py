@@ -2,6 +2,7 @@ from os import path, environ
 from datetime import datetime
 from decouple import config, Csv
 
+
 # Main settings
 SITE_ID                     = 1
 NAME                        = config('NAME')
@@ -16,6 +17,7 @@ ALLOWED_HOSTS               = ['127.0.0.1', 'localhost'] if DEBUG else config('A
 SCHEME                      = 'http' if DEBUG else 'https'
 FQDN                        = ALLOWED_HOSTS[0]
 
+
 # Globalization
 LANGUAGE_CODE               = 'en-us'
 TIME_ZONE                   = 'UTC'
@@ -23,6 +25,7 @@ USE_I18N                    = True
 USE_L10N                    = True
 USE_TZ                      = True
 LANGUAGES                   = [('en', 'English'), ('pl', 'Polish')]
+
 
 # Static and media
 STATIC_ROOT                 = path.join(BASE_DIR, 'static')
@@ -32,6 +35,7 @@ MEDIA_URL                   = '/media/'
 FILE_UPLOAD_PERMISSIONS     = 0o644
 FILE_UPLOAD_MAX_MEMORY_SIZE = (1024 * 1024) * 5 # 5.MB
 DATA_UPLOAD_MAX_MEMORY_SIZE = FILE_UPLOAD_MAX_MEMORY_SIZE
+
 
 # Email
 DEFAULT_FROM_EMAIL          = 'wypok@' + FQDN
@@ -52,6 +56,7 @@ EMAIL_SUBJECT_PREFIX        = NAME + ' - '
 if EMAIL_FILE_PATH[0] != '/':
     EMAIL_FILE_PATH = path.join(BASE_DIR, EMAIL_FILE_PATH)
 
+
 # Database
 DB_ENGINE                   = config('DB_ENGINE')
 DB_NAME                     = config('DB_NAME')
@@ -60,12 +65,14 @@ DB_PASSWORD                 = config('DB_PASSWORD')
 DB_HOST                     = config('DB_HOST')
 DB_PORT                     = config('DB_PORT')
 
+
 # Cache
 CACHE_BACKEND               = config('CACHE_BACKEND')
 CACHE_LOCATION              = config('CACHE_LOCATION', cast=Csv())
 CACHE_KEY_PREFIX            = config('CACHE_KEY_PREFIX')
 CACHE_TIMEOUT               = config('CACHE_TIMEOUT', cast=int)
 CACHE_TTL                   = config('CACHE_TTL', cast=int)
+
 
 # Accounts
 LOGIN_URL                   = 'account_login'
@@ -76,13 +83,14 @@ ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
 ACCOUNT_LOGOUT_ON_GET           = True
 ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
 
+AUTH_USER_MODEL                 = 'auth.User'
 ACCOUNT_ADAPTER                 = 'allauth.account.adapter.DefaultAccountAdapter'
 SOCIALACCOUNT_ADAPTER           = 'allauth.socialaccount.adapter.DefaultSocialAccountAdapter'
 
 ACCOUNT_DEFAULT_HTTP_PROTOCOL   = SCHEME
 ACCOUNT_AUTHENTICATION_METHOD   = 'username_email'
 ACCOUNT_USERNAME_MIN_LENGTH     = 4
-ACCOUNT_USERNAME_VALIDATORS     = 'accounts.validators.validators'
+ACCOUNT_USERNAME_VALIDATORS     = 'profiles.validators.validators'
 ACCOUNT_USERNAME_BLACKLIST      = []
 
 ACCOUNT_EMAIL_REQUIRED          = True
@@ -115,6 +123,10 @@ AUTH_PASSWORD_VALIDATORS = [
     { 'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', },
 ]
 
+
+DEFAULT_SECTION = 'link'
+
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -125,9 +137,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
 
-    'sections',
-    'accounts',
     'wypok',
+    'profiles',
+    'sections',
+    'posts',
+    'comments',
 
     'allauth',
     'allauth.account',
@@ -135,6 +149,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.cache.UpdateCacheMiddleware',
@@ -149,6 +164,7 @@ MIDDLEWARE = [
 
     'wypok.cache.DontCacheMiddleware',
 ]
+
 
 TEMPLATES = [
     {
@@ -168,9 +184,17 @@ TEMPLATES = [
 
                 'sections.context_processors.sections',
             ],
+
+            'builtins': [
+                'wypok.templatetags.markup',
+                'wypok.templatetags.prettify',
+                'posts.templatetags.posts',
+                'comments.templatetags.comments',
+            ],
         },
     },
 ]
+
 
 DATABASES = {
     'default': {
@@ -183,6 +207,7 @@ DATABASES = {
     },
 }
 
+
 CACHES = {
     'default': {
         'BACKEND':  CACHE_BACKEND,
@@ -191,6 +216,7 @@ CACHES = {
         'KEY_PREFIX': CACHE_KEY_PREFIX,
     },
 }
+
 
 LOGGING = {
     'version': 1,

@@ -1,7 +1,8 @@
 from django import template
 from django.template.defaultfilters import stringfilter
 from django.utils.safestring import mark_safe
-from ..markup import markup as markup_func
+
+from wypok.markup import markup as markup_func
 
 
 register = template.Library()
