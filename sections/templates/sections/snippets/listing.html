@@ -1,0 +1,10 @@
+{% for section in sections %}
+<div class="ui segment">
+    <div class="content">
+        <h1 class="ui dividing header"><a class="header" href="{% url 'sections:detail' section %}">{{ section|prettify }}</a></h1>
+        <div class="description">
+            <p>{{ section.description_html|safe }}</p>
+        </div>
+    </div>
+</div>
+{% endfor %}

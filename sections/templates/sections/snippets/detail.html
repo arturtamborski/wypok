@@ -1,0 +1,15 @@
+<div class="ui segment">
+    <div class="content">
+        <h1 class="ui dividing header"><a class="header" href="{% url 'sections:detail' section %}">{{ section|prettify }}</a></h1>
+        <div class="description">
+            <p>{{ section.description_html|safe }}</p>
+        </div>
+        <div class="actions">
+            {% ifequal section.admin request.user %}
+            <a href="{% url 'sections:posts:create' section %}" class="ui button link">add new post</a>
+            <a href="{% url 'sections:update' section %}" class="ui button link">edit</a>
+            <a href="{% url 'sections:delete' section %}" class="ui button link">delete</a>
+            {% endifequal %}
+        </div>
+    </div>
+</div>

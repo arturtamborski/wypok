@@ -1,0 +1,10 @@
+<div class="ui segment">
+    <form method="post" action="{% url 'sections:delete' section %}" class="ui form">
+        {% csrf_token %}
+        <h1 class="ui dividing header">Delete {{ section|prettify }}?</h1>
+        {{ form.as_p }}
+        <button type="submit" class="ui green fluid submit button">Yes</button>
+        <p></p>
+        <a href="{% url 'sections:detail' section %}" class="ui red fluid submit button">No</a>
+    </form>
+</div>
