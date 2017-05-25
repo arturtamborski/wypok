@@ -1,0 +1,26 @@
+<div class="ui comments segment">
+{% for comment in comments %}
+<div class="comment" id="{{ comment }}">
+    <a class="avatar">
+        <img class="mygender-{{ comment.author.profile.gender }}" src="/media/banana.jpg">
+    </a>
+    <div class="content">
+        <a href="{% url 'profiles:detail' comment.author %}" class="author mystate-{{ comment.author.profile.state }}">{{ comment.author }}</a>
+        <div class="metadata">
+            <span class="date">{{ comment.posted_date }}</span>
+        </div>
+        <div class="text">
+            {% load static %}
+            {{ comment.content_html|safe }}
+        </div>
+        <div class="actions">
+            {% ifequal comment.author.username request.user %}
+            <a href="{% url 'sections:posts:comments:update' comment.post.section comment.post.id comment.post.slug comment %}" class="reply">Edit</a>
+            <a href="{% url 'sections:posts:comments:delete' comment.post.section comment.post.id comment.post.slug comment %}" class="reply">Delete</a>
+            {% endifequal %}
+            <a class="reply">Reply</a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+</div>

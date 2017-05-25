@@ -1,0 +1,10 @@
+<div class="ui segment">
+    <form method="post" action="{% url 'sections:posts:comments:delete' comment.post.section comment.post.id comment.post.slug comment %}" class="ui form">
+        {% csrf_token %}
+        <h1 class="ui dividing header">Delete comment {{ comment|prettify }}</h1>
+        {{ form.as_p }}
+        <button type="submit" class="ui green fluid submit button">Yes</button>
+        <p></p>
+        <a href="{% url 'sections:posts:comments:detail' comment.post.section comment.post.id comment.post.slug comment %}" class="ui red fluid submit button">No</a>
+    </form>
+</div>

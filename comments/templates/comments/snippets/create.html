@@ -1,0 +1,8 @@
+<div class="ui segment">
+    <form method="post" action="{% url 'sections:posts:comments:create' post.section post.id post.slug %}" class="ui form">
+        {% csrf_token %}
+        <textarea name="content" rows="2"></textarea>
+        <p></p>
+        <button type="submit" class="ui green fluid submit button">Send</button>
+    </form>
+</div>
