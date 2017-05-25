@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}
+Delete {{ section|prettify }}{{ post|prettify }}
+{% endblock %}
+
+{% block content %}
+{% include 'posts/snippets/delete.html' %}
+{% endblock %}

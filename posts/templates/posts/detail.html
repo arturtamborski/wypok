@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ section|prettify }}{{ post }}
+{% endblock %}
+
+{% block content %}
+{% include 'posts/snippets/detail.html' %}
+{% render_comments post %}
+{% render_comments_create post %}
+{% endblock %}

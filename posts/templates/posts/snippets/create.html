@@ -1,0 +1,8 @@
+<div class="ui segment">
+    <form method="post" action="{% url 'sections:posts:create' section %}" class="ui form">
+        {% csrf_token %}
+        <h1 class="ui dividing header">Create new post in {{ section|prettify }}</h1>
+        {{ form.as_p }}
+        <button type="submit" class="ui green fluid submit button">Send</button>
+    </form>
+</div>

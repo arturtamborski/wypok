@@ -1,0 +1,22 @@
+<div class="ui divided items segment">
+    <div class="stackable item">
+        <div class="image">
+            <img src="/media/banana.jpg">
+        </div>
+        <div class="content">
+            <h1><a href="{{ post.link }}" class="header">{{ post.title }}</a></h1>
+            <div class="meta">
+                by <a href="{% url 'profiles:detail'  post.author %}" class="mystate-{{ post.author.profile.state }}">{{ post.author }}</a> at {{ post.date|date:"l, j E Y" }}
+            </div>
+            <div class="description">
+                <p>{{ post.content_html|safe }}</p>
+            </div>
+            <div class="actions">
+                {% ifequal post.author request.user %}
+                <a href="{% url 'sections:posts:update' section post.id post.slug %}" class="ui button link">edit</a>
+                <a href="{% url 'sections:posts:delete' section post.id post.slug %}" class="ui button link">delete</a>
+                {% endifequal %}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}
+Create post in {{ section|prettify }}
+{% endblock %}
+
+{% block content %}
+{% include 'posts/snippets/create.html' %}
+{% endblock %}

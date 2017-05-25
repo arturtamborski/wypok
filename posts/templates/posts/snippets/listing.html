@@ -1,0 +1,18 @@
+<div class="ui divided items segment">
+{% for post in posts %}
+    <div class="stackable item">
+        <div class="image">
+            <img src="/media/banana.jpg">
+        </div>
+        <div class="content">
+            <h1><a href="{% url 'sections:posts:detail' section post.id post.slug %}" class="header">{{ post.title }}</a></h1>
+            <div class="meta">
+                by <a href="{% url 'profiles:detail' post.author %}" class="mystate-{{ post.author.profile.state }}">{{ post.author }}</a> at {{ post.date|date:"l, j E Y" }}
+            </div>
+            <div class="description">
+                <p>{{ post.content_html|truncatewords_html:60|safe }}</p>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>

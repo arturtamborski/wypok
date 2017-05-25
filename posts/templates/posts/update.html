@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit {{ section|prettify }}{{ post|prettify }}
+{% endblock %}
+
+{% block content %}
+{% include 'posts/snippets/update.html' %}
+{% endblock %}
