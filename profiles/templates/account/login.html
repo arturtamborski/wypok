@@ -7,6 +7,7 @@ Log in!
 {% block content %}
 <div class="ui segment">
     <form class="ui form" method="post" action="{% url 'account_login' %}">
+        {% csrf_token %}
         <h1 class="ui dividing header">
             Log in
         </h1>
@@ -23,16 +24,10 @@ Log in!
         {% if redirect_field_value %}
         <input class="hidden" type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
-        {% csrf_token %}
 
-        <div class="ui grid">
-            <div class="twelve wide column">
-                <button class="ui green fluid submit button" type="submit">Log in!</button>
-            </div>
-            <div class="four wide column">
-                <a href="{% url 'account_reset_password' %}" class="ui fluid button link">Reset my password</a>
-            </div>
-        </div>
+        <button class="ui green fluid submit button" type="submit">Log in!</button>
+        <p></p>
+        <a href="{% url 'account_reset_password' %}" class="ui fluid button link">Reset my password</a>
     </form>
 </div>
 {% endblock %}

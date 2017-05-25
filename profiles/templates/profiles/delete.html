@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}
+Delete {{ profile|prettify }}
+{% endblock %}
+
+{% block content %}
+{% include 'profiles/snippets/delete.html' %}
+{% endblock %}

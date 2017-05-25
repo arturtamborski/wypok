@@ -1,17 +1,10 @@
-{% extends "base.html" %}
-
-{% block title %}
-@{{ profile }}'s profile
-{% endblock %}
-
-{% block content %}
 <div class="ui items segment">
     <div class="stackable item">
         <div class="image">
             <img src="/media/banana.jpg" class="mygender-{{ profile.gender }}">
         </div>
         <div class="content">
-            <h2 class="header mystate-{{ profile.state }}">{{ profile.user.username }}</h2>
+            <h2 class="header mystate-{{ profile.state }}">{{ profile|prettify }}</h2>
             <div class="meta">
                 <div class="ui list">
                     <div class="item">Gender: {{ profile.get_gender_display }}</div>
@@ -22,12 +15,12 @@
             <div class="description">
                 {{ profile.description_html|safe }}
             </div>
-            <div class="extra">
+            <div class="actions">
                 {% ifequal profile.user request.user %}
-                <a href="{% url 'accounts:edit' profile %}" class="ui button link">EDIT</a>
+                <a href="{% url 'profiles:update' profile %}" class="ui button link">edit</a>
+                <a href="{% url 'profiles:delete' profile %}" class="ui button link">delete</a>
                 {% endifequal %}
             </div>
         </div>
     </div>
 </div>
-{% endblock %}

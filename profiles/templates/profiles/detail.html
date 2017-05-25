@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ profile|prettify }}'s profile
+{% endblock %}
+
+{% block content %}
+{% include 'profiles/snippets/detail.html' %}
+{% endblock %}

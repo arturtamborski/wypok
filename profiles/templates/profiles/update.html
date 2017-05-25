@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit {{ profile|prettify }}
+{% endblock %}
+
+{% block content %}
+{% include 'profiles/snippets/update.html' %}
+{% endblock %}
