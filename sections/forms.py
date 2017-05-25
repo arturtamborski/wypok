@@ -1,7 +1,21 @@
 from django import forms
-from . import models
 
-class PostForm(forms.ModelForm):
+from sections.models import Section
+
+
+class SectionCreateForm(forms.ModelForm):
     class Meta:
-        model = models.Post
-        fields = ('title', 'link', 'content',)
+        model = Section
+        fields = ('name', 'description',)
+
+
+class SectionUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Section
+        fields = ('description',)
+
+
+class SectionDeleteForm(forms.ModelForm):
+    class Meta:
+        model = Section
+        fields = ()

@@ -1,94 +1,36 @@
-from django.db import models
 from django.utils.text import slugify
-from django.utils.safestring import mark_safe
 from django.core.urlresolvers import reverse
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.db import models
-from wypok.markup import markup
 
+from wypok.markup import markup
+from sections.validators import section_name_validator
+from django.core.validators import RegexValidator
 
 
 class SectionQuerySet(models.QuerySet):
-    def get_section(self, name):
-        return Section.objects.get(name=name)
-
-    def section_exists(self, name):
-        return Section.objects.filter(name=name).exists()
-
+    pass
 
 
 class Section(models.Model):
     objects = SectionQuerySet.as_manager()
 
-    admin   = models.ForeignKey(User, on_delete=models.CASCADE)
-    name    = models.SlugField(max_length=64)
-    description     = models.TextField()
-    description_html= models.TextField(editable=False, blank=True)
+    admin = models.ForeignKey(get_user_model(), default='1')
+    name = models.SlugField(max_length=20, validators=[section_name_validator])
+    description = models.TextField()
+    description_html = models.TextField(editable=False, blank=True)
 
     def __str__(self):
         return self.name
 
     def save(self, *args, **kwargs):
         self.description_html = markup(self.description)
+
+        self.full_clean()
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('sections:home', args=[self.name])
+        return reverse('sections:detail', args=[self.name])
 
-
-
-class PostQuerySet(models.QuerySet):
-    def get_post(self, id):
-        return Post.objects.get(id=id)
-
-    def get_posts(self, section):
-        return Post.objects.filter(section__name=section).order_by('-date')
-
-
-
-class Post(models.Model):
-    objects = PostQuerySet.as_manager()
-
-    section = models.ForeignKey(Section, on_delete=models.CASCADE)
-    author  = models.ForeignKey(User, on_delete=models.CASCADE)
-    title   = models.CharField(max_length=256)
-    slug    = models.SlugField(editable=False)
-    link    = models.URLField(max_length=256, default='', blank=True)
-    date    = models.DateTimeField(auto_now_add=True, editable=False)
-    content = models.TextField()
-    content_html = models.TextField(editable=False, blank=True)
-
-    def __str__(self):
-        return self.title
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
-        self.content_html = markup(self.content)
-        super().save(*args, **kwargs)
-
-    def get_absolute_url(self):
-        return reverse('sections:post', args=[self.section, self.id, self.slug])
-
-
-
-class CommentQuerySet(models.QuerySet):
-    pass
-
-
-
-class Comment(models.Model):
-    objects = CommentQuerySet.as_manager()
-
-    parent = models.ForeignKey(Post)
-    author = models.ForeignKey(User)
-
-    date = models.DateTimeField(auto_now_add=True, editable=False)
-    content = models.TextField()
-    content_html = models.TextField(editable=False, blank=True)
-
-    def __str__(self):
-        return self.content
-
-    def save(self, *args, **kwargs):
-        self.content_html = markup(self.content)
-        super().save(*args, **kwargs)
+    def prettify(self):
+        return '/%s/' % self.name
