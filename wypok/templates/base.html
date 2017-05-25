@@ -15,8 +15,7 @@
         {% endcomment %} -->
 
         {% load static %}
-        <!-- <link rel="stylesheet" href="{% static '/css/semantic.min.css' %}"> -->
-        <link rel="stylesheet" href="https://semantic-ui.com/dist/semantic.min.css">
+        <link rel="stylesheet" href="{% static '/css/semantic.min.css' %}">
         <style>
             .ui.comments{max-width:100%}
             .myhidden {display: none}
@@ -25,16 +24,16 @@
             .mystate-O{color:orangered !important}
             .mystate-D{color:darkgray !important}
             .mystate-B{color:dimgray !important}
-            .mygender-M{border:6px solid lightblue !important}
-            .mygender-F{border:6px solid lightpink !important}
-            .mygender-H{border:6px solid lightgray !important}
+            .mygender-M{outline:4px solid lightblue !important}
+            .mygender-F{outline:4px solid lightpink !important}
+            .mygender-H{outline:4px solid lightgray !important}
         </style>
     </head>
     <body>
         <header class="ui stackable menu container">
             <a href="{% url 'sections:home' %}" class="brand item">wypok.com</a>
             {% for section in sections %}
-            <a href="{{ section.get_absolute_url }}" class="item">{{ section }}</a>
+            <a href="{{ section.get_absolute_url }}" class="brand item">{{ section|prettify }}</a>
             {% endfor %}
             <div class="right menu">
                 <div class="ui category search item">
@@ -44,7 +43,7 @@
                     </div>
                 </div>
                 {% if user.is_authenticated %}
-                <a href="{% url 'accounts:show' user.username %}" class="item">{{ user.username }}</a>
+                <a href="{% url 'profiles:detail' user %}" class="item">{{ user.username }}</a>
                 <a href="{% url 'account_logout' %}" class="item">Log out</a>
                 {% else %}
                 <a href="{% url 'account_login' %}" class="item">Log in</a>
@@ -60,9 +59,7 @@
                 </div>
                 <div class="four wide stretched column segment">
                     <div class="ui segment">
-                        <p>
-                        {% lorem 2 %}
-                    </p>
+                        Tags:
                     </div>
                 </div>
             </div>
@@ -71,7 +68,7 @@
         <footer class="ui stackable center aligned footer container segment">
             Copyright &copy; <a href="https://arturtamborski.pl">Artur Tamborski</a> 2017
         </footer>
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="{% static '/js/jquery.min.js' %}"></script>
         <script src="{% static '/js/semantic.min.js' %}"></script>
     </body>
 </html>
