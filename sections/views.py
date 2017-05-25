@@ -1,74 +1,80 @@
 from allauth.account.decorators import verified_email_required as login_required
-from django.conf import settings
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.urls import reverse
-from django.http import HttpResponseNotFound, Http404
+from django.conf import settings
+
 from wypok.cache import mark_for_caching
-from . import models
-from . import forms
-
-def check_section(section):
-    if not models.Section.objects.section_exists(section):
-        raise Http404
+from sections.models import Section
+from sections.forms import SectionCreateForm, SectionUpdateForm, SectionDeleteForm
 
 
-@mark_for_caching
-def home(request, section=None):
-    if section is None:
-        return redirect('sections:home', 'all')
-    check_section(section)
-
-    section = models.Section.objects.get_section(section)
-    posts   = models.Post.objects.get_posts(section)
-    return render(request, 'sections/home.html', {'section': section, 'posts': posts})
+def home(request):
+    return redirect('sections:detail', settings.DEFAULT_SECTION)
 
 
-@mark_for_caching
-def post(request, section, id, slug=None):
-    check_section(section)
+def detail(request, section):
+    section = get_object_or_404(Section, name=section)
 
-    section = models.Section.objects.get_section(section)
-    post    = models.Post.objects.get_post(id)
-    if slug is None:
-        return redirect(post)
-    return render(request, 'sections/post.html', {'section': section, 'post': post})
+    return render(request, 'sections/detail.html', dict(
+        section = section,
+    ))
+
+
+def listing(request):
+    sections = get_list_or_404(Section)
+
+    return render(request, 'sections/listing.html', dict(
+        sections = sections,
+    ))
 
 
 @login_required
-def new_post(request, section):
-    check_section(section)
+def create(request):
+    form = SectionCreateForm()
 
-    form = forms.PostForm()
     if request.method == 'POST':
-        form = forms.PostForm(request.POST)
+        form = SectionCreateForm(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.section = models.Section.objects.get_section(section)
-            post.save()
-            return redirect(post)
+            section = form.save(commit=False)
+            section.admin = request.user
+            section.save()
+            return redirect(section)
 
-    return render(request, 'sections/update.html', {'section': section, 'form': form, 'new': True})
+    return render(request, 'sections/create.html', dict(
+        form = form,
+    ))
 
 
 @login_required
-def edit_post(request, section, id, slug=None):
-    check_section(section)
+def update(request, section):
+    section = get_object_or_404(Section, name=section)
+    form = SectionUpdateForm(instance=section)
 
-    section = models.Section.objects.get_section(section)
-    post    = models.Post.objects.get_post(id)
-
-    if str(post.author) != str(request.user):
-        return redirect(post)
-
-    if slug is None:
-        return redirect('sections:edit_post', kwargs={'section': section, 'id': id, 'slug': post.slug})
-
-    form = forms.PostForm(instance=post)
     if request.method == 'POST':
-        form = forms.PostForm(request.POST, instance=post)
+        form = SectionUpdateForm(request.POST, instance=section)
         if form.is_valid():
-            post = form.save()
-            return redirect(post)
+            section = form.save()
+            section.save()
+            return redirect(section)
 
-    return render(request, 'sections/update.html', {'section': section, 'post': post, 'form': form})
+    return render(request, 'sections/update.html', dict(
+        section = section,
+        form = form,
+    ))
+
+
+@login_required
+def delete(request, section):
+    section = get_object_or_404(Section, name=section)
+    form = SectionDeleteForm(instance=section)
+
+    if request.method == 'POST':
+        form = SectionDeleteForm(request.POST, instance=section)
+        if form.is_valid():
+            section.delete()
+            return redirect('sections:home')
+
+    return render(request, 'sections/delete.html', dict(
+        section = section,
+        form = form,
+    ))

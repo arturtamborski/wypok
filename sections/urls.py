@@ -1,15 +1,20 @@
-from django.conf.urls import url
-from . import views
-from . import apps
+from django.conf.urls import include, url
+
+from sections.views import home, detail, listing, create, update, delete
+from sections.apps import SectionsConfig
 
 
-app_name = apps.SectionsConfig.name
+app_name = SectionsConfig.name
 urlpatterns = [
-    url(r'^$', views.home, name='home'),
-    url(r'^(?P<section>[-a-zA-Z0-9_]+)/$', views.home, name='home'),
-    url(r'^(?P<section>[-a-zA-Z0-9_]+)/new/$', views.new_post, name='new_post'),
-    url(r'^(?P<section>[-a-zA-Z0-9_]+)/(?P<id>[0-9]+)/$', views.post, name='post'),
-    url(r'^(?P<section>[-a-zA-Z0-9_]+)/(?P<id>[0-9]+)/edit/$', views.edit_post, name='edit_post'),
-    url(r'^(?P<section>[-a-zA-Z0-9_]+)/(?P<id>[0-9]+)/(?P<slug>[-a-zA-Z0-9_]+)/$', views.post, name='post'),
-    url(r'^(?P<section>[-a-zA-Z0-9_]+)/(?P<id>[0-9]+)/(?P<slug>[-a-zA-Z0-9_]+)/edit/$', views.edit_post, name='edit_post'),
+    url(r'^$', listing, name='listing'),
+    url(r'^$', home, name='home'),
+    url(r'^new/$', create, name='create'),
+
+    url(r'^(?P<section>[a-zA-Z][a-zA-Z0-9]+)/', include([
+        url(r'^$', detail, name='detail'),
+        url(r'^edit/$', update, name='update'),
+        url(r'^delete/$', delete, name='delete'),
+
+        url(r'^', include('posts.urls')),
+    ])),
 ]
