@@ -1,11 +1,8 @@
 from django.contrib import admin
-from . import models
+
+from sections.models import Section
 
 
-@admin.register(models.Section)
+@admin.register(Section)
 class SectionAdmin(admin.ModelAdmin):
-    pass
-
-@admin.register(models.Post)
-class PostAdmin(admin.ModelAdmin):
     pass

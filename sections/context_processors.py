@@ -1,6 +1,7 @@
-from . import models
+from sections.models import Section
 
 
 def sections(request):
-    sections = models.Section.objects.all()
-    return {'sections': sections}
+    return dict(
+        sections = Section.objects.all(),
+    )
