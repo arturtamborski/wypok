@@ -1,7 +1,8 @@
 from debug_toolbar.settings import PANELS_DEFAULTS
 from django.utils.log import DEFAULT_LOGGING
 from django.utils import six
-from .base import *
+
+from wypok.settings.base import *
 
 
 LOGGING = DEFAULT_LOGGING

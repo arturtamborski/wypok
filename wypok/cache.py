@@ -3,9 +3,11 @@
 from django.utils.deprecation import MiddlewareMixin
 from functools import wraps
 
+
 class DontCacheMiddleware(MiddlewareMixin):
     def process_request(self, request):
         request._cache_update_cache = False
+
 
 def mark_for_caching(func):
     @wraps(func)
