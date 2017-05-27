@@ -2,9 +2,9 @@ import re
 from django.core.validators import RegexValidator
 
 
-profile_name_validator = RegexValidators(
+profile_name_validator = RegexValidator(
     r'^[a-zA-Z][a-zA-Z0-9-_]{3,19}$',
-    'This field must start with a letter. Length should be between 4 and 20 characters'
+    'This field must start with a letter. Length should be between 4 and 20 characters',
     code='invalid'
 )
 

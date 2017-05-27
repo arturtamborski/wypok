@@ -21,8 +21,8 @@ Confirm email
     {% else %}
     <h1 class="ui dividing header">
     {% url 'account_email' as email_url %}
-    This e-mail confirmation link expired or is invalid. Please <a href="{{ email_url }}">issue a new e-mail confirmation request</a>.
-    </h1>
+    This e-mail confirmation link expired or is invalid</h1>
+    Please <a href="{{ email_url }}">issue a new e-mail confirmation request</a>.
     {% endif %}
 </div>
 {% endblock %}
