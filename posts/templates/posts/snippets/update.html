@@ -1,5 +1,5 @@
 <div class="ui segment">
-    <form method="post" action="{% url 'sections:posts:update' section post.id post.slug %}" class="ui form">
+    <form method="post" action="{% url 'sections:posts:update' post.section post.id post.slug %}" class="ui form">
         {% csrf_token %}
         <h1 class="ui dividing header">Edit {{ post|prettify }}</h1>
         {{ form.as_p }}

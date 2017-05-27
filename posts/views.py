@@ -2,6 +2,7 @@ from allauth.account.decorators import verified_email_required as login_required
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.urls import reverse
 
+from wypok.decorators import ownership_required
 from sections.models import Section
 from posts.models import Post
 from posts.forms import PostCreateForm, PostUpdateForm, PostDeleteForm
@@ -32,6 +33,7 @@ def listing(request, section, id, slug):
     ))
 
 
+@login_required
 def create(request, section):
     section = get_object_or_404(Section, name=section)
 
@@ -52,41 +54,37 @@ def create(request, section):
 
 
 @login_required
+@ownership_required(Post, id='id')
 def update(request, section, id, slug):
-    section = get_object_or_404(Section, name=section)
-    post = get_object_or_404(Post, id=id)
+    post = id
 
     form = PostUpdateForm(instance=post)
     if request.method == 'POST':
         form = PostUpdateForm(request.POST, instance=post)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.section = section
-            post.save()
+            post = form.save()
             return redirect(post)
 
     return render(request, 'posts/update.html', dict(
-        section = section,
         post = post,
         form = form,
     ))
 
 
 @login_required
+@ownership_required(Post, id='id')
 def delete(request, section, id, slug):
-    section = get_object_or_404(Section, name=section)
-    post = get_object_or_404(Post, id=id)
+    post = id
 
     form = PostDeleteForm(instance=post)
     if request.method == 'POST':
         form = PostDeleteForm(request.POST, instance=post)
         if form.is_valid():
+            section = post.section
             post.delete()
             return redirect('sections:detail', section)
 
     return render(request, 'posts/delete.html', dict(
-        section = section,
         post = post,
         form = form,
     ))

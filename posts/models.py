@@ -41,3 +41,6 @@ class Post(models.Model):
 
     def prettify(self):
         return self.title
+
+    def is_owner(self, request):
+        return self.author == request.user

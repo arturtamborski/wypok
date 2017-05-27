@@ -13,8 +13,8 @@
             </div>
             <div class="actions">
                 {% ifequal post.author request.user %}
-                <a href="{% url 'sections:posts:update' section post.id post.slug %}" class="ui button link">edit</a>
-                <a href="{% url 'sections:posts:delete' section post.id post.slug %}" class="ui button link">delete</a>
+                <a href="{% url 'sections:posts:update' post.section post.id post.slug %}" class="ui button link">edit</a>
+                <a href="{% url 'sections:posts:delete' post.section post.id post.slug %}" class="ui button link">delete</a>
                 {% endifequal %}
             </div>
         </div>
