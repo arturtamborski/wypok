@@ -1,8 +1,8 @@
 from django import template
+from django.conf import settings
 
 
-PRETTIFY_CALLABLE = 'prettify'
-
+PRETTIFY_CALLABLE = getattr(settings, 'PRETTIFY_CALLABLE', 'prettify')
 
 register = template.Library()
 
