@@ -35,3 +35,6 @@ class Section(models.Model):
 
     def prettify(self):
         return '/%s/' % self.name
+
+    def is_owner(self, request):
+        return self.admin == request.user

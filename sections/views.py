@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.conf import settings
 
 from wypok.cache import mark_for_caching
+from wypok.decorators import ownership_required
 from sections.models import Section
 from sections.forms import SectionCreateForm, SectionUpdateForm, SectionDeleteForm
 
@@ -48,15 +49,14 @@ def create(request):
 
 
 @login_required
+@ownership_required(Section, name='section')
 def update(request, section):
-    section = get_object_or_404(Section, name=section)
     form = SectionUpdateForm(instance=section)
 
     if request.method == 'POST':
         form = SectionUpdateForm(request.POST, instance=section)
         if form.is_valid():
             section = form.save()
-            section.save()
             return redirect(section)
 
     return render(request, 'sections/update.html', dict(
@@ -66,8 +66,8 @@ def update(request, section):
 
 
 @login_required
+@ownership_required(Section, name='section')
 def delete(request, section):
-    section = get_object_or_404(Section, name=section)
     form = SectionDeleteForm(instance=section)
 
     if request.method == 'POST':
