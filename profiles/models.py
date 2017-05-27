@@ -11,7 +11,6 @@ class ProfileQuerySet(models.QuerySet):
 
 
 class Profile(models.Model):
-
     NOT_ACTIVATED   = 'N'
     YOUNG           = 'Y'
     OLD             = 'O'
@@ -56,3 +55,6 @@ class Profile(models.Model):
 
     def prettify(self):
         return '@%s' % self.user.username
+
+    def is_owner(self, request, profile):
+        return request.user.username == profile
