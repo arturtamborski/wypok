@@ -11,7 +11,7 @@ Confirm email
         <h1 class="ui dividing header">
         {% with confirmation.email_address.user as user_display %}
         {% with confirmation.email_address_email as email %}
-        Confirm that <ahref="mailto:{{ email }}">{{ email }}</a> is an e-mail address for user {{ user_display }}
+        Confirm e-mail address for user {{ user_display }}
         {% endwith %}
         {% endwith %}
         </h1>

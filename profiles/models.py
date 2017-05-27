@@ -56,5 +56,5 @@ class Profile(models.Model):
     def prettify(self):
         return '@%s' % self.user.username
 
-    def is_owner(self, request, profile):
-        return request.user.username == profile
+    def is_owner(self, request):
+        return self.user == request.user

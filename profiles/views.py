@@ -18,11 +18,10 @@ def detail(request, profile):
 
 
 @login_required
-@ownership_required(Profile)
+@ownership_required(Profile, user__username='profile')
 def update(request, profile):
-    profile = get_object_or_404(Profile, user__username=profile)
-
     form = ProfileUpdateForm(instance=profile)
+
     if request.method == 'POST':
         form = ProfileUpdateForm(request.POST, instance=profile)
         if form.is_valid():
@@ -36,15 +35,14 @@ def update(request, profile):
 
 
 @login_required
-@ownership_required(Profile)
+@ownership_required(Profile, user__username='profile')
 def delete(request, profile):
-    profile = get_object_or_404(Profile, user__username=profile)
-    user = get_object_or_404(get_user_model(), username=profile)
-
     form = ProfileDeleteForm(instance=profile)
+
     if request.method == 'POST':
         form = ProfileDeleteForm(request.POST, instance=profile)
         if form.is_valid():
+            user = profile.user
             profile.delete()
             user.delete()
             return redirect('sections:home')
