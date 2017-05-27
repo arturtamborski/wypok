@@ -1,3 +1,4 @@
+{% if comments %}
 <div class="ui comments segment">
 {% for comment in comments %}
 <div class="comment" id="{{ comment }}">
@@ -24,3 +25,4 @@
 </div>
 {% endfor %}
 </div>
+{% endif %}
