@@ -37,3 +37,6 @@ class Comment(models.Model):
 
     def prettify(self):
         return '#%s' % self.id
+
+    def is_owner(self, request):
+        return self.author == request.user

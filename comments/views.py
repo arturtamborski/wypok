@@ -2,6 +2,7 @@ from allauth.account.decorators import verified_email_required as login_required
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.urls import reverse
 
+from wypok.decorators import ownership_required
 from sections.models import Section
 from posts.models import Post
 from comments.models import Comment
@@ -22,6 +23,7 @@ def listing(request, section, id, slug):
     ))
 
 
+@login_required
 def create(request, section, id, slug):
     post = get_object_or_404(Post, id=id)
 
@@ -41,19 +43,15 @@ def create(request, section, id, slug):
     ))
 
 
-
+@login_required
+@ownership_required(Comment, id='comment')
 def update(request, section, id, slug, comment):
-    post = get_object_or_404(Post, id=id)
-    comment = get_object_or_404(Comment, id=comment)
-
     form = CommentUpdateForm(instance=comment)
+
     if request.method == 'POST':
         form = CommentUpdateForm(request.POST, instance=comment)
         if form.is_valid():
-            comment = form.save(commit=False)
-            comment.author = request.user
-            comment.post = post
-            comment.save()
+            comment = form.save()
             return redirect(comment)
 
     return render(request, 'comments/update.html', dict(
@@ -62,15 +60,15 @@ def update(request, section, id, slug, comment):
         ))
 
 
-
+@login_required
+@ownership_required(Comment, id='comment')
 def delete(request, section, id, slug, comment):
-    post = get_object_or_404(Post, id=id)
-    comment = get_object_or_404(Comment, id=comment)
 
     form = CommentDeleteForm(instance=comment)
     if request.method == 'POST':
         form = CommentDeleteForm(request.POST, instance=comment)
         if form.is_valid():
+            post = comment.post
             comment.delete()
             return redirect(post)
 
