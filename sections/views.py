@@ -9,7 +9,9 @@ from sections.forms import SectionCreateForm, SectionUpdateForm, SectionDeleteFo
 
 
 def home(request):
-    return redirect('sections:detail', settings.DEFAULT_SECTION)
+    if settings.DEFAULT_SECTION:
+        return redirect('sections:detail', settings.DEFAULT_SECTION)
+    return redirect('sections:listing')
 
 
 def detail(request, section):

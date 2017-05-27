@@ -24,6 +24,7 @@ class Section(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
+        self.name = slugify(self.name)
         self.description_html = markup(self.description)
 
         self.full_clean()

@@ -32,9 +32,11 @@
     <body>
         <header class="ui stackable menu container">
             <a href="{% url 'sections:home' %}" class="brand item">wypok.com</a>
+            {% if sections %}
             {% for section in sections %}
             <a href="{{ section.get_absolute_url }}" class="brand item">{{ section|prettify }}</a>
             {% endfor %}
+            {% endif %}
             <div class="right menu">
                 <div class="ui category search item">
                     <div class="ui transparent icon input">
