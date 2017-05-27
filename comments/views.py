@@ -9,7 +9,9 @@ from comments.forms import CommentCreateForm, CommentUpdateForm, CommentDeleteFo
 
 
 def detail(request, section, id, slug, comment):
-    return listing(request, section, id, slug)
+    return redirect(
+        reverse('sections:posts:comments:listing', args=[section, id, slug]) + '#' + comment
+    )
 
 
 def listing(request, section, id, slug):
