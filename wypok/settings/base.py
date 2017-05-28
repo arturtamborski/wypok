@@ -74,6 +74,12 @@ CACHE_TIMEOUT               = config('CACHE_TIMEOUT', cast=int)
 CACHE_TTL                   = config('CACHE_TTL', cast=int)
 
 
+# Decorators
+PRETTIFY_CALLABLE           = 'prettify'
+OWNERSHIP_REQUIRED_CALLABLE = 'is_owner'
+OWNERSHIP_REQUIRED_PASS_OBJ = True
+
+
 # Accounts
 LOGIN_URL                   = 'account_login'
 LOGIN_REDIRECT_URL          = 'sections:home'
@@ -83,6 +89,7 @@ ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
 ACCOUNT_LOGOUT_ON_GET           = True
 ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
 
+DEFAULT_USER_GROUP              = 'users'
 AUTH_USER_MODEL                 = 'auth.User'
 ACCOUNT_ADAPTER                 = 'allauth.account.adapter.DefaultAccountAdapter'
 SOCIALACCOUNT_ADAPTER           = 'allauth.socialaccount.adapter.DefaultSocialAccountAdapter'

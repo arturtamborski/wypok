@@ -75,3 +75,19 @@ def ownership_required(model, **querys):
             return func(request, *args, **kwargs)
         return wraps(func)(view)
     return decorator
+
+
+def membership_required(groups):
+    def decorator(func):
+        def view(request, *args, **kwargs):
+            result = request.user.groups.filter(name__in=groups).exists()
+
+            if request.user.is_superuser:
+                result = True
+
+            if not result:
+                raise PermissionDenied
+
+            return func(request, *args, **kwargs)
+        return wraps(func)(view)
+    return decorator
