@@ -15,7 +15,7 @@
             {{ comment.content_html|safe }}
         </div>
         <div class="actions">
-            {% ifequal comment.author.user_set request.user %}
+            {% ifequal comment.author request.user %}
             <a href="{% url 'sections:posts:comments:update' comment.post.section comment.post.id comment.post.slug comment %}" class="reply">Edit</a>
             <a href="{% url 'sections:posts:comments:delete' comment.post.section comment.post.id comment.post.slug comment %}" class="reply">Delete</a>
             {% else %}
