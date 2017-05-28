@@ -77,10 +77,10 @@ def ownership_required(model, **querys):
     return decorator
 
 
-def membership_required(groups):
+def membership_required(group):
     def decorator(func):
         def view(request, *args, **kwargs):
-            result = request.user.groups.filter(name__in=groups).exists()
+            result = request.user.groups.filter(name=group).exists()
 
             if request.user.is_superuser:
                 result = True
