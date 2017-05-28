@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Error 500!
+Error 403!
 {% endblock %}
 
 {% block content %}
 <div class="ui segment">
-    <h1 class="ui dividing header">Internal server error</h1>
-    <p>Something went wrong, and we don't know what.</p>
+    <h1 class="ui dividing header">Access forbidden!</h1>
+    <p>You don't have privileges to do this action.</p>
     <a href="{% url 'sections:home' %}" class="ui green fluid button">Take me back!</a>
 </div>
 {% endblock %}

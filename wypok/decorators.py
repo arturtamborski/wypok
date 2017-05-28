@@ -11,8 +11,7 @@ OWNERSHIP_REQUIRED_PASS_OBJ = getattr(settings, 'OWNERSHIP_REQUIRED_PASS_OBJ', T
 def ownership_required(model, **querys):
     """
     ownership_required - decorator for views used for checking ownership of requested object
-    more docs on: https://arturtamborski.pl/ownership_required-decorator-for-function-based-views-in-django/
-
+    https://arturtamborski.pl/posts/ownership_required-decorator-for-function-based-views-in-django/
 
     Params:
         - model - model to check ownership
