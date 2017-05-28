@@ -2,7 +2,7 @@ from allauth.account.decorators import verified_email_required as login_required
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.urls import reverse
 
-from wypok.decorators import ownership_required
+from wypok.decorators import membership_required, ownership_required
 from sections.models import Section
 from posts.models import Post
 from comments.models import Comment
@@ -24,6 +24,7 @@ def listing(request, section, id, slug):
 
 
 @login_required
+@membership_required('users')
 def create(request, section, id, slug):
     post = get_object_or_404(Post, id=id)
 
@@ -44,6 +45,7 @@ def create(request, section, id, slug):
 
 
 @login_required
+@membership_required('users')
 @ownership_required(Comment, id='comment')
 def update(request, section, id, slug, comment):
     form = CommentUpdateForm(instance=comment)
@@ -61,6 +63,7 @@ def update(request, section, id, slug, comment):
 
 
 @login_required
+@membership_required('users')
 @ownership_required(Comment, id='comment')
 def delete(request, section, id, slug, comment):
 

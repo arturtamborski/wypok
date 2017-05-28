@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 
-from wypok.decorators import ownership_required
+from wypok.decorators import membership_required, ownership_required
 from profiles.models import Profile
 from profiles.forms import ProfileUpdateForm, ProfileDeleteForm
 
@@ -18,6 +18,7 @@ def detail(request, profile):
 
 
 @login_required
+@membership_required('users')
 @ownership_required(Profile, user__username='profile')
 def update(request, profile):
     form = ProfileUpdateForm(instance=profile)
@@ -35,6 +36,7 @@ def update(request, profile):
 
 
 @login_required
+@membership_required('users')
 @ownership_required(Profile, user__username='profile')
 def delete(request, profile):
     form = ProfileDeleteForm(instance=profile)

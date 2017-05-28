@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.conf import settings
 
 from wypok.cache import mark_for_caching
-from wypok.decorators import ownership_required
+from wypok.decorators import membership_required, ownership_required
 from sections.models import Section
 from sections.forms import SectionCreateForm, SectionUpdateForm, SectionDeleteForm
 
@@ -32,6 +32,7 @@ def listing(request):
 
 
 @login_required
+@membership_required('users')
 def create(request):
     form = SectionCreateForm()
 
@@ -49,6 +50,7 @@ def create(request):
 
 
 @login_required
+@membership_required('users')
 @ownership_required(Section, name='section')
 def update(request, section):
     form = SectionUpdateForm(instance=section)
@@ -66,6 +68,7 @@ def update(request, section):
 
 
 @login_required
+@membership_required('users')
 @ownership_required(Section, name='section')
 def delete(request, section):
     form = SectionDeleteForm(instance=section)
