@@ -4,14 +4,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 
-from wypok.decorators import membership_required, ownership_required
+from wypok.utils.membership_required import membership_required
+from wypok.utils.ownership_required import ownership_required
 from profiles.models import Profile
 from profiles.forms import ProfileUpdateForm, ProfileDeleteForm
 
 
+@ownership_required(Profile, raise_exception=False, user__username='profile')
 def detail(request, profile):
-    profile = get_object_or_404(Profile, user__username=profile)
-
     return render(request, 'profiles/detail.html', dict(
         profile = profile,
     ))
