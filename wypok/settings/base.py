@@ -74,9 +74,13 @@ CACHE_TIMEOUT               = config('CACHE_TIMEOUT', cast=int)
 CACHE_TTL                   = config('CACHE_TTL', cast=int)
 
 
+# Sections
+DEFAULT_SECTION             = 'link'
+
+
 # Decorators
 PRETTIFY_CALLABLE           = 'prettify'
-OWNERSHIP_REQUIRED_CALLABLE = 'is_owner'
+OWNERSHIP_REQUIRED_CALLABLE = 'get_owner'
 OWNERSHIP_REQUIRED_PASS_OBJ = True
 
 
@@ -131,9 +135,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-DEFAULT_SECTION = 'link'
-
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -143,6 +144,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
+    'django.contrib.humanize',
 
     'wypok',
     'profiles',
@@ -193,8 +195,11 @@ TEMPLATES = [
             ],
 
             'builtins': [
+                'wypok.templatetags.is_member',
+                'wypok.templatetags.is_owner',
                 'wypok.templatetags.markup',
                 'wypok.templatetags.prettify',
+
                 'posts.templatetags.posts',
                 'comments.templatetags.comments',
             ],

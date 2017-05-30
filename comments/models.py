@@ -2,8 +2,8 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from wypok.utils.markup import markup
 from posts.models import Post
-from wypok.markup import markup
 
 
 class CommentQuerySet(models.QuerySet):
@@ -11,6 +11,9 @@ class CommentQuerySet(models.QuerySet):
 
 
 class Comment(models.Model):
+    class Meta:
+        ordering = ('posted',)
+
     objects = CommentQuerySet.as_manager()
 
     author = models.ForeignKey(get_user_model())
@@ -20,23 +23,20 @@ class Comment(models.Model):
     content = models.TextField()
     content_html = models.TextField(editable=False, blank=True)
 
-    class Meta:
-        ordering = ('-posted',)
-
-    def __str__(self):
-        return str(self.id)
-
     def save(self, *args, **kwargs):
         self.content_html = markup(self.content)
 
         self.full_clean()
         super().save(*args, **kwargs)
 
-    def get_absolute_url(self):
-        return reverse('sections:posts:comments:detail', args=[self.post.section, self.post.id, self.post.slug, self.id])
+    def __str__(self):
+        return str(self.id)
 
     def prettify(self):
         return '#%s' % self.id
 
-    def is_owner(self, request):
-        return self.author == request.user
+    def get_owner(self):
+        return self.author
+
+    def get_absolute_url(self):
+        return reverse('sections:posts:comments:detail', args=[self.post.section, self.post.id, self.post.slug, self.id])

@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 from django.db import models
 
-from wypok.markup import markup
+from wypok.utils.markup import markup
 from sections.validators import section_name_validator
 from django.core.validators import RegexValidator
 
@@ -20,9 +20,6 @@ class Section(models.Model):
     description = models.TextField()
     description_html = models.TextField(editable=False, blank=True)
 
-    def __str__(self):
-        return self.name
-
     def save(self, *args, **kwargs):
         self.name = slugify(self.name)
         self.description_html = markup(self.description)
@@ -30,11 +27,14 @@ class Section(models.Model):
         self.full_clean()
         super().save(*args, **kwargs)
 
-    def get_absolute_url(self):
-        return reverse('sections:detail', args=[self.name])
+    def __str__(self):
+        return self.name
 
     def prettify(self):
         return '/%s/' % self.name
 
-    def is_owner(self, request):
-        return self.admin == request.user
+    def get_owner(self):
+        return self.admin
+
+    def get_absolute_url(self):
+        return reverse('sections:detail', args=[self.name])

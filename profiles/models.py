@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 
-from wypok.markup import markup
+from wypok.utils.markup import markup
 from sections.models import Section
 
 
@@ -43,18 +43,18 @@ class Profile(models.Model):
     description = models.TextField(blank=True)
     description_html = models.TextField(editable=False, blank=True)
 
-    def __str__(self):
-        return self.user.username
-
     def save(self, *args, **kwargs):
         self.description_html = markup(self.description)
         super().save(*args, **kwargs)
 
-    def get_absolute_url(self):
-        return reverse('profiles:detail', args=[self.user.username])
+    def __str__(self):
+        return self.user.username
 
     def prettify(self):
         return '@%s' % self.user.username
 
-    def is_owner(self, request):
-        return self.user == request.user
+    def get_owner(self):
+        return self.user
+
+    def get_absolute_url(self):
+        return reverse('profiles:detail', args=[self.user.username])
