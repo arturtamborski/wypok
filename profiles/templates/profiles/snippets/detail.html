@@ -16,10 +16,10 @@
                 {{ profile.description_html|safe }}
             </div>
             <div class="actions">
-                {% ifequal profile.user request.user %}
+                {% if request.is_owner %}
                 <a href="{% url 'profiles:update' profile %}" class="ui button link">edit</a>
                 <a href="{% url 'profiles:delete' profile %}" class="ui button link">delete</a>
-                {% endifequal %}
+                {% endif %}
             </div>
         </div>
     </div>
