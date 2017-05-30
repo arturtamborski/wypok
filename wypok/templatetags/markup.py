@@ -2,7 +2,7 @@ from django import template
 from django.template.defaultfilters import stringfilter
 from django.utils.safestring import mark_safe
 
-from wypok.markup import markup as markup_func
+from wypok.utils.markup import markup as markup_func
 
 
 register = template.Library()
