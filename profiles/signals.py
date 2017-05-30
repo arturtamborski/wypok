@@ -24,4 +24,5 @@ def profile_activate_status(email_address, **kwargs):
     profile.state = Profile.YOUNG
     group = Group.objects.get(name=DEFAULT_USER_GROUP)
     profile.user.groups.add(group)
+    profile.user.save()
     profile.save()
