@@ -15,12 +15,12 @@
             {{ comment.content_html|safe }}
         </div>
         <div class="actions">
-            {% ifequal comment.author request.user %}
+            {% if request.user|is_owner:comment %}
             <a href="{% url 'sections:posts:comments:update' comment.post.section comment.post.id comment.post.slug comment %}" class="reply">Edit</a>
             <a href="{% url 'sections:posts:comments:delete' comment.post.section comment.post.id comment.post.slug comment %}" class="reply">Delete</a>
             {% else %}
             <a class="reply">Reply</a>
-            {% endifequal %}
+            {% endif %}
         </div>
     </div>
 </div>

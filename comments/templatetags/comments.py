@@ -5,10 +5,11 @@ from comments.forms import CommentCreateForm
 
 register = template.Library()
 
-@register.inclusion_tag('comments/snippets/listing.html')
-def render_comments(post):
+@register.inclusion_tag('comments/snippets/listing.html', takes_context=True)
+def render_comments(context, post):
     comments = post.comment_set.all()
     return dict(
+        request = context.request,
         comments = comments,
     )
 
