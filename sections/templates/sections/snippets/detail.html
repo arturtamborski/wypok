@@ -5,11 +5,11 @@
             <p>{{ section.description_html|safe }}</p>
         </div>
         <div class="actions">
-            {% ifequal section.admin request.user %}
+            {% if user|is_member:'users' %}
             <a href="{% url 'sections:posts:create' section %}" class="ui button link">add new post</a>
             <a href="{% url 'sections:update' section %}" class="ui button link">edit</a>
             <a href="{% url 'sections:delete' section %}" class="ui button link">delete</a>
-            {% endifequal %}
+            {% endif %}
         </div>
     </div>
 </div>

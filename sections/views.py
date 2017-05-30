@@ -1,10 +1,12 @@
 from allauth.account.decorators import verified_email_required as login_required
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
+from django.template import RequestContext
 from django.urls import reverse
 from django.conf import settings
 
 from wypok.cache import mark_for_caching
-from wypok.decorators import membership_required, ownership_required
+from wypok.utils.membership_required import membership_required
+from wypok.utils.ownership_required import ownership_required
 from sections.models import Section
 from sections.forms import SectionCreateForm, SectionUpdateForm, SectionDeleteForm
 
@@ -15,9 +17,8 @@ def home(request):
     return redirect('sections:listing')
 
 
+@ownership_required(Section, raise_exception=False, name='section')
 def detail(request, section):
-    section = get_object_or_404(Section, name=section)
-
     return render(request, 'sections/detail.html', dict(
         section = section,
     ))
@@ -32,7 +33,7 @@ def listing(request):
 
 
 @login_required
-@membership_required('users')
+@membership_required('staff')
 def create(request):
     form = SectionCreateForm()
 
@@ -50,7 +51,7 @@ def create(request):
 
 
 @login_required
-@membership_required('users')
+@membership_required('staff')
 @ownership_required(Section, name='section')
 def update(request, section):
     form = SectionUpdateForm(instance=section)
@@ -68,7 +69,7 @@ def update(request, section):
 
 
 @login_required
-@membership_required('users')
+@membership_required('staff')
 @ownership_required(Section, name='section')
 def delete(request, section):
     form = SectionDeleteForm(instance=section)
