@@ -2,7 +2,8 @@ from allauth.account.decorators import verified_email_required as login_required
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.urls import reverse
 
-from wypok.decorators import membership_required, ownership_required
+from wypok.utils.membership_required import membership_required
+from wypok.utils.ownership_required import ownership_required
 from sections.models import Section
 from posts.models import Post
 from posts.forms import PostCreateForm, PostUpdateForm, PostDeleteForm
@@ -13,22 +14,17 @@ def redir(request, section, id):
     return redirect(post)
 
 
+@ownership_required(Post, raise_exception=False, id='id')
 def detail(request, section, id, slug):
-    section = get_object_or_404(Section, name=section)
-    post = get_object_or_404(Post, id=id)
-
     return render(request, 'posts/detail.html', dict(
-        section = section,
-        post = post,
+        post = id,
     ))
 
 
 def listing(request, section, id, slug):
-    section = get_object_or_404(Section, name=section)
     posts = get_list_or_404(Post, section=section)
 
     return render(request, 'posts/listing.html', dict(
-        section = section,
         posts = posts,
     ))
 

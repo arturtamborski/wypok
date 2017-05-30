@@ -12,10 +12,10 @@
                 <p>{{ post.content_html|safe }}</p>
             </div>
             <div class="actions">
-                {% ifequal post.author request.user %}
+                {% if request.is_owner %}
                 <a href="{% url 'sections:posts:update' post.section post.id post.slug %}" class="ui button link">edit</a>
                 <a href="{% url 'sections:posts:delete' post.section post.id post.slug %}" class="ui button link">delete</a>
-                {% endifequal %}
+                {% endif %}
             </div>
         </div>
     </div>
