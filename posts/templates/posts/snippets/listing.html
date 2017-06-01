@@ -1,20 +1,29 @@
 {% if posts %}
-<div class="ui divided items segment">
 {% for post in posts %}
-    <div class="stackable item">
-        <div class="image">
-            <img src="/media/banana.jpg">
-        </div>
-        <div class="content">
-            <h1><a href="{% url 'sections:posts:detail' post.section post.id post.slug %}" class="header">{{ post.title }}</a></h1>
-            <div class="meta">
-                by <a href="{% url 'profiles:detail' post.author %}" class="mystate-{{ post.author.profile.state }}">{{ post.author }}</a> at {{ post.date|date:"l, j E Y" }}
-            </div>
-            <div class="description">
-                <p>{{ post.content_html|truncatewords_html:60|safe }}</p>
-            </div>
+<div class="ui grid segment">
+    <div class="ui sixteen wide column">
+        <img class="ui tiny left floated fluid image" src="/media/banana.jpg">
+        <a href="{% url 'sections:posts:detail' post.section post.id post.slug %}">
+            <h2>{{ post.title|truncatewords:20 }}</h2>
+        </a>
+        <p>{{ post.content_html|truncatewords_html:20|safe }}</p>
+    </div>
+    <div class="ui sixteen wide column">
+        <a class="mystate-{{ post.author.profile.state }}" href="{% url 'profiles:detail' post.author %}">{{ post.author.profile|prettify }}</a>
+        <i class="ui small circle icon"></i>
+        {{ post.date|shortnaturaltime }}
+        <div class="ui right floated tiny icon buttons">
+            <a class="ui negative button">
+                <i class="icon minus"></i>
+            </a>
+            <span class="ui button">
+                0
+            </span>
+            <a class="ui positive button">
+                <i class="icon plus"></i>
+            </a>
         </div>
     </div>
-{% endfor %}
 </div>
+{% endfor %}
 {% endif %}
