@@ -20,14 +20,14 @@ class Post(models.Model):
     section = models.ForeignKey(Section, on_delete=models.CASCADE)
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     title = models.CharField(max_length=256)
-    slug = models.SlugField(max_length=64, editable=False)
+    slug = models.SlugField(max_length=32, editable=False)
     link = models.URLField(max_length=256, default='', blank=True)
     date = models.DateTimeField(auto_now_add=True, editable=False)
     content = models.TextField()
     content_html = models.TextField(editable=False, blank=True)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify_max(self.title, 64)
+        self.slug = slugify_max(self.title, 32)
         self.content_html = markup(self.content)
 
         self.full_clean()

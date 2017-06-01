@@ -7,5 +7,7 @@
 {% block content %}
 {% include 'posts/snippets/detail.html' %}
 {% render_comments post %}
+{% if request.user.is_authenticated %}
 {% render_comments_create post %}
+{% endif %}
 {% endblock %}

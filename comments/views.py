@@ -28,6 +28,7 @@ def listing(request, section, id, slug):
 @membership_required('users')
 @ownership_required(Post, raise_exception=False, id='id')
 def create(request, section, id, slug):
+    post = id
     form = CommentCreateForm()
 
     if request.method == 'POST':
