@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="{% static '/css/semantic.min.css' %}">
         <style>
             .ui.comments{max-width:100%}
+            .ui.tiny.image{width:100px}
             .myhidden {display: none}
             .mystate-N{color:cornflowerblue !important}
             .mystate-Y{color:seagreen !important}
@@ -53,19 +54,17 @@
                 {% endif %}
             </div>
         </header>
-
-        <main class="ui stackable main container">
-            <div class="ui equal height stackable grid">
-                <div class="twelve wide column">
+        <main class="ui main container">
+            <div class="ui stackable grid">
+                <div class="ui twelve wide column">
                     {% block content %}{% endblock %}
                 </div>
-                <div class="four wide stretched column segment">
+                <div class="ui four wide stretched column">
                     <div class="ui segment">
                     </div>
                 </div>
             </div>
         </main>
-
         <footer class="ui stackable center aligned footer container segment">
             Copyright &copy; <a href="https://arturtamborski.pl">Artur Tamborski</a> 2017
         </footer>
