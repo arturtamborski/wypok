@@ -5,8 +5,10 @@
             <p>{{ section.description_html|safe }}</p>
         </div>
         <div class="actions">
-            {% if user|is_member:'users' %}
+            {% if request.user|is_member:'users' %}
             <a href="{% url 'sections:posts:create' section %}" class="ui button link">add new post</a>
+            {% endif %}
+            {% if request.user|is_owner:section %}
             <a href="{% url 'sections:update' section %}" class="ui button link">edit</a>
             <a href="{% url 'sections:delete' section %}" class="ui button link">delete</a>
             {% endif %}

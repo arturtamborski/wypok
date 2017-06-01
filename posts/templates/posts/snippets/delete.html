@@ -3,8 +3,8 @@
         {% csrf_token %}
         <h1 class="ui dividing header">Delete {{ post|prettify }}?</h1>
         {{ form.as_p }}
-        <button type="submit" class="ui green fluid submit button">Yes</button>
+        <button type="submit" class="ui positive fluid submit button">Yes</button>
         <p></p>
-        <a href="{% url 'sections:posts:detail' post.section post.id post.slug %}" class="ui red fluid submit button">No</a>
+        <a href="{% url 'sections:posts:detail' post.section post.id post.slug %}" class="ui negative fluid submit button">No</a>
     </form>
 </div>
