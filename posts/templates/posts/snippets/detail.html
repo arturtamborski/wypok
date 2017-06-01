@@ -1,22 +1,31 @@
-<div class="ui divided items segment">
-    <div class="stackable item">
-        <div class="image">
-            <img src="/media/banana.jpg">
+<div class="ui grid segment">
+    <div class="ui sixteen wide column">
+        <img class="ui small left floated fluid image" src="/media/banana.jpg">
+        <a href="{{ post.link }}">
+            <h2>{{ post.title }}</h2>
+        </a>
+        <p>{{ post.content_html|safe }}</p>
+    </div>
+    <div class="ui sixteen wide column">
+        <a href="{% url 'profiles:detail'  post.author %}" class="mystate-{{ post.author.profile.state }}">{{ post.author.profile|prettify }}</a>
+        <i class="ui small circle icon"></i>
+        posted {% load humanize %}{{ post.date|naturaltime }}
+        <div class="ui right floated tiny icon buttons">
+            <a class="ui negative button">
+                <i class="icon minus"></i>
+            </a>
+            <span class="ui button">
+                0
+            </span>
+            <a class="ui positive button">
+                <i class="icon plus"></i>
+            </a>
         </div>
-        <div class="content">
-            <h1><a href="{{ post.link }}" class="header">{{ post.title }}</a></h1>
-            <div class="meta">
-                by <a href="{% url 'profiles:detail'  post.author %}" class="mystate-{{ post.author.profile.state }}">{{ post.author }}</a> at {{ post.date|date:"l, j E Y" }}
-            </div>
-            <div class="description">
-                <p>{{ post.content_html|safe }}</p>
-            </div>
-            <div class="actions">
-                {% if request.is_owner %}
-                <a href="{% url 'sections:posts:update' post.section post.id post.slug %}" class="ui button link">edit</a>
-                <a href="{% url 'sections:posts:delete' post.section post.id post.slug %}" class="ui button link">delete</a>
-                {% endif %}
-            </div>
+        {% if request.is_owner %}
+        <div class="ui right floated tiny icon buttons">
+            <a href="{% url 'sections:posts:update' post.section post.id post.slug %}" class="ui tiny button link">edit</a>
+            <a href="{% url 'sections:posts:delete' post.section post.id post.slug %}" class="ui  tiny button link">delete</a>
         </div>
+        {% endif %}
     </div>
 </div>
