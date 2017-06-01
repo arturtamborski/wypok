@@ -8,8 +8,9 @@
             <div class="meta">
                 <div class="ui list">
                     <div class="item">Gender: {{ profile.get_gender_display }}</div>
-                    <div class="item">Created at: {{ profile.user.date_joined|date:"l, j E Y" }}</div>
-                    <div class="item">Last seen: {{ profile.user.last_login|date:"l, j E Y" }}</div>
+                    {% load humanize %}
+                    <div class="item">Created: {{ profile.user.date_joined|naturaltime }}</div>
+                    <div class="item">Last seen: {{ profile.user.last_login|naturaltime }}</div>
                 </div>
             </div>
             <div class="description">
