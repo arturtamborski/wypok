@@ -199,6 +199,7 @@ TEMPLATES = [
                 'wypok.templatetags.is_owner',
                 'wypok.templatetags.markup',
                 'wypok.templatetags.prettify',
+                'wypok.templatetags.shortnaturaltime',
 
                 'posts.templatetags.posts',
                 'comments.templatetags.comments',
