@@ -6,8 +6,8 @@
 
 {% block content %}
 {% include 'posts/snippets/detail.html' %}
-{% render_comments post %}
+{% comments_listing post %}
 {% if request.user.is_authenticated %}
-{% render_comments_create post %}
+{% comments_create post %}
 {% endif %}
 {% endblock %}
