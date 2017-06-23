@@ -2,12 +2,12 @@ from django import template
 
 from comments.forms import CommentCreateForm
 
-
 register = template.Library()
 
 @register.inclusion_tag('comments/snippets/listing.html', takes_context=True)
 def comments_listing(context, post):
-    comments = post.comment_set.all()
+    comments = post.comment_set.all().select_related()
+
     return dict(
         request = context.request,
         comments = comments,

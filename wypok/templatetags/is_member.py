@@ -3,6 +3,7 @@ from django.conf import settings
 
 from wypok.utils import membership_required
 
+
 register = template.Library()
 
 @register.filter

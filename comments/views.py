@@ -17,7 +17,7 @@ def detail(request, section, id, slug, comment):
 
 
 def listing(request, section, id, slug):
-    comments = get_list_or_404(Comment, post=id)
+    comments = get_list_or_404(Comment.objects.select_related(), post=id)
 
     return render(request, 'comments/listing.html', dict(
         comments = comments,

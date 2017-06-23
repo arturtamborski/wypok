@@ -22,7 +22,7 @@ def is_owner(user, obj):
 
     return attr() == user or user.is_superuser
 
-def ownership_required(model, raise_exception=True, **query):
+def ownership_required(model, raise_exception=True, select_related=True, **query):
     """
     ownership_required - decorator for views used for checking ownership of requested object
     https://arturtamborski.pl/posts/ownership_required-decorator-for-function-based-views-in-django/
@@ -68,7 +68,10 @@ def ownership_required(model, raise_exception=True, **query):
                 if v in kwargs:
                     q[k] = kwargs[v]
 
-            obj = get_object_or_404(model, **q)
+            if select_related:
+                obj = get_object_or_404(model.objects.select_related(), **q)
+            else:
+                obj = get_object_or_404(model, **q)
 
             if OWNERSHIP_REQUIRED_PASS_OBJ:
                 kwargs[v] = obj
