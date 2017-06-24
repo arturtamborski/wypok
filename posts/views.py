@@ -16,12 +16,13 @@ def redir(request, section, id):
 
 @ownership_required(Post, raise_exception=False, id='id')
 def detail(request, section, id, slug):
+
     return render(request, 'posts/detail.html', dict(
         post = id,
     ))
 
 
-def listing(request, section, id, slug):
+def listing(request, section):
     posts = get_list_or_404(Post, section=section)
 
     return render(request, 'posts/listing.html', dict(

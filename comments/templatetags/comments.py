@@ -6,7 +6,7 @@ register = template.Library()
 
 @register.inclusion_tag('comments/snippets/listing.html', takes_context=True)
 def comments_listing(context, post):
-    comments = post.comment_set.all().select_related()
+    comments = post.comment_set.select_related('author', 'post', 'parent').all()
 
     return dict(
         request = context.request,

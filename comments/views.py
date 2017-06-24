@@ -17,7 +17,7 @@ def detail(request, section, id, slug, comment):
 
 
 def listing(request, section, id, slug):
-    comments = get_list_or_404(Comment.objects.select_related(), post=id)
+    comments = get_list_or_404(Comment.objects.select_related('author', 'post', 'parent'), post=id)
 
     return render(request, 'comments/listing.html', dict(
         comments = comments,
@@ -68,8 +68,8 @@ def update(request, section, id, slug, comment):
 @membership_required('users')
 @ownership_required(Comment, id='comment')
 def delete(request, section, id, slug, comment):
-
     form = CommentDeleteForm(instance=comment)
+
     if request.method == 'POST':
         form = CommentDeleteForm(request.POST, instance=comment)
         if form.is_valid():
