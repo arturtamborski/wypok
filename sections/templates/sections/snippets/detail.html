@@ -6,7 +6,7 @@
         </div>
         <div class="actions">
             {% if request.user|is_member:'users' %}
-            <a href="{% url 'sections:posts:create' section %}" class="ui button link">add new post</a>
+            <a href="{% url 'sections:posts:create' section %}" class="ui button link">add</a>
             {% endif %}
             {% if request.user|is_owner:section %}
             <a href="{% url 'sections:update' section %}" class="ui button link">edit</a>
