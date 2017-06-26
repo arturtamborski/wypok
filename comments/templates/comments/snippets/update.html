@@ -1,5 +1,5 @@
 <div class="ui segment">
-    <form method="post" action="{% url 'sections:posts:comments:update' comment.post.section comment.post.id comment.post.slug comment %}" class="ui form">
+    <form enctype="multipart/form-data" method="post" action="{% url 'sections:posts:comments:update' comment.post.section comment.post.id comment.post.slug comment %}" class="ui form">
         {% csrf_token %}
         <h1 class="ui dividing header">Edit comment {{ comment|prettify }}</h1>
         {{ form.as_p }}

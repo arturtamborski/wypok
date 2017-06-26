@@ -4,10 +4,14 @@
     {% for comment in comments %}
     <div class="ui comment" id="{{ comment }}">
         <a class="avatar">
-            <img class="mygender-{{ comment.author.profile.gender }}" src="/media/banana.jpg">
+            {% if comment.author.profile.avatar %}
+            <img class="mygender-{{ comment.author.profile.gender }}" src="{{ comment.author.profile.avatar.url }}">
+            {% else %}
+            <img class="mygender-{{ comment.author.profile.gender }}" src="{{ comment.author.profile|get_media_default:'avatar' }}">
+            {% endif %}
         </a>
         <div class="content">
-            <a href="{% url 'profiles:detail' comment.author %}" class="author mystate-{{ comment.author.profile.state }}">{{ comment.author }}</a>
+            <a href="{% url 'profiles:detail' comment.author %}" class="author mystate-{{ comment.author.profile.state }}">{{ comment.author.profile|prettify }}</a>
             <span class="mycommentid">{{ comment|prettify }}</span>
             <div class="metadata">
                 <span class="date">{{ comment.posted_date }}</span>
@@ -15,6 +19,9 @@
             <div class="text">
                 {% load static %}
                 {{ comment.content_html|safe }}
+                {% if comment.attachment %}
+                <img width="400" src="{{ comment.attachment.url }}">
+                {% endif %}
             </div>
             <div class="actions">
                 {% if request.user|is_owner:comment %}
