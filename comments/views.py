@@ -32,7 +32,7 @@ def create(request, section, id, slug):
     form = CommentCreateForm()
 
     if request.method == 'POST':
-        form = CommentCreateForm(request.POST)
+        form = CommentCreateForm(request.POST, request.FILES)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.author = request.user
@@ -53,7 +53,7 @@ def update(request, section, id, slug, comment):
     form = CommentUpdateForm(instance=comment)
 
     if request.method == 'POST':
-        form = CommentUpdateForm(request.POST, instance=comment)
+        form = CommentUpdateForm(request.POST, request.FILES, instance=comment)
         if form.is_valid():
             comment = form.save()
             return redirect(comment)
