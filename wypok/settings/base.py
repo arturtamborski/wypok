@@ -83,6 +83,9 @@ PRETTIFY_CALLABLE           = 'prettify'
 OWNERSHIP_REQUIRED_CALLABLE = 'get_owner'
 OWNERSHIP_REQUIRED_PASS_OBJ = True
 
+# Profiles
+PROFILE_IS_OLD_AFTER        = 30
+
 
 # Accounts
 LOGIN_URL                   = 'account_login'
