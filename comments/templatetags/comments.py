@@ -2,6 +2,7 @@ from django import template
 
 from comments.forms import CommentCreateForm
 
+
 register = template.Library()
 
 @register.inclusion_tag('comments/snippets/listing.html', takes_context=True)

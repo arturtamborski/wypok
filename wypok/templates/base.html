@@ -19,7 +19,8 @@
         <style>
             .ui.comments{max-width:100%}
             .ui.tiny.image{width:100px}
-            .myhidden {display: none}
+            .myhidden{display: none}
+            .mycommentid{color:lightgray}
             .mystate-N{color:cornflowerblue !important}
             .mystate-Y{color:seagreen !important}
             .mystate-O{color:orangered !important}
@@ -39,14 +40,8 @@
             {% endfor %}
             {% endif %}
             <div class="right menu">
-                <div class="ui category search item">
-                    <div class="ui transparent icon input">
-                        <input class="prompt" type="text" placeholder="Search">
-                        <i class="search link icon"></i>
-                    </div>
-                </div>
                 {% if user.is_authenticated %}
-                <a href="{% url 'profiles:detail' user %}" class="item">{{ user.profile|prettify }}</a>
+                <a href="{% url 'profiles:detail' user %}" class="item mystate-{{ user.profile.state }}">{{ user.profile|prettify }}</a>
                 <a href="{% url 'account_logout' %}" class="item">Log out</a>
                 {% else %}
                 <a href="{% url 'account_login' %}" class="item">Log in</a>
