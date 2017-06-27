@@ -1,7 +1,11 @@
 <div class="ui items segment">
     <div class="stackable item">
         <div class="image">
-            <img src="/media/banana.jpg" class="mygender-{{ profile.gender }}">
+            {% if profile.avatar %}
+            <img src="{{ profile.avatar.url }}" class="mygender-{{ profile.gender }}">
+            {% else %}
+            <img src="{{ profile|get_default:'avatar' }}" class="mygender-{{ profile.gender }}">
+            {% endif %}
         </div>
         <div class="content">
             <h2 class="header mystate-{{ profile.state }}">{{ profile|prettify }}</h2>
