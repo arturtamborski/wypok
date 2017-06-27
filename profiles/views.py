@@ -24,7 +24,7 @@ def update(request, profile):
     form = ProfileUpdateForm(instance=profile)
 
     if request.method == 'POST':
-        form = ProfileUpdateForm(request.POST, instance=profile)
+        form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             profile = form.save()
             return redirect(profile)
