@@ -1,5 +1,5 @@
 <div class="ui segment">
-    <form method="post" action="{% url 'sections:create' %}" class="ui form">
+    <form enctype="multipart/form-data" method="post" action="{% url 'sections:create' %}" class="ui form">
         {% csrf_token %}
         <h1 class="ui dividing header">Create section</h1>
         {{ form.as_p }}
