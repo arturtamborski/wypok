@@ -37,7 +37,7 @@ def create(request, section):
 
     form = PostCreateForm()
     if request.method == 'POST':
-        form = PostCreateForm(request.POST)
+        form = PostCreateForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
@@ -59,7 +59,7 @@ def update(request, section, id, slug):
 
     form = PostUpdateForm(instance=post)
     if request.method == 'POST':
-        form = PostUpdateForm(request.POST, instance=post)
+        form = PostUpdateForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save()
             return redirect(post)

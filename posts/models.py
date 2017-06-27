@@ -1,10 +1,16 @@
 from django.core.urlresolvers import reverse
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.conf import settings
 
+from wypok.validators import FileValidator
 from wypok.utils.markup import markup
 from wypok.utils.slugify import slugify_max
 from sections.models import Section
+
+
+def posts_attachment_path(instance, filename):
+    return settings.POSTS_ATTACHMENT_PATH.format(id=instance.id, name=filename)
 
 
 class PostQuerySet(models.QuerySet):
@@ -23,8 +29,11 @@ class Post(models.Model):
     slug = models.SlugField(max_length=32, editable=False)
     link = models.URLField(max_length=256, default='', blank=True)
     date = models.DateTimeField(auto_now_add=True, editable=False)
-    content = models.TextField()
+    content = models.TextField(blank=True)
     content_html = models.TextField(editable=False, blank=True)
+    attachment = models.FileField(max_length=256, blank=True, null=True,
+        upload_to=posts_attachment_path,
+        validators=[FileValidator(content_types=settings.POSTS_ALLOWED_CONTENT_TYPES)])
 
     def save(self, *args, **kwargs):
         self.slug = slugify_max(self.title, 32)
