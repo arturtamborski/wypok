@@ -32,10 +32,18 @@ STATIC_ROOT                 = path.join(BASE_DIR, 'static')
 STATIC_URL                  = '/static/'
 MEDIA_ROOT                  = path.join(BASE_DIR, 'media')
 MEDIA_URL                   = '/media/'
-FILE_UPLOAD_PERMISSIONS     = 0o644
+FILE_UPLOAD_TEMP_DIR        = path.join(MEDIA_ROOT, 'temp')
+FILE_UPLOAD_PERMISSIONS     = 0o644 # rw-r--r--
 FILE_UPLOAD_MAX_MEMORY_SIZE = (1024 * 1024) * 5 # 5.MB
-DATA_UPLOAD_MAX_MEMORY_SIZE = FILE_UPLOAD_MAX_MEMORY_SIZE
+FILE_UPLOAD_MIN_MEMORY_SIZE = 1024 # 1.KB
+DATA_UPLOAD_MAX_MEMORY_SIZE = FILE_UPLOAD_MAX_MEMORY_SIZE + (1024 * 1024) # 6.MB
 
+ALLOWED_IMAGE_CONTENT_TYPES = ('image/gif', 'image/png', 'image/webp', 'image/jpeg')
+ALLOWED_AUDIO_CONTENT_TYPES = ('audio/x-wav', 'audio/ogg', 'audio/webm', 'audio/mpeg')
+ALLOWED_VIDEO_CONTENT_TYPES = ('video/x-msvideo', 'video/ogg', 'video/webm', 'video/mpeg')
+ALLOWED_CONTENT_TYPES       = (
+    *ALLOWED_IMAGE_CONTENT_TYPES, *ALLOWED_AUDIO_CONTENT_TYPES, *ALLOWED_VIDEO_CONTENT_TYPES
+)
 
 # Email
 DEFAULT_FROM_EMAIL          = 'wypok@' + FQDN
@@ -74,17 +82,31 @@ CACHE_TIMEOUT               = config('CACHE_TIMEOUT', cast=int)
 CACHE_TTL                   = config('CACHE_TTL', cast=int)
 
 
-# Sections
-DEFAULT_SECTION             = 'link'
-
-
 # Decorators
 PRETTIFY_CALLABLE           = 'prettify'
 OWNERSHIP_REQUIRED_CALLABLE = 'get_owner'
 OWNERSHIP_REQUIRED_PASS_OBJ = True
 
+
+# Sections
+DEFAULT_SECTION             = 'link'
+
+
+# Posts
+POSTS_ATTACHMENT_PATH       = 'posts/{id}-{name}'
+POSTS_ALLOWED_CONTENT_TYPES = ALLOWED_CONTENT_TYPES
+
+
+# Comments
+COMMENTS_ATTACHMENT_PATH    = 'comments/{id}-{name}'
+COMMENTS_ALLOWED_CONTENT_TYPES = ALLOWED_CONTENT_TYPES
+
+
 # Profiles
-PROFILE_IS_OLD_AFTER        = 30
+PROFILES_IS_OLD_AFTER       = 30 # days
+PROFILES_AVATAR_PATH        = 'profiles/{id}-{name}'
+PROFILES_DEFAULT_AVATAR     = MEDIA_URL + 'profiles/default.jpg'
+PROFILES_ALLOWED_CONTENT_TYPES = ALLOWED_IMAGE_CONTENT_TYPES
 
 
 # Accounts
@@ -203,6 +225,7 @@ TEMPLATES = [
                 'wypok.templatetags.markup',
                 'wypok.templatetags.prettify',
                 'wypok.templatetags.shortnaturaltime',
+                'wypok.templatetags.get_default',
 
                 'posts.templatetags.posts',
                 'comments.templatetags.comments',
