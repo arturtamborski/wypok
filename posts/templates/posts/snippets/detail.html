@@ -1,7 +1,9 @@
 <div class="ui segment">
     <div class="ui grid">
         <div class="ui sixteen wide column">
-            <img class="ui small left floated fluid image" src="/media/banana.jpg">
+            {% if post.attachment %}
+            <img class="ui small left floated fluid image" src="{{ post.attachment.url }}">
+            {% endif %}
             <a href="{{ post.link }}">
                 <h2>{{ post.title }}</h2>
             </a>

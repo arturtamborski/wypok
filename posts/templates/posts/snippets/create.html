@@ -1,5 +1,5 @@
 <div class="ui segment">
-    <form method="post" action="{% url 'sections:posts:create' section %}" class="ui form">
+    <form enctype="multipart/form-data" method="post" action="{% url 'sections:posts:create' section %}" class="ui form">
         {% csrf_token %}
         <h1 class="ui dividing header">Create new post in {{ section|prettify }}</h1>
         {{ form.as_p }}
