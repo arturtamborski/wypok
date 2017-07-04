@@ -8,6 +8,8 @@ from wypok.utils.markup import markup
 from sections.models import Section
 
 
+PROFILES_IS_OLD_AFTER = getattr(settings, 'PROFILES_IS_OLD_AFTER', 30)
+
 def profiles_avatar_path(instance, filename):
     return settings.PROFILES_AVATAR_PATH.format(id=instance.id, name=filename)
 
@@ -17,18 +19,20 @@ class ProfileQuerySet(models.QuerySet):
 
 
 class Profile(models.Model):
-    NOT_ACTIVATED   = 'N'
-    YOUNG           = 'Y'
-    OLD             = 'O'
-    DELETED         = 'D'
-    BANNED          = 'B'
+    INACTIVE    = 'I'
+    GREEN       = 'G'
+    ORANGE      = 'O'
+    RED         = 'R'
+    DELETED     = 'D'
+    BANNED      = 'B'
 
     STATES = (
-        (NOT_ACTIVATED, 'Not activated'),
-        (YOUNG,         'Young'),
-        (OLD,           'Old'),
-        (DELETED,       'Deleted'),
-        (BANNED,        'Banned'),
+        (INACTIVE,  'inactive'),
+        (GREEN,     'green'),
+        (ORANGE,    'orange'),
+        (RED,       'red'),
+        (DELETED,   'deleted'),
+        (BANNED,    'banned'),
     )
 
     MALE    = 'M'
@@ -44,7 +48,7 @@ class Profile(models.Model):
     objects = ProfileQuerySet.as_manager()
 
     user = models.OneToOneField(get_user_model(), unique=True, on_delete=models.CASCADE)
-    state = models.CharField(max_length=1, choices=STATES, default=NOT_ACTIVATED)
+    state = models.CharField(max_length=1, choices=STATES, default=INACTIVE)
     gender = models.CharField(max_length=1, choices=GENDERS, default=HIDDEN)
     description = models.TextField(blank=True)
     description_html = models.TextField(editable=False, blank=True)
@@ -54,6 +58,7 @@ class Profile(models.Model):
 
     def save(self, *args, **kwargs):
         self.description_html = markup(self.description)
+        self.update_state()
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -67,3 +72,16 @@ class Profile(models.Model):
 
     def get_absolute_url(self):
         return reverse('profiles:detail', args=[self.user.username])
+
+    def update_state(self):
+        for state in self.STATES:
+            if self.user.groups.filter(name=state[1]).exists():
+                self.state = state[0]
+
+        if self.user.profile == self.GREEN:
+            if (timezone.now() - self.user.date_joined).days > PROFILES_IS_OLD_AFTER:
+                group = Group.objects.get(name='orange')
+                self.user.groups.add(group)
+                self.user.save()
+                self.user.profile.state = Profile.ORANGE
+                self.user.profile.save()
