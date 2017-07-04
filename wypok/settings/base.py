@@ -105,7 +105,7 @@ COMMENTS_ALLOWED_CONTENT_TYPES = ALLOWED_CONTENT_TYPES
 # Profiles
 PROFILES_IS_OLD_AFTER       = 30 # days
 PROFILES_AVATAR_PATH        = 'profiles/{id}-{name}'
-PROFILES_DEFAULT_AVATAR     = MEDIA_URL + 'profiles/default.jpg'
+PROFILES_DEFAULT_AVATAR     = 'profiles/default.jpg'
 PROFILES_ALLOWED_CONTENT_TYPES = ALLOWED_IMAGE_CONTENT_TYPES
 
 
@@ -118,7 +118,6 @@ ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
 ACCOUNT_LOGOUT_ON_GET           = True
 ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
 
-DEFAULT_USER_GROUP              = 'users'
 AUTH_USER_MODEL                 = 'auth.User'
 ACCOUNT_ADAPTER                 = 'allauth.account.adapter.DefaultAccountAdapter'
 SOCIALACCOUNT_ADAPTER           = 'allauth.socialaccount.adapter.DefaultSocialAccountAdapter'
