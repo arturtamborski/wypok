@@ -1,0 +1,8 @@
+{% for profile in profiles %}
+<div class="ui segment">
+    <div class="content">
+        <h1 class="ui dividing header"><a class="header" href="{% url 'profiles:detail' profile %}">{{ profile|prettify }}</a></h1>
+    </div>
+</div>
+{% empty %}
+{% endfor %}
