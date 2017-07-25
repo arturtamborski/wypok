@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ tag|prettify }}
+{% endblock %}
+
+{% block content %}
+{% include 'tags/snippets/detail.html' %}
+{% endblock %}

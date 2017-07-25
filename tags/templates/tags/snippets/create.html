@@ -1,0 +1,8 @@
+<div class="ui segment">
+    <form enctype="multipart/form-data" method="post" action="{% url 'tags:create' %}" class="ui form">
+        {% csrf_token %}
+        <h1 class="ui dividing header">Create tag</h1>
+        {{ form.as_p }}
+        <button type="submit" class="ui positive fluid submit button">Create</button>
+    </form>
+</div>

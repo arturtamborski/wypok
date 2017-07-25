@@ -175,6 +175,7 @@ INSTALLED_APPS = [
     'sections',
     'posts',
     'comments',
+    'tags',
 
     'allauth',
     'allauth.account',
