@@ -1,6 +1,6 @@
 from allauth.account.decorators import verified_email_required as login_required
 from django.contrib.auth.decorators import permission_required
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.conf import settings
@@ -15,6 +15,14 @@ from profiles.forms import ProfileUpdateForm, ProfileDeleteForm
 def detail(request, profile):
     return render(request, 'profiles/detail.html', dict(
         profile = profile,
+    ))
+
+
+def listing(request):
+    profiles = get_list_or_404(Profile)
+
+    return render(request, 'profiles/listing.html', dict(
+        profiles = profiles,
     ))
 
 
