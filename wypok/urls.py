@@ -11,8 +11,11 @@ urlpatterns = [
     url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
 
     url(r'^', include('allauth.urls')),
-    url(r'^', include('profiles.urls')),
-    url(r'^', include('sections.urls')),
+    url(r'^u/', include('profiles.urls')),
+    url(r'^s/', include('sections.urls')),
+    #url(r'^p/', include('posts.urls')),
+    #url(r'^c/', include('comments.urls')),
+    url(r'^t/', include('tags.urls')),
 ]
 
 if settings.DEBUG:
