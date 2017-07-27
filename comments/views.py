@@ -1,5 +1,5 @@
 from allauth.account.decorators import verified_email_required as login_required
-from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
+from django.shortcuts import render, redirect, get_list_or_404
 from django.urls import reverse
 from django.conf import settings
 
@@ -11,18 +11,18 @@ from comments.models import Comment
 from comments.forms import CommentCreateForm, CommentUpdateForm, CommentDeleteForm
 
 
-def detail(request, section, id, slug, comment):
-    return redirect(
-        reverse('sections:posts:comments:listing', args=[section, id, slug]) + '#' + comment
-    )
-
-
 def listing(request, section, id, slug):
     comments = get_list_or_404(Comment.objects.select_related('author', 'post', 'parent'), post=id)
 
     return render(request, 'comments/listing.html', dict(
         comments = comments,
     ))
+
+
+def detail(request, section, id, slug, comment):
+    return redirect(
+        reverse('sections:posts:comments:listing', args=[section, id, slug]) + '#' + comment
+    )
 
 
 @login_required

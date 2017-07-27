@@ -1,7 +1,7 @@
 from django.conf.urls import include, url
 
 from comments.apps import CommentsConfig
-from comments.views import detail, listing, create, update, delete
+from comments.views import listing, detail, create, update, delete
 
 
 app_name = CommentsConfig.name

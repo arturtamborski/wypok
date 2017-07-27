@@ -20,7 +20,8 @@
                 {% load static %}
                 {{ comment.content_html|safe }}
                 {% if comment.attachment %}
-                <img width="400" src="{{ comment.attachment.url }}">
+                <img style="max-width:400px;" src="{{ comment.attachment.url }}">
+		<div style="color: grey;">{{ comment.attachment.url }}</div>
                 {% endif %}
             </div>
             <div class="actions">
@@ -33,6 +34,7 @@
             </div>
         </div>
     </div>
+    {% empty %}
     {% endfor %}
     </div>
 </div>
