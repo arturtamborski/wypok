@@ -1,7 +1,16 @@
+<div class="ui segment">
+    <div class="content">
+	<h1 class="ui dividing header">Users</h1>
+        <div class="description">
+        </div>
+        <div class="actions">
+        </div>
+    </div>
+</div>
 {% for profile in profiles %}
 <div class="ui segment">
     <div class="content">
-        <h1 class="ui dividing header"><a class="header" href="{% url 'profiles:detail' profile %}">{{ profile|prettify }}</a></h1>
+        <h2 class="ui dividing header"><a class="header" href="{% url 'profiles:detail' profile %}">{{ profile|prettify }}</a></h2>
     </div>
 </div>
 {% empty %}

@@ -12,8 +12,7 @@
     </div>
     <div class="ui sixteen wide column">
         <a class="mystate-{{ post.author.profile.state }}" href="{% url 'profiles:detail' post.author %}">{{ post.author.profile|prettify }}</a>
-        <i class="ui small circle icon"></i>
-        {{ post.date|shortnaturaltime }}
+        &nbsp;{{ post.date|shortnaturaltime }}
         <div class="ui right floated tiny icon buttons">
             <a class="ui negative button">
                 <i class="icon minus"></i>
