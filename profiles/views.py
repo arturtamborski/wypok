@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404, get_list_or_40
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.conf import settings
+from allauth.account.forms import ChangePasswordForm
 
 from wypok.utils.membership_required import membership_required
 from wypok.utils.ownership_required import ownership_required
@@ -31,16 +32,20 @@ def listing(request):
 @ownership_required(Profile, user__username='profile')
 def update(request, profile):
     form = ProfileUpdateForm(instance=profile)
+    pwform = ChangePasswordForm()
 
     if request.method == 'POST':
         form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
+        pwform = ChangePasswordForm()
         if form.is_valid():
             profile = form.save()
+            pwform.save()
             return redirect(profile)
 
     return render(request, 'profiles/update.html', dict(
         profile = profile,
         form = form,
+        pwform = pwform,
     ))
 
 

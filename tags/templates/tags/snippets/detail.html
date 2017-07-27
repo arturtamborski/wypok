@@ -1,13 +1,10 @@
-<div class="ui segment">
+<div class="ui segment" style="background-image: url('{{ tag.background.url }}');">
     <div class="content">
         <h1 class="ui dividing header"><a class="header" href="{% url 'tags:detail' tag %}">{{ tag|prettify }}</a></h1>
         <div class="description">
             <p>{{ tag.description_html|safe }}</p>
         </div>
         <div class="actions">
-            {% if request.user|is_member:'green' %}
-            <a href="{% url 'tags:create' %}" class="ui button link">add</a>
-            {% endif %}
             {% if request.user|is_owner:tag %}
             <a href="{% url 'tags:update' tag %}" class="ui button link">edit</a>
             <a href="{% url 'tags:delete' tag %}" class="ui button link">delete</a>

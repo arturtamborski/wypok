@@ -38,7 +38,7 @@ def create(request):
     form = SectionCreateForm()
 
     if request.method == 'POST':
-        form = SectionCreateForm(request.POST)
+        form = SectionCreateForm(request.POST, request.FILES)
         if form.is_valid():
             section = form.save(commit=False)
             section.admin = request.user
@@ -57,7 +57,7 @@ def update(request, section):
     form = SectionUpdateForm(instance=section)
 
     if request.method == 'POST':
-        form = SectionUpdateForm(request.POST, instance=section)
+        form = SectionUpdateForm(request.POST, request.FILES, instance=section)
         if form.is_valid():
             section = form.save()
             return redirect(section)

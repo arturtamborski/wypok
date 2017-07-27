@@ -1,7 +1,19 @@
+<div class="ui segment">
+    <div class="content">
+	<h1 class="ui dividing header">Sections</h1>
+        <div class="description">
+        </div>
+        <div class="actions">
+            {% if request.user|is_member:'red' %}
+            <a href="{% url 'sections:create' %}" class="ui button link">add</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% for section in sections %}
 <div class="ui segment">
     <div class="content">
-        <h1 class="ui dividing header"><a class="header" href="{% url 'sections:detail' section %}">{{ section|prettify }}</a></h1>
+        <h2 class="ui dividing header"><a class="header" href="{% url 'sections:detail' section %}">{{ section|prettify }}</a></h2>
         <div class="description">
             <p>{{ section.description_html|safe }}</p>
         </div>

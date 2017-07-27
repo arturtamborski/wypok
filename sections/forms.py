@@ -6,13 +6,13 @@ from sections.models import Section
 class SectionCreateForm(forms.ModelForm):
     class Meta:
         model = Section
-        fields = ('name', 'description',)
+        fields = ('name', 'description', 'background')
 
 
 class SectionUpdateForm(forms.ModelForm):
     class Meta:
         model = Section
-        fields = ('description',)
+        fields = ('description', 'background')
 
 
 class SectionDeleteForm(forms.ModelForm):
