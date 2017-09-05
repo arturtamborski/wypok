@@ -1,42 +1,37 @@
 # wypok
 
 Alter ego popularnej strony [wykop.pl](http://www.wykop.pl).
+Wersja testowa aplikacji jest dostępna pod adresem [wypok.com](https://wypok.com).
 
-Projekt realizowany jest w ramach konkursu [Daj Się Poznać 2017](http://dajsiepoznac.pl)
-
-Postęp można śledzić na moim [blogu](https://arturtamborski.pl/) pod tagiem [#dajsiepoznac2017](https://arturtamborski.pl/tags/dajsiepoznac2017) ([feed](https://arturtamborski.pl/tags/dajsiepoznac2017/feed)).
-
-Wersja testowa projektu dostępna jest pod adresem [wypok.com](https://wypok.com).
-Niestety obecna wersja oferuje praktycznie żadnej funkcjonalności poza rejestracją.
 
 # O projekcie
 
-Użytkownicy będą mogli produkować treści udostępniając je z własnych kont jak i również pisząc z publicznego anonimowego konta.
-Publikacje będą oparte o system komentowania, głosowania i kategoryzowania najpopularniejszych wpisów.
+Wypok to projekt łączący najlepsze funkcjonalności najpopularniejszych serwisów w jedną spójną całość.
+Aplikacja umożliwia udostępnianie linków do najciekawszych miesc z internetu do kilku sekcji które starają się 
+luźno skategoryzować tematykę.
+Użytkownicy mają możliwość oceniania postów innych użytkowników poprzez system głosowania plusami lub minusami.
+Mogą oni również komentować wpisy korzystając z formatowania markdown oraz tagować wpisy używając tagów.
 
-Komentarze będą formatowane w markdown'ie co umożliwi zmienianie właściwości tekstu (pogrubienie, pochylenie, itd).
-Użytkownicy będą również mogli skorzystać ze specjalnych znaków nadających nowe znaczenie:
-  - `/gif/` link do sekcji (reddit)
-  - `/all/1231/` link do postu z sekcji (4chan)
-  - `@konto` link do profilu użytkownika (twitter)
-  - `#kotki` hashtag (twitter)
-  - `:lenny:` emoji (gadugadu)
-  - `!general` link do czatu (irc)
-  - `>text` cytat (4chan)
-  - `>>12341` link do innego postu (4chan)
-  - `/thread` zamknięcie nitki
+Użytkownicy mogą również korzystać ze specjalnych fraz nadających nowe znaczenie:
+  - `/gif/` wstawia link do sekcji (reddit)
+  - `/all/1231/` wstawia link do postu z sekcji (4chan)
+  - `@konto` wysyła powiadomienie o oznaczeniu użytkownika oraz wstawia link jego profilu (twitter)
+  - `#kotki` wstawia hashtag oraz powiadamia wszystkich użytkowników obserwujących tag (twitter)
+  - `:lenny:` wstawia emoji (gadugadu)
+  - `!general` wstawia link do czatu (irc)
+  - `>text` wstawia cytat (4chan)
+  - `>>12341` wstawia link do innego komentarza oraz powiadamia o tym autora (4chan)
   - `feelsgoodman.png` wstaw obrazek o podanym tytule z publicznej galerii memów (to samo dla .jpg, .png, .bmp)
   - `feelsgoodman.mp4` wstaw filmik o podanym tytule z publicznej galerii memów (to samo dla .gif, .webm)
 
-Dodatkowo wokół avataru będzie pasek oznaczający płeć
+Dodatkowo wokół avataru jest pasek oznaczający płeć
   - różowy (kobieta)
   - niebieski (mężczyzna).
 
 Kolor nazwy użytkownika to
-  - szary (konto zostało zbanowane)
-  - biały (konto zostało usunięte przez użytkownika)
-  - zielony (konto ma mniej niż 30 dni)
-  - pomarańczowy (konto ma więcej niż 30 dni)
-  - czerwony (administrator)
-
-![logo konkursu](https://github.com/arturtamborski/wypok/raw/master/dajsiepoznac2017-logo.png)
+  - niebieski (nowe nieaktywowane konto)
+  - zielony (nowe konto istniejące mniej niż 30 dni)
+  - pomarańczowy (konto istniejące powyżej 30 dni)
+  - czerwony (administracja)
+  - jasny szary (zbanowane konto)
+  - ciemny szary (usunięte konto)

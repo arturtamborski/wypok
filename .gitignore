@@ -1,17 +1,24 @@
-settings.ini
-*.py[cod]
-
-*.db
-db.sqlite3
-__pycache__/
-migrations/
-env/
-myvenv/
-build/
-dist/
+# pip
 pip-log.txt
 
-# ignore static files from ./manage.py collectstatic
-/static
-/media
-/logs
+# compiled python
+*.py[cod]
+__pycache__/
+
+# databases
+*.db
+db.sqlite3
+
+# secrets
+settings.ini
+env/
+env
+.env
+myvenv/
+
+# project
+migrations/
+
+# docker
+volumes/
+logs/
