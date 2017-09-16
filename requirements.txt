@@ -1,9 +1,0 @@
-django>=1.10
-django-allauth
-psycopg2
-python-memcached
-python-decouple
-Pillow
-markdown
-django-debug-toolbar
-python-magic

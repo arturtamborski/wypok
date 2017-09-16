@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^signup/$', allauth.signup, name='account_signup'),
     url(r'^login/$', allauth.login, name='account_login'),
     url(r'^logout/$', allauth.logout, name='account_logout'),
+
     url(r'^settings/', include([
         url(r'^password/change/$',
             allauth.password_change, name='account_change_password'),
@@ -32,14 +33,12 @@ urlpatterns = [
             allauth.confirm_email, name='account_confirm_email'),
     ])),
 
-    url(r'^u/', include('profiles.urls')),
-    url(r'^t/', include('tags.urls')),
+    url(r'^user/', include('profiles.urls')),
+    url(r'^tag/', include('tags.urls')),
     #url(r'^p/', include('posts.urls')),
     #url(r'^c/', include('comments.urls')),
     url(r'^', include('sections.urls')),
 
-    url(r'^robots\.txt$', TemplateView.as_view(
-        template_name='robots.txt', content_type='text/plain')),
 ]
 
 if settings.DEBUG:

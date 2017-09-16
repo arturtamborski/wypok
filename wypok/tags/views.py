@@ -31,7 +31,7 @@ def create(request):
     form = TagCreateForm()
 
     if request.method == 'POST':
-        form = TagCreateform(request.POST, request.FILES)
+        form = TagCreateForm(request.POST, request.FILES)
         if form.is_valid():
             tag = form.save(commit=False)
             tag.author = request.user

@@ -13,7 +13,7 @@ SECRET_KEY                  = config('SECRET_KEY')
 DEBUG                       = config('DEBUG', cast=bool)
 LOG_LEVEL                   = 'DEBUG' if DEBUG else 'INFO'
 INTERNAL_IPS                = config('INTERNAL_IPS', cast=Csv())
-ALLOWED_HOSTS               = ['127.0.0.1', 'localhost'] if DEBUG else config('ALLOWED_HOSTS', cast=Csv())
+ALLOWED_HOSTS               = config('ALLOWED_HOSTS', cast=Csv())
 SCHEME                      = 'http' if DEBUG else 'https'
 FQDN                        = ALLOWED_HOSTS[0]
 
@@ -44,6 +44,7 @@ ALLOWED_VIDEO_CONTENT_TYPES = ('video/x-msvideo', 'video/ogg', 'video/webm', 'vi
 ALLOWED_CONTENT_TYPES       = (
     *ALLOWED_IMAGE_CONTENT_TYPES, *ALLOWED_AUDIO_CONTENT_TYPES, *ALLOWED_VIDEO_CONTENT_TYPES
 )
+
 
 # Email
 DEFAULT_FROM_EMAIL          = 'wypok@' + FQDN
@@ -189,7 +190,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.facebook',
+    #'allauth.socialaccount.providers.facebook',
 ]
 
 
@@ -270,7 +271,7 @@ LOGGING = {
         'file': {
             'level': LOG_LEVEL,
             'class': 'logging.FileHandler',
-            'filename': path.join(BASE_DIR, 'logs', 'django.log'),
+            'filename': path.join(BASE_DIR, 'app.log'),
         },
         'console': {
             'class': 'logging.StreamHandler',

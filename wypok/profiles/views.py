@@ -10,6 +10,7 @@ from wypok.utils.membership_required import membership_required
 from wypok.utils.ownership_required import ownership_required
 from profiles.models import Profile
 from profiles.forms import ProfileUpdateForm, ProfileDeleteForm
+from django.views.decorators.cache import cache_page
 
 
 @ownership_required(Profile, raise_exception=False, user__username='profile')
