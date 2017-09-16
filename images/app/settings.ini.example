@@ -1,0 +1,37 @@
+[settings]
+DEBUG=True
+
+NAME=Wypok
+APP_NAME=wypok
+BASE_DIR=/app
+ALLOWED_HOSTS=127.0.0.1, localhost
+INTERNAL_IPS=127.0.0.1
+
+SECRET_KEY=random string of ascii characters here
+
+EMAIL_BACKEND=django.core.mail.backends.console.EmailBackend
+EMAIL_HOST_USER=emailuser
+EMAIL_HOST_PASSWORD=emailpassword
+EMAIL_HOST=localhost
+EMAIL_PORT=25
+EMAIL_USE_TLS=False
+EMAIL_USE_SSL=False
+EMAIL_SSL_CERTFILE=
+EMAIL_SSL_KEYFILE=
+EMAIL_TIMEOUT=300
+EMAIL_FILE_PATH=/var/spool/wypok/
+
+#DB_ENGINE=django.db.backends.postgresql_psycopg2
+DB_ENGINE=django.db.backends.sqlite3
+DB_NAME=db.sqlite3
+DB_USER=
+DB_PASSWORD=
+DB_HOST=
+DB_PORT=
+
+#CACHE_BACKEND=django_redis.cache.RedisCache
+CACHE_BACKEND=django.core.cache.backends.dummy.DummyCache
+CACHE_LOCATION=127.0.0.1:11211
+CACHE_KEY_PREFIX=
+CACHE_TIMEOUT=3600
+CACHE_TTL=900

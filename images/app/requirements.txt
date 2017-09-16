@@ -1,0 +1,10 @@
+django>=1.10
+django-allauth
+psycopg2
+django-redis
+python-magic
+python-decouple
+Pillow
+markdown
+django-debug-toolbar
+gunicorn
