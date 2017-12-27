@@ -1,24 +1,12 @@
-# pip
 pip-log.txt
 
-# compiled python
 *.py[cod]
 __pycache__/
 
-# databases
 *.db
 db.sqlite3
 
-# secrets
 settings.ini
-env/
-env
-.env
-myvenv/
-
-# project
 migrations/
-
-# docker
 volumes/
 logs/
