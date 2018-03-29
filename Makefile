@@ -1,9 +1,9 @@
 images = proxy static accel app cache db broker
 
-all: prepare build run
-
 run:
 	@docker-compose -f images/docker-compose.yaml up
+
+all: prepare build run
 
 build: prepare
 	@docker-compose -f images/docker-compose.yaml build
@@ -16,6 +16,9 @@ rmi: stop
 
 stop:
 	-@docker-compose -f images/docker-compose.yaml rm -f
+
+manage:
+	docker exec -it app sh /run.sh $(MAKECMDGOALS)
 
 prepare: $(images)
 
@@ -30,4 +33,4 @@ volumes/%: volumes
 logs volumes:
 	-@mkdir -p $@
 
-.PHONY: all run clean rmi stop prepare
+.PHONY: all run clean rmi stop prepare manage
