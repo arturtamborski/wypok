@@ -1,144 +1,128 @@
 version: '3'
 services:
 
+  static:
+    build: ./static
+    image: static
+    hostname: static
+    container_name: static
+    restart: unless-stopped
+    env_file:
+      - ./env
+      - ./static/env
+    ports:
+      - 7000:7000
+    volumes:
+      - ../volumes/app/:/var/www/
+#     - ../logs:/var/log/lighttpd/error.log
 
-    static:
-        build: ./static
-        image: static
-        hostname: static
-        container_name: static
-        env_file:
-            - ./env
-            - ./static/env
-        restart: unless-stopped
-        ports:
-            - 7000:7000
-        volumes:
-            - ./static/lighttpd.conf:/etc/lighttpd/lighttpd.conf
-            - ../logs:/var/log/lighttpd/error.log
-            - ../volumes/app/static:/var/www/static
-            - ../volumes/app/media:/var/www/media
-            - ../volumes/app/favicon.ico:/var/www/favicon.ico
+  proxy:
+    build: ./proxy
+    image: proxy
+    hostname: proxy
+    container_name: proxy
+    restart: unless-stopped
+    env_file:
+      - ./env
+      - ./proxy/env
+    depends_on:
+      - accel
+      - static
+    ports:
+      - 80:80
+    volumes:
+      - ../volumes/proxy:/var/lib/haproxy
 
+  accel:
+    build: ./accel
+    image: accel
+    hostname: accel
+    container_name: accel
+    restart: unless-stopped
+    env_file:
+      - ./env
+      - ./accel/env
+    depends_on:
+      - app
+    ports:
+      - 9000:9000
+    volumes:
+      - ../volumes/accel:/var/lib/varnish
 
-    proxy:
-        build: ./proxy
-        image: proxy
-        hostname: proxy
-        container_name: proxy
-        env_file:
-            - ./env
-            - ./proxy/env
-        restart: unless-stopped
-        depends_on:
-            - accel
-            - static
-        ports:
-            - 80:80
-        volumes:
-            - ./proxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
-            - ../volumes/proxy:/var/lib/haproxy
+  app:
+    build: ./app
+    image: app
+    hostname: app
+    container_name: app
+    restart: unless-stopped
+    env_file:
+      - ./env
+      - ./app/env
+    depends_on:
+      - db
+      - cache
+      - broker
+    ports:
+      - 8000:8000
+    volumes:
+      - ../wypok:/app
+      - ../volumes/app/static:/app/static
+      - ../volumes/app/media:/app/media
+      - ./app/etc/settings.ini:/app/wypok/settings/settings.ini
 
+  db:
+    build: ./db
+    image: db
+    hostname: db
+    container_name: db
+    restart: unless-stopped
+    env_file:
+      - ./env
+      - ./db/env
+    ports:
+      - 5432:5432
+    volumes:
+      - ../volumes/db:/var/lib/postgresql/data
 
-    accel:
-        build: ./accel
-        image: accel
-        hostname: accel
-        container_name: accel
-        env_file:
-            - ./env
-            - ./accel/env
-        restart: unless-stopped
-        depends_on:
-            - app
-        ports:
-            - 9000:9000
-        volumes:
-            - ./accel/varnish.vcl:/etc/varnish/varnish.vcl
-            - ./accel/error.html:/etc/varnish/error.html
-            - ./accel/start.sh:/start.sh
-            - ../volumes/accel:/var/lib/varnish
+  cache:
+    build: ./cache
+    image: cache
+    hostname: cache
+    container_name: cache
+    restart: unless-stopped
+    env_file:
+      - ./env
+      - ./cache/env
+    ports:
+      - 6379:6379
+    volumes:
+      - ../volumes/cache:/data
 
+  broker:
+    build: ./broker
+    image: broker
+    hostname: broker
+    container_name: broker
+    restart: unless-stopped
+    env_file:
+      - ./env
+      - ./broker/env
+    ports:
+      - 5672:5672
+    volumes:
+    - ../volumes/broker:/var/lib/rabbitmq
 
-    app:
-        build: ./app
-        image: app
-        hostname: app
-        container_name: app
-        env_file:
-            - ./env
-            - ./app/env
-        restart: unless-stopped
-        depends_on:
-            - db
-            - cache
-            - broker
-        ports:
-            - 8000:8000
-        volumes:
-            - ../wypok:/app
-            - ./app/gunicorn.conf.py:/etc/wypok/gunicorn.conf.py
-            - ./app/requirements.txt:/etc/wypok/requirements.txt
-            - ./app/settings.ini:/app/wypok/settings/settings.ini
-            - ../logs/app.log:/app/app.log
-            - ../volumes/app/static:/app/static
-            - ../volumes/app/media:/app/media
-
-
-    db:
-        build: ./db
-        image: db
-        hostname: db
-        container_name: db
-        env_file:
-            - ./env
-            - ./db/env
-        restart: unless-stopped
-        ports:
-            - 5432:5432
-        volumes:
-            - ../volumes/db:/var/lib/postgresql/data
-            - ./db/postgres.conf:/var/lib/postgresql/data/postgres.conf
-
-
-    cache:
-        build: ./cache
-        image: cache
-        hostname: cache
-        container_name: cache
-        env_file:
-            - ./env
-            - ./cache/env
-        restart: unless-stopped
-        ports:
-            - 6379:6379
-        volumes:
-            - ./cache/redis.conf:/etc/redis/redis.conf
-            - ../volumes/cache:/data
-
-
-    broker:
-        build: ./broker
-        image: broker
-        hostname: broker
-        container_name: broker
-        env_file:
-            - ./env
-            - ./broker/env
-        restart: unless-stopped
-        ports:
-            - 5672:5672
-        volumes:
-            - ./broker/rabbitmq.config:/etc/rabbitmq/rabbitmq.config
-            - ../volumes/broker:/var/lib/rabbitmq
-
-
-#    email:
-#        container_name: email
-#        image: email:latest
-#        build: ./images/email/.
-#        restart: unless-stopped
-#        ports:
-#            - 5432:5432
-#        volumes:
-#            - ./db:/var/lib/postgresql/data
+# email:
+#   build: ./email
+#   image: email
+#   hostname: email
+#   container_name: email
+#   restart: unless-stopped
+#   env_file:
+#     - ./env
+#     - ./email/env
+#   ports:
+#     - 5432:5432
+#   volumes:
+#     - ./volumes/email:/somewhere
+#

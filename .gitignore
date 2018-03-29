@@ -6,7 +6,11 @@ __pycache__/
 *.db
 db.sqlite3
 
+# ignore passwords
+images/db/env
 settings.ini
+
 migrations/
 volumes/
 logs/
+

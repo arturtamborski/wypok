@@ -225,25 +225,21 @@ sub vcl_hit {
         if (obj.ttl + obj.grace > 0s) {
             # page is in grace time, send it
             return (deliver);
-        } else {
-            # page expired, fetch from backend
-            return (fetch);
-        }
-    } else {
-        if (obj.ttl + obj.grace > 0s) {
-            # deliver cached version
-            return (deliver);
-        } else {
-            # page expired and backend is unhealthy
-
-            # deliver old cached page anyways
-            #return (deliver);
-
-            # try fetching from unhealthy backend
-            return (fetch);
-        }
+        } 
+        # page expired, fetch from backend
+        return (miss);
     }
 
+    if (obj.ttl + obj.grace > 0s) {
+        # deliver cached version
+        return (deliver);
+    }
+    
+    # page expired and backend is unhealthy
+    # deliver old cached page anyways
+    #return (deliver);
+
+    # try fetching from unhealthy backend
     return (miss);
 }
 

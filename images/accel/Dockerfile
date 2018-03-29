@@ -2,8 +2,10 @@ FROM alpine:latest
 
 RUN apk update && apk add varnish
 
-WORKDIR /var/lib/varnish
-COPY start.sh /
-RUN chmod u+x /start.sh
+COPY run.sh /
+COPY ./etc/* /etc/varnish/
 
-CMD [ "/start.sh" ]
+EXPOSE 9000
+
+CMD [ "sh", "/run.sh", "check" ]
+ENTRYPOINT [ "sh", "/run.sh" ]

@@ -1,6 +1,10 @@
 FROM python:3.6-alpine
+
 ENV PYTHONUNBUFFERED 1
-ADD repositories /etc/apk/repositories
+
+COPY run.sh /
+COPY ./etc/repositories /etc/apk/repositories
+COPY ./etc/* /etc/wypok/
 
 # libs for libmagic, psycopg2 and pillow from requirements.txt
 RUN apk update && \
@@ -10,10 +14,11 @@ RUN apk update && \
 # libmagic won't find itself if it has numbers after extension
 RUN ln -s /usr/lib/libmagic.so.1 /usr/lib/libmagic.so
 
-WORKDIR /etc/wypok
-COPY requirements.txt .
-COPY gunicorn.conf.py .
-RUN pip install -r requirements.txt
+# install dependencies
+RUN pip install -r /etc/wypok/requirements.txt
 
 WORKDIR /app
-CMD ["gunicorn", "-c", "/etc/wypok/gunicorn.conf.py", "wypok.wsgi"]
+
+EXPOSE 8000
+
+ENTRYPOINT [ "sh", "/run.sh" ]
