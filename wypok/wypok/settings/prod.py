@@ -1,6 +1,5 @@
 from wypok.settings.base import *
 
-
 CSRF_COOKIE_SECURE          = True
 USE_X_FORWARDED_HOST        = True
 SECURE_SSL_REDIRECT         = True

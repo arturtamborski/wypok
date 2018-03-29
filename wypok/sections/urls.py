@@ -8,7 +8,7 @@ app_name = SectionsConfig.name
 urlpatterns = [
     url(r'^$', listing, name='listing'),
     url(r'^$', home, name='home'),
-    url(r'^new/$', create, name='create'),
+    url(r'^add/$', create, name='create'),
 
     url(r'^(?P<section>[a-zA-Z][a-zA-Z0-9]+)/', include([
         url(r'^$', detail, name='detail'),

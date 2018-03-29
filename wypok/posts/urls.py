@@ -11,8 +11,6 @@ urlpatterns = [
 
     url(r'^(?P<id>[0-9]+)/', include([
         url(r'^$', redir, name='detail'),
-        url(r'^edit/$', redir, name='update'),
-        url(r'^delete/$', redir, name='delete'),
     ])),
 
     url(r'^(?P<id>[0-9]+)/(?P<slug>[-a-zA-Z0-9_]+)/', include([

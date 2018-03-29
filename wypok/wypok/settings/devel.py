@@ -8,13 +8,13 @@ from wypok.settings.base import *
 LOGGING = DEFAULT_LOGGING
 
 INSTALLED_APPS += [
-    'debug_toolbar',
+    #'debug_toolbar',
 ]
 
 MIDDLEWARE += [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    #'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 DEBUG_TOOLBAR_PANELS = PANELS_DEFAULTS + [
-   'debug_toolbar.panels.profiling.ProfilingPanel',
+   #'debug_toolbar.panels.profiling.ProfilingPanel',
 ]

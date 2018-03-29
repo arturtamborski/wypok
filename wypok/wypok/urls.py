@@ -33,8 +33,8 @@ urlpatterns = [
             allauth.confirm_email, name='account_confirm_email'),
     ])),
 
-    url(r'^user/', include('profiles.urls')),
-    url(r'^tag/', include('tags.urls')),
+    url(r'^u/', include('profiles.urls')),
+    url(r'^t/', include('tags.urls')),
     #url(r'^p/', include('posts.urls')),
     #url(r'^c/', include('comments.urls')),
     url(r'^', include('sections.urls')),
@@ -45,4 +45,4 @@ if settings.DEBUG:
     import debug_toolbar
     urlpatterns += [
         url(r'^__debug__/', include(debug_toolbar.urls)),
-    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    ] #+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

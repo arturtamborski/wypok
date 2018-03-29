@@ -1,5 +1,5 @@
 from os import path
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.conf import settings
@@ -19,9 +19,9 @@ class Comment(models.Model):
 
     objects = CommentQuerySet.as_manager()
 
-    author = models.ForeignKey(get_user_model())
-    post = models.ForeignKey(Post)
-    parent = models.ForeignKey('Comment', null=True, blank=True)
+    author = models.ForeignKey(get_user_model(), on_delete=models.PROTECT)
+    post = models.ForeignKey(Post, on_delete=models.PROTECT)
+    parent = models.ForeignKey('Comment', null=True, blank=True, on_delete=models.PROTECT)
     posted = models.DateTimeField(auto_now_add=True, editable=False)
     content = models.TextField(blank=True)
     content_html = models.TextField(editable=False, blank=True)

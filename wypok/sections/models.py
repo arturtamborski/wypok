@@ -19,7 +19,7 @@ class SectionQuerySet(models.QuerySet):
 class Section(models.Model):
     objects = SectionQuerySet.as_manager()
 
-    admin = models.ForeignKey(get_user_model(), default='1')
+    admin = models.ForeignKey(get_user_model(), default='1', on_delete=models.PROTECT)
     name = models.SlugField(max_length=20, validators=[section_name_validator])
     description = models.TextField()
     description_html = models.TextField(editable=False, blank=True)
