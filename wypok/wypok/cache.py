@@ -1,7 +1,8 @@
-# code from https://www.technomancy.org/python/django-proper-opt-in-caching/
-# added compatiblity layer for django >= 1.10
-from django.utils.deprecation import MiddlewareMixin
+# src: https://www.technomancy.org/python/django-proper-opt-in-caching/
+
 from functools import wraps
+
+from django.utils.deprecation import MiddlewareMixin
 
 
 class DontCacheMiddleware(MiddlewareMixin):

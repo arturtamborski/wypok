@@ -7,6 +7,7 @@ from wypok.utils.markup import markup as markup_func
 
 register = template.Library()
 
+
 @register.filter
 @stringfilter
 def markup(value):

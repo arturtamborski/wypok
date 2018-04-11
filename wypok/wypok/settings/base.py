@@ -106,9 +106,6 @@ COMMENTS_ATTACHMENT_PATH    = 'comments/{id}-{name}'
 COMMENTS_ALLOWED_CONTENT_TYPES = ALLOWED_CONTENT_TYPES
 
 # Tags
-TAGS_BACKGROUND_PATH        = 'tags/{id}-{name}'
-TAGS_DEFAULT_BACKGROUND     = 'tags/default.jpg'
-TAGS_ALLOWED_CONTENT_TYPES  = ALLOWED_IMAGE_CONTENT_TYPES
 
 
 # Profiles
@@ -185,6 +182,8 @@ INSTALLED_APPS = [
     'posts',
     'comments',
     'tags',
+
+    'manage',
 
     'allauth',
     'allauth.account',

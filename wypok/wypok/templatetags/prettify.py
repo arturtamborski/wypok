@@ -6,6 +6,7 @@ PRETTIFY_CALLABLE = getattr(settings, 'PRETTIFY_CALLABLE', 'prettify')
 
 register = template.Library()
 
+
 @register.filter
 def prettify(obj):
     if hasattr(obj, PRETTIFY_CALLABLE):

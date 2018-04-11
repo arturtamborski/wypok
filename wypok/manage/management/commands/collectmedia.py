@@ -111,7 +111,7 @@ class Command(BaseCommand):
             # Get permission bits and ownership of `root`.
             try:
                 root_stat = os.stat(root)
-            except os.error, e:
+            except os.error as e:
                 mode = 0777 # Default for `os.makedirs` anyway.
                 uid = gid = None
             else:
@@ -122,7 +122,7 @@ class Command(BaseCommand):
                 # Recursively create all the required directories, attempting
                 # to use the same mode as `root`.
                 os.makedirs(destination_dir, mode)
-            except os.error, e:
+            except os.error as e:
                 # This probably just means the leaf directory already exists,
                 # but if not, we'll find out when copying or linking anyway.
                 pass
@@ -148,7 +148,7 @@ class Command(BaseCommand):
         if not dry_run:
             try:
                 os.remove(destination)
-            except os.error, e:
+            except os.error as e:
                 pass
             shutil.copy2(source, destination)
             return True
@@ -169,7 +169,7 @@ class Command(BaseCommand):
         if not dry_run:
             try:
                 os.remove(destination)
-            except os.error, e:
+            except os.error as e:
                 pass
         print("Linking to %r from %r." % (source, destination))
         if not dry_run:

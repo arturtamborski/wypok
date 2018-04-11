@@ -37,7 +37,7 @@
             <a href="{% url 'sections:home' %}" class="brand item">wypok.com</a>
 	    <a href="{% url 'sections:listing' %}" class="item">sections</a>
 	    <a href="{% url 'profiles:listing' %}" class="item">users</a>
-	    <a href="{% url 'tags:listing' %}" class="item">tags</a>
+	    <a href="{% url 'tags:index' %}" class="item">tags</a>
             <div class="right menu">
                 {% if user.is_authenticated %}
                 <a href="{% url 'profiles:detail' user %}" class="item mystate-{{ user.profile.state }}">{{ user.profile|prettify }}</a>

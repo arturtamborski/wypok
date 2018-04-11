@@ -1,15 +1,18 @@
-# from: https://github.com/ollieglass/django-shortnaturaltime
-from django import template
-from django.utils.timezone import utc
+# src: https://github.com/ollieglass/django-shortnaturaltime
 
 import time
 from datetime import datetime, timedelta, date
 
+from django import template
+from django.utils.timezone import utc
+
+
 register = template.Library()
+
 
 def _now():
     return datetime.utcnow().replace(tzinfo=utc)
-# return datetime.now()
+
 
 def abs_timedelta(delta):
     """Returns an "absolute" value for a timedelta, always representing a
@@ -18,6 +21,7 @@ def abs_timedelta(delta):
         now = _now()
         return now - (now + delta)
     return delta
+
 
 def date_and_delta(value):
     """Turn a value into a date and a timedelta which represents how long ago
@@ -37,6 +41,7 @@ def date_and_delta(value):
         except (ValueError, TypeError):
             return (None, value)
     return date, abs_timedelta(delta)
+
 
 def shortnaturaldelta(value, months=True):
     """Given a timedelta or a number of seconds, return a natural
@@ -98,6 +103,7 @@ def shortnaturaldelta(value, months=True):
             return "1y %dd" % days
     else:
         return "%dy" % years
+
 
 @register.filter
 def shortnaturaltime(value, future=False, months=True):

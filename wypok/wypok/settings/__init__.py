@@ -9,5 +9,6 @@ else:
     from .prod import *
     mode = 'prod'
 
+
 DJANGO_SETTINGS_MODULE = config('APP_NAME') + '.settings.' + mode
 environ.setdefault('DJANGO_SETTINGS_MODULE', DJANGO_SETTINGS_MODULE)

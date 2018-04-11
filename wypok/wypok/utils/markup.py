@@ -2,7 +2,7 @@ from markdown import markdown
 
 
 def markup(text):
-    extensions = [
+    return markdown(text, output_format='html5', extensions=[
         #'fenced_code',
         #'footnotes',
         #'tables',
@@ -12,5 +12,4 @@ def markup(text):
         #'nl2br',
         #'sane_lists',
         #'smarty',
-    ]
-    return markdown(text, output_format='html5', extensions=extensions)
+    ])
