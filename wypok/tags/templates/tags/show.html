@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block title %}
-Tags
+{{ tag|prettify }}
 {% endblock %}
 
 {% block content %}
-{% include 'tags/snippets/listing.html' %}
+{% include 'tags/snippets/show.html' %}
 {% endblock %}

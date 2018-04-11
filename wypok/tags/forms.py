@@ -1,21 +1,21 @@
 from django import forms
 
-from tags.models import Tag
+from . import models
 
 
-class TagCreateForm(forms.ModelForm):
+class TagCreate(forms.ModelForm):
     class Meta:
-        model = Tag
+        model = models.Tag
         fields = ('name', 'description', 'background')
 
 
-class TagUpdateForm(forms.ModelForm):
+class TagUpdate(forms.ModelForm):
     class Meta:
-        model = Tag
+        model = models.Tag
         fields = ('name', 'description', 'background')
 
 
-class TagDeleteForm(forms.ModelForm):
+class TagDelete(forms.ModelForm):
     class Meta:
-        model = Tag
+        model = models.Tag
         fields = ()

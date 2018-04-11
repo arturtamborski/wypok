@@ -1,16 +1,19 @@
 from django.conf.urls import include, url
 
-from tags.views import listing, detail, create, update, delete
-from tags.apps import TagsConfig
+from . import settings
+from . import views
+from . import apps
 
 
-app_name = TagsConfig.name
+app_name = apps.TagsConfig.name
+
 urlpatterns = [
-    url(r'^$', listing, name='listing'),
-    url(r'^add/$', create, name='create'),
-    url(r'^(?P<tag>[a-zA-Z0-9_]{3,63})/', include([
-        url(r'^$', detail, name='detail'),
-        url(r'^edit/$', update, name='update'),
-        url(r'^delete/$', delete, name='delete'),
+    url(r'^$', views.index, name='index'),
+    url(r'^add/$', views.create, name='create'),
+
+    url(r'^(?P<tag>' + settings.REGEX + r')/', include([
+        url(r'^$', views.show, name='show'),
+        url(r'^edit/$', views.update, name='update'),
+        url(r'^delete/$', views.delete, name='delete'),
     ])),
 ]

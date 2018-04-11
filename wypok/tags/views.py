@@ -1,59 +1,45 @@
-from allauth.account.decorators import verified_email_required as login_required
-from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
-from django.contrib.auth import get_user_model
-from django.urls import reverse
-from django.conf import settings
+from django.shortcuts import render, redirect
 
-from wypok.utils.membership_required import membership_required
-from wypok.utils.ownership_required import ownership_required
-from tags.models import Tag
-from tags.forms import TagCreateForm, TagUpdateForm, TagDeleteForm
+from . import forms
+from . import models
 
 
-@ownership_required(Tag, raise_exception=False, name='tag')
-def detail(request, tag):
-    return render(request, 'tags/detail.html', dict(
-        tag = tag,
+def index(request):
+    return render(request, 'tags/index.html', dict(
+        tags = models.Tag.objects.get_few(request.user)
     ))
 
 
-def listing(request):
-    tags = get_list_or_404(Tag)
-
-    return render(request, 'tags/listing.html', dict(
-        tags = tags,
+def show(request, tag):
+    return render(request, 'tags/show.html', dict(
+        tag = models.Tag.objects.get_one(tag, request.user)
     ))
 
 
-@login_required
-@membership_required('green')
 def create(request):
-    form = TagCreateForm()
+    form = forms.TagCreate()
 
     if request.method == 'POST':
-        form = TagCreateForm(request.POST, request.FILES)
+        form = forms.TagCreate(request.POST, request.FILES)
         if form.is_valid():
-            tag = form.save(commit=False)
-            tag.author = request.user
-            tag.save()
-            return redirect(tag)
+            form.author = request.user
+            form.save()
+            return redirect(form)
 
     return render(request, 'tags/create.html', dict(
         form = form,
     ))
 
 
-@login_required
-@membership_required('green')
-@ownership_required(Tag, name='tag')
 def update(request, tag):
-    form = TagUpdateForm(instance=tag)
+    tag = models.Tag.get_object(tag, request.user)
+    form = TagUpdate(instance=tag)
 
     if request.method == 'POST':
-        form = TagUpdateForm(request.POST, request.FILES, instance=tag)
+        form = TagUpdate(request.POST, request.FILES, instance=tag)
         if form.is_valid():
-            tag = form.save()
-            return redirect(tag)
+            form.save()
+            return redirect(form)
 
     return render(request, 'tags/update.html', dict(
         tag = tag,
@@ -61,20 +47,17 @@ def update(request, tag):
     ))
 
 
-@login_required
-@membership_required('green')
-@ownership_required(Tag, name='tag')
 def delete(request, tag):
-    form = TagDeleteForm(instance=tag)
+    tag = models.Tag.get_object(tag, request.user)
+    form = forms.TagDelete(instance=tag)
 
     if request.method == 'POST':
-        form = TagDeleteForm(request.POST, instance=tag)
+        form = forms.TagDelete(request.POST, instance=tag)
         if form.is_valid():
             tag.delete()
-            return redirect('home')
+            return redirect('tags:index')
 
     return render(request, 'tags/delete.html', dict(
         tag = tag,
         form = form,
     ))
-

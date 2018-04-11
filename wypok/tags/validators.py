@@ -1,8 +1,17 @@
-import re
+from django.utils.translation import gettext_lazy as _
 from django.core.validators import RegexValidator
 
-tag_name_validator = RegexValidator(
-    r'^[a-zA-Z0-9_]{3,63}$',
-    'This field must start with a letter. Length should be between 4 and 20 characters',
-    code='invalid'
+from wypok.validators import FileValidator
+
+from . import settings
+
+
+name_validator = RegexValidator(
+    regex = r'^' + settings.REGEX + r'$',
+    message = _('tag_name_validator failed'),
+)
+
+
+background_validator = FileValidator(
+    content_types = settings.ALLOWED_CONTENT_TYPES
 )
