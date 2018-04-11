@@ -6,7 +6,7 @@ from . import models
 
 def index(request):
     return render(request, 'tags/index.html', dict(
-        tags = models.Tag.objects.get_few(request.user)
+        tags = models.Tag.objects.get_all(request.user)
     ))
 
 
@@ -22,9 +22,10 @@ def create(request):
     if request.method == 'POST':
         form = forms.TagCreate(request.POST, request.FILES)
         if form.is_valid():
-            form.author = request.user
-            form.save()
-            return redirect(form)
+            tag = form.save(commit=False)
+            tag.author = request.user
+            tag.save()
+            return redirect(tag)
 
     return render(request, 'tags/create.html', dict(
         form = form,
@@ -38,8 +39,8 @@ def update(request, tag):
     if request.method == 'POST':
         form = TagUpdate(request.POST, request.FILES, instance=tag)
         if form.is_valid():
-            form.save()
-            return redirect(form)
+            tag = form.save()
+            return redirect(tag)
 
     return render(request, 'tags/update.html', dict(
         tag = tag,

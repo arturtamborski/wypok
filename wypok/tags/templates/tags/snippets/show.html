@@ -1,6 +1,6 @@
 <div class="ui segment" style="background-image: url('{{ tag.background.url }}');">
     <div class="content">
-        <h1 class="ui dividing header"><a class="header" href="{% url 'tags:detail' tag %}">{{ tag|prettify }}</a></h1>
+        <h1 class="ui dividing header"><a class="header" href="{% url 'tags:show' tag %}">{{ tag|prettify }}</a></h1>
         <div class="description">
             <p>{{ tag.description_html|safe }}</p>
         </div>

@@ -13,7 +13,7 @@
 {% for tag in tags %}
 <div class="ui segment">
     <div class="content">
-        <h2 class="ui dividing header"><a class="header" href="{% url 'tags:detail' tag %}">{{ tag|prettify }}</a></h2>
+        <h2 class="ui dividing header"><a class="header" href="{% url 'tags:show' tag %}">{{ tag|prettify }}</a></h2>
         <div class="description">
             <p>{{ tag.description_html|safe }}</p>
         </div>
